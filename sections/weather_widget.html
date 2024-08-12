@@ -1,0 +1,11 @@
+<!-- sections/weather_widget.html -->
+<div class="weather-widget">
+    <div class="city">{{ data.weather.city }}</div>
+    <img src="{{ data.weather.icon_url }}" alt="Weather Icon">
+    <div class="temperature">{{ data.weather.temperature }}</div>
+    <div class="temp-range">Min: {{ data.weather.min_temp }} | Max: {{ data.weather.max_temp }}</div>
+    <div class="sunrise-sunset">
+        <div><img src="{{ data.weather.sunrise.icon_url }}" alt="Sunrise"> {{ data.weather.sunrise.time }}</div>
+        <div><img src="{{ data.weather.sunset.icon_url }}" alt="Sunset"> {{ data.weather.sunset.time }}</div>
+    </div>
+</div>

@@ -1,0 +1,25 @@
+{
+    "header": {
+        "title": "Good Morning",
+        "icon_url": "assets/imgs/sun-icon.png"
+    },
+    "weather": {
+        "city": "New York, NY",
+        "temperature": "25°C",
+        "min_temp": "18°C",
+        "max_temp": "27°C",
+        "icon_url": "assets/imgs/sun-icon.png",
+        "sunrise": {
+            "time": "6:00 AM",
+            "icon_url": "assets/imgs/sunrise-icon.png"
+        },
+        "sunset": {
+            "time": "8:15 PM",
+            "icon_url": "assets/imgs/sunset-icon.png"
+        }
+    },
+    "highlight": {
+        "title": "Today's Highlight",
+        "message": "Don't forget to enjoy the sunshine and have a productive day!"
+    }
+}

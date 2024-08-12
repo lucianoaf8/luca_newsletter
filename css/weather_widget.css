@@ -1,0 +1,43 @@
+.weather-widget {
+    background: linear-gradient(to bottom, #87CEEB, #00BFFF);
+    text-align: center;
+    position: relative;
+    color: #ffffff;
+}
+.weather-widget .city {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+.weather-widget img {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 10px;
+}
+.temperature {
+    font-size: 32px;
+    font-weight: 300;
+    margin: 10px 0;
+}
+.temp-range {
+    font-size: 16px;
+    font-weight: 400;
+    margin: 5px 0;
+}
+.sunrise-sunset {
+    font-size: 14px;
+    display: flex;
+    justify-content: space-between;
+    padding-top: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    margin-top: 15px;
+}
+.sunrise-sunset div {
+    display: flex;
+    align-items: center;
+}
+.sunrise-sunset img {
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+}
