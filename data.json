@@ -34,5 +34,94 @@
     "motivational_gif": {
         "gif_url": "assets/imgs/fun_fact.png",
         "caption": "Here's a little motivation for you!"
+    },
+    "news": {
+        "artificial_intelligence": [
+            {
+                "title": "The Future of AI in Healthcare",
+                "bullet_points": [
+                    "AI improves diagnosis accuracy.",
+                    "Reduces patient wait times.",
+                    "Enhances personalized treatment."
+                ],
+                "url": "https://example.com/ai-healthcare"
+            },
+            {
+                "title": "AI Ethics and Governance",
+                "bullet_points": [
+                    "Challenges in AI decision-making.",
+                    "Ethical guidelines development.",
+                    "Global AI regulations impact."
+                ],
+                "url": "https://example.com/ai-ethics"
+            },
+            {
+                "title": "AI in Autonomous Vehicles",
+                "bullet_points": [
+                    "Improves road safety.",
+                    "Reduces human error.",
+                    "Advances in AI navigation."
+                ],
+                "url": "https://example.com/ai-autonomous-vehicles"
+            }
+        ],
+        "design": [
+            {
+                "title": "The Rise of Minimalist Design",
+                "bullet_points": [
+                    "Focus on simplicity.",
+                    "Use of negative space.",
+                    "Growing popularity in web design."
+                ],
+                "url": "https://example.com/minimalist-design"
+            },
+            {
+                "title": "Designing for Accessibility",
+                "bullet_points": [
+                    "Importance of inclusive design.",
+                    "Techniques for better accessibility.",
+                    "Examples of successful designs."
+                ],
+                "url": "https://example.com/accessibility-design"
+            },
+            {
+                "title": "The Impact of Color Theory",
+                "bullet_points": [
+                    "Color psychology in design.",
+                    "Choosing the right color palette.",
+                    "Impact on user experience."
+                ],
+                "url": "https://example.com/color-theory"
+            }
+        ],
+        "visuals": [
+            {
+                "title": "The Power of Visual Storytelling",
+                "bullet_points": [
+                    "Engages audience emotionally.",
+                    "Simplifies complex ideas.",
+                    "Visuals in branding and marketing."
+                ],
+                "url": "https://example.com/visual-storytelling"
+            },
+            {
+                "title": "Trends in Visual Design 2024",
+                "bullet_points": [
+                    "Use of bold colors.",
+                    "Rise of 3D elements.",
+                    "Focus on micro-interactions."
+                ],
+                "url": "https://example.com/visual-design-trends"
+            },
+            {
+                "title": "Visuals and User Experience",
+                "bullet_points": [
+                    "Role of visuals in UI/UX.",
+                    "Enhancing user engagement.",
+                    "Balancing aesthetics and function."
+                ],
+                "url": "https://example.com/visuals-ux"
+            }
+        ]
     }
 }
