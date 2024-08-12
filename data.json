@@ -1,7 +1,11 @@
 {
     "header": {
         "title": "Good Morning",
-        "icon_url": "assets/imgs/sun-icon.png"
+        "icon_url": "assets/imgs/sun-icon.png",
+        "date": "August 12, 2024",
+        "weekday": "Monday",
+        "curated_message": "Here is your Luca Newsletter, curated by AI",
+        "luca_link": "https://luca137.com"
     },
     "weather": {
         "city": "New York, NY",

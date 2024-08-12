@@ -1,20 +1,73 @@
 .header {
+    background: #e4ece1; /* Bright golden yellow background for a more popping effect */
+    padding: 20px;
     text-align: center;
-    background: linear-gradient(to right, #FFD700, #FFA500);
-    color: #ffffff;
+    position: relative;
+    font-family: 'Georgia', serif; /* Main title font */
+    border-bottom: 2px solid #2c3e50; /* Bottom border to frame the header */
+}
+
+.header h1 {
+    font-size: 64px; /* Large, prominent font size */
+    margin: 0;
+    color: #2c3e50; /* Deep navy blue */
+    letter-spacing: 1px;
+    font-weight: bold; /* Bold to make it stand out */
     position: relative;
 }
-.header h1 {
-    font-size: 36px;
-    margin: 0;
-    font-weight: bold;
-    display: inline-block;
-    vertical-align: middle;
+
+.header h1::before,
+.header h1::after {
+    content: "";
+    display: block;
+    width: 80%;
+    height: 2px;
+    background-color: #2c3e50; /* Matching line color */
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
 }
+
+.header h1::before {
+    top: -10px; /* Line above the text */
+}
+
+.header h1::after {
+    bottom: -10px; /* Line below the text */
+}
+
+.header .date-weekday {
+    font-family: 'Roboto', sans-serif; /* Modern font for subtitles */
+    font-size: 18px;
+    font-style: italic;
+    margin-top: 15px;
+    color: #5a5a5a; /* Lighter gray for subtle contrast */
+}
+
+.header .curated {
+    font-family: 'Roboto', sans-serif; /* Same modern font */
+    font-size: 16px;
+    margin-top: 10px;
+    color: #5a5a5a;
+}
+
+.header .delivered {
+    font-family: 'Roboto', sans-serif;
+    font-size: 12px;
+    margin-top: 15px;
+    color: #5a5a5a;
+    text-align: right;
+}
+
+.header .delivered a {
+    color: #5a5a5a;
+    text-decoration: underline;
+}
+
 .header img {
     width: 40px;
     height: 40px;
-    vertical-align: middle;
     margin-left: 10px;
     display: inline-block;
+    vertical-align: middle;
 }
