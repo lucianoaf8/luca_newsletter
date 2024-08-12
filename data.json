@@ -21,5 +21,18 @@
     "highlight": {
         "title": "Today's Highlight",
         "message": "Don't forget to enjoy the sunshine and have a productive day!"
+    },
+    "motivational_quote": {
+        "quote": "The only way to do great work is to love what you do.",
+        "author": "Steve Jobs",
+        "author_image_url": "assets/imgs/steve-jobs.png"
+    },
+    "fun_fact": {
+        "icon_url": "assets/imgs/lightbulb-icon.png",
+        "fact": "Did you know? Honey never spoils. Archaeologists have found pots of honey in ancient Egyptian tombs that are over 3,000 years old and still perfectly edible!"
+    },
+    "motivational_gif": {
+        "gif_url": "assets/imgs/fun_fact.png",
+        "caption": "Here's a little motivation for you!"
     }
 }
