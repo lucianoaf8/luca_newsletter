@@ -1,5 +1,5 @@
 <!-- sections/weather_widget.html -->
-<div class="weather-widget">
+<div class="weather-widget {{ data.weather.weather_condition }}">
     <div class="city">{{ data.weather.city }}</div>
     <img src="{{ data.weather.icon_url }}" alt="Weather Icon">
     <div class="temperature">{{ data.weather.temperature }}</div>

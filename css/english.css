@@ -1,0 +1,84 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f7fb;
+    color: #333;
+}
+
+.english-with-luca {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: #eaf4fe;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 20px;
+}
+
+.word-of-the-day, .tip-of-the-day {
+    flex: 1;
+    margin: 10px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.section-header {
+    font-size: 24px;
+    color: #2c3e50;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.section-header .icon {
+    margin-right: 10px;
+    font-size: 24px;
+}
+
+.word-content {
+    margin-top: 10px;
+}
+
+.word {
+    font-size: 28px;
+    font-weight: bold;
+    color: #2980b9;
+    margin-bottom: 5px;
+}
+
+.pronunciation {
+    font-size: 18px;
+    color: #7f8c8d;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.pronunciation .speaker-icon {
+    font-size: 20px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.definition {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.example {
+    font-size: 18px;
+    font-style: italic;
+}
+
+.tip-content {
+    font-size: 18px;
+    color: #34495e;
+    padding: 10px;
+    background-color: #ecf0f1;
+    border-left: 4px solid #2980b9;
+    margin: 0;
+}

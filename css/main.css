@@ -47,6 +47,32 @@ body {
     margin-top: 0;
 }
 
+
+/* Custom CSS for split sections */
+.email-container .content-row {
+    display: flex; /* Use flexbox to handle the split layout */
+    justify-content: baseline;
+    margin-top: 20px;
+    border-radius: 10px;
+    box-shadow: none; /* Remove the box-shadow applied by the general rule */
+    padding: 0; /* Remove padding to avoid doubling up */
+}
+
+.email-container .content-row > .finance-highlights,
+.email-container .content-row > .weather-widget {
+    box-shadow: 0 8px 10px rgba(0, 0, 0, 0.1); /* Apply box-shadow to individual sections */
+    padding: 10px; /* Apply padding to individual sections */
+    border-radius: 10px; /* Maintain the border radius */
+    margin: 0; /* Remove any additional margins */
+    width: 48%; /* Adjust to fit both sections within the row */
+}
+
+.email-container::after {
+    content: "";
+    display: table;
+    clear: both; /* Clear any floats to ensure proper layout */
+}
+
 /* Responsive Design */
 @media only screen and (max-width: 600px) {
     .header h1 {
@@ -63,3 +89,4 @@ body {
         font-size: 18px;
     }
 }
+

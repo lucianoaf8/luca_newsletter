@@ -1,7 +1,10 @@
-<!-- sections/header.html -->
 <div class="header">
     <h1>{{ data.header.title }}</h1>
     <p class="date-weekday">{{ data.header.weekday }}, {{ data.header.date }}</p>
-    <p class="curated">{{ data.header.curated_message }}</p>
-    <p class="delivered">delivered by <a href="{{ data.header.luca_link }}">Luca137</a></p>
+    <p class="welcome-message">Here's your today's Luca Newsletter!</p>
+    <p class="curated-message">Curated by AI</p>
+    <div class="presented-section">
+        <img src="{{ data.header.robot_icon_url }}" alt="Luca137" class="robot-icon">
+        <p class="presented">presented by <a href="{{ data.header.luca_link }}">Luca137</a></p>
+    </div>
 </div>

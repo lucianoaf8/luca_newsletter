@@ -7,21 +7,27 @@
     {% comment %} <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/header.css">
     <link rel="stylesheet" href="../css/weather_widget.css">
+    <link rel="stylesheet" href="../css/finance_highlights.css">
     <link rel="stylesheet" href="../css/highlight_section.css">
     <link rel="stylesheet" href="../css/motivational_quote.css">
     <link rel="stylesheet" href="../css/fun_fact.css">
     <link rel="stylesheet" href="../css/motivational_gif.css">
-    <link rel="stylesheet" href="../css/news.css"> {% endcomment %}
+    <link rel="stylesheet" href="../css/news.css">
+    <link rel="stylesheet" href="../css/footer.css"> {% endcomment %}
 </head>
 <body>
     <div class="email-container">
         {% comment %} {% include 'sections/header.html' %}
-        {% include 'sections/weather_widget.html' %}
+        <div class="content-row">
+            {% include 'sections/weather_widget.html' %}
+            {% include 'sections/finance_highlights.html' %}
+        </div>
         {% include 'sections/highlight_section.html' %}
         {% include 'sections/motivational_quote.html' %}
         {% include 'sections/fun_fact.html' %}
         {% include 'sections/motivational_gif.html' %}
-        {% include 'sections/news.html' %} {% endcomment %}
+        {% include 'sections/news.html' %} 
+        {% include 'sections/footer.html' %} {% endcomment %}
     </div>
     <script src="http://localhost:35729/livereload.js"></script>
 </body>

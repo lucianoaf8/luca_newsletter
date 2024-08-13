@@ -12,6 +12,7 @@
         "temperature": "25°C",
         "min_temp": "18°C",
         "max_temp": "27°C",
+        "weather_condition": "sunny",
         "icon_url": "assets/imgs/sun-icon.png",
         "sunrise": {
             "time": "6:00 AM",
@@ -127,5 +128,19 @@
                 "url": "https://example.com/visuals-ux"
             }
         ]
+    },
+    "finance": {
+        "cad_brl": {
+            "rate": "3.25",
+            "change": 0.25
+        },
+        "usd_brl": {
+            "rate": "5.15",
+            "change": 0.15
+        },
+        "usd_cad": {
+            "rate": "1.25",
+            "change": 0.10
+        }
     }
 }

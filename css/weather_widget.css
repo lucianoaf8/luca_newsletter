@@ -1,29 +1,85 @@
 .weather-widget {
-    background: linear-gradient(to bottom, #87CEEB, #00BFFF);
     text-align: center;
     position: relative;
     color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #00BFFF; /* Fallback background color */
 }
-.weather-widget .city {
+
+/* Sunny and Clear Skies */
+.weather-widget.sunny {
+    background-color: #00BFFF; /* Fallback solid color */
+    background: linear-gradient(to bottom, #87CEEB, #00BFFF); /* Primary gradient */
+}
+
+/* Cloudy */
+.weather-widget.cloudy {
+    background-color: #B0C4DE; /* Fallback solid color */
+    background: linear-gradient(to bottom, #B0C4DE, #696969); /* Primary gradient */
+    background-image: none; /* No image fallback */
+}
+
+/* Overcast */
+.weather-widget.overcast {
+    background-color: #778899; /* Fallback solid color */
+    background: #778899; /* Fallback color if gradient fails */
+    background-image: none; /* No image fallback */
+}
+
+/* Rainy */
+.weather-widget.rainy {
+    background-color: #5F9EA0; /* Fallback solid color */
+    background: linear-gradient(to bottom, #5F9EA0, #2F4F4F); /* Primary gradient */
+    background-image: none; /* No image fallback */
+}
+
+/* Snowy */
+.weather-widget.snowy {
+    background-color: #E0FFFF; /* Fallback solid color */
+    background: linear-gradient(to bottom, #E0FFFF, #F0F8FF); /* Primary gradient */
+    background-image: none; /* No image fallback */
+}
+
+/* Thunderstorm */
+.weather-widget.thunderstorm {
+    background-color: #2C3E50; /* Fallback solid color */
+    background: linear-gradient(to bottom, #2C3E50, #0D1A26); /* Primary gradient */
+    background-image: none; /* No image fallback */
+}
+
+/* Foggy */
+.weather-widget.foggy {
+    background-color: #D3D3D3; /* Fallback solid color */
+    background: #D3D3D3; /* Fallback color if gradient fails */
+    background-image: none; /* No image fallback */
+}
+
+.city {
     font-size: 18px;
     font-weight: bold;
     margin-bottom: 10px;
 }
+
 .weather-widget img {
     width: 48px;
     height: 48px;
     margin-bottom: 10px;
 }
+
 .temperature {
     font-size: 32px;
     font-weight: 300;
     margin: 10px 0;
 }
+
 .temp-range {
     font-size: 16px;
     font-weight: 400;
     margin: 5px 0;
 }
+
 .sunrise-sunset {
     font-size: 14px;
     display: flex;
@@ -32,10 +88,12 @@
     border-top: 1px solid rgba(255, 255, 255, 0.3);
     margin-top: 15px;
 }
+
 .sunrise-sunset div {
     display: flex;
     align-items: center;
 }
+
 .sunrise-sunset img {
     width: 20px;
     height: 20px;
