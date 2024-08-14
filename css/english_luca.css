@@ -1,20 +1,25 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f7fb;
-    color: #333;
-}
-
 .english-with-luca {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    flex-direction: column;
     padding: 20px;
     background-color: #eaf4fe;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin: 20px;
+    margin-top: 20px;
+}
+
+.english-luca-title {
+    font-family: 'Georgia', serif;
+    font-size: 28px;
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 12px;
+    margin-top: 0px;
+}
+
+.english-content {
+    display: flex;
+    justify-content: space-between;
 }
 
 .word-of-the-day, .tip-of-the-day {
@@ -27,6 +32,7 @@ body {
 }
 
 .section-header {
+    font-family: 'Georgia', serif;
     font-size: 24px;
     color: #2c3e50;
     margin-bottom: 15px;
@@ -44,6 +50,7 @@ body {
 }
 
 .word {
+    font-family: 'Dancing Script', cursive;
     font-size: 28px;
     font-weight: bold;
     color: #2980b9;
@@ -51,6 +58,7 @@ body {
 }
 
 .pronunciation {
+    font-family: 'Georgia', serif;
     font-size: 18px;
     color: #7f8c8d;
     margin-bottom: 10px;
@@ -64,17 +72,18 @@ body {
     cursor: pointer;
 }
 
-.definition {
+.definition, .example {
+    font-family: 'Lato', sans-serif;
     font-size: 18px;
-    margin-bottom: 10px;
+    color: #333;
 }
 
 .example {
-    font-size: 18px;
     font-style: italic;
 }
 
 .tip-content {
+    font-family: 'Lato', sans-serif;
     font-size: 18px;
     color: #34495e;
     padding: 10px;

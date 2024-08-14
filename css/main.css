@@ -49,22 +49,30 @@ body {
 
 
 /* Custom CSS for split sections */
+/* Updated CSS for split sections */
 .email-container .content-row {
-    display: flex; /* Use flexbox to handle the split layout */
+    display: flex;
     justify-content: baseline;
     margin-top: 20px;
-    border-radius: 10px;
-    box-shadow: none; /* Remove the box-shadow applied by the general rule */
-    padding: 0; /* Remove padding to avoid doubling up */
+    padding: 0; 
+    gap: 15px; /* Added gap to create space between the widgets */
 }
 
-.email-container .content-row > .finance-highlights,
 .email-container .content-row > .weather-widget {
-    box-shadow: 0 8px 10px rgba(0, 0, 0, 0.1); /* Apply box-shadow to individual sections */
-    padding: 10px; /* Apply padding to individual sections */
-    border-radius: 10px; /* Maintain the border radius */
-    margin: 0; /* Remove any additional margins */
-    width: 48%; /* Adjust to fit both sections within the row */
+    box-shadow: 0 8px 10px rgba(0, 0, 0, 0.1); /* Apply box-shadow to the top, bottom, and left */
+    padding: 10px;
+    border-radius: 10px;
+    margin: 0;
+    width: 48%;
+    box-shadow: 8px 8px 10px rgba(0, 0, 0, 0.1), 0px 8px 10px rgba(0, 0, 0, 0.1), -8px 0px 0px rgba(0, 0, 0, 0); /* Removed right shadow */
+}
+
+.email-container .content-row > .finance-highlights {
+    box-shadow: 8px 8px 10px rgba(0, 0, 0, 0.1), 0px 8px 10px rgba(0, 0, 0, 0.1), 8px 0px 0px rgba(0, 0, 0, 0); /* Removed left shadow */
+    padding: 10px;
+    border-radius: 10px;
+    margin: 0;
+    width: 48%;
 }
 
 .email-container::after {
@@ -90,3 +98,55 @@ body {
     }
 }
 
+/* Font definitions */
+.sans-serif-fonts {
+    --primary-font: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+    --secondary-font: 'Lato', 'Helvetica', 'Arial', sans-serif;
+  }
+  
+  .serif-fonts {
+    --primary-font: 'Georgia', 'Times New Roman', serif;
+    --secondary-font: 'Palatino', 'Garamond', serif;
+  }
+  
+  /* Global font applications */
+  .email-container {
+    font-family: var(--primary-font);
+  }
+  
+  .email-container h1, 
+  .email-container h2, 
+  .email-container h3, 
+  .email-container h4, 
+  .email-container h5, 
+  .email-container h6,
+  .email-container .header,
+  .email-container .footer,
+  .email-container .date-weekday,
+  .email-container .welcome-message,
+  .email-container .curated-message,
+  .email-container .city,
+  .email-container .temperature,
+  .email-container .currency-pair,
+  .email-container .news-header h1,
+  .email-container .news-header h2,
+  .email-container .article-card h4 {
+    font-family: var(--secondary-font);
+  }
+  
+  /* For elements that should always use a specific font, regardless of the global setting */
+  .always-sans-serif {
+    font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif !important;
+  }
+  
+  .always-serif {
+    font-family: 'Georgia', 'Times New Roman', serif !important;
+  }
+  
+  /* Ensure all text elements inherit the font */
+  .email-container p, 
+  .email-container span, 
+  .email-container div, 
+  .email-container a {
+    font-family: inherit;
+  }

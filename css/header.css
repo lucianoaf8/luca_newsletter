@@ -13,51 +13,90 @@
     color: #2c3e50; /* Deep navy blue */
     letter-spacing: 1px;
     font-weight: bold; /* Bold to make it stand out */
+    position: relative; /* Ensures pseudo-elements are positioned relative to the h1 */
+}
+
+.header h1::before,
+.header h1::after {
+    content: "";
+    display: block;
+    width: 80%;
+    height: 2px;
+    background-color: #2c3e50; /* Matching line color */
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.header h1::before {
+    top: -3px; /* Adjust space between line and "Good Morning" */
+    margin-bottom: 15px;
+}
+
+.header h1::after {
+    bottom: -10px; /* Space below the line and "Good Morning" */
+    margin-top: 10px; /* Adjust spacing above and below "Good Morning" */
 }
 
 .date-weekday {
     font-family: 'Georgia', serif; /* Matching font for consistency */
     font-size: 24px; /* Smaller size for date */
     font-weight: bolder; /* Make the date bolder */
-    margin-top: 10px;
+    margin-top: 15px;
     color: #2c3e50; /* Darker gray, no italic */
 }
 
 .welcome-message {
     font-family: 'Georgia', serif; /* Same font as above */
-    font-size: 28px; /* Highlighted text size */
+    font-size: 27px; /* Highlighted text size */
     color: #2c3e50; /* Same deep navy blue */
     margin-top: 15px;
 }
 
 .curated-message {
     font-family: 'Georgia', serif; /* Matching font */
-    font-size: 18px; /* Smaller size */
-    color: #2c3e50; /* Matching the welcome message */
+    font-size: 16px; /* Smaller size */
+    color: #202e3b; /* Matching the welcome message */
     text-align: center; /* Centered below the welcome message */
-    margin-top: -10px; /* Slightly overlap with the welcome message */
+    margin-top: -15px; /* Slightly overlap with the welcome message */
 }
 
 .presented-section {
     position: absolute;
-    bottom: 10px;
-    right: 20px;
-    text-align: right;
+    bottom: -6px;
+    right: 18px; /* Positioned all the way to the right */
+    text-align: right; /* Aligns text to the right */
     color: #888888; /* Less dark for a more discreet appearance */
+    display: flex;
+    flex-direction: column; /* Stack image and text vertically */
+    align-items: flex-end; /* Aligns items to the right */
 }
 
 .robot-icon {
-    width: 16px; /* Smaller size for the robot icon */
-    height: 16px;
+    width: 30px; /* Increased size */
+    height: 30px; /* Increased size */
     border-radius: 50%; /* Circle shape for the robot icon */
-    vertical-align: middle;
-    margin-right: 5px;
+    margin-bottom: 2px; /* Less space between the image and the text */
+    margin-right: 10px;
 }
 
 .presented {
     font-family: 'Georgia', serif;
     font-size: 14px; /* Smaller font size */
     color: #888888; /* Same as the robot icon color */
-    display: inline-block;
-    vertical-align: middle;
+    text-align: right; /* Aligns text to the right */
+    margin-top: 0; /* Removes any additional spacing */
 }
+
+.presented a {
+    color: #888888; /* Same color as the "presented by" text */
+    text-decoration: underline; /* Adds an underline to the link */
+    font-family: 'Georgia', serif;
+    font-size: 14px; /* Same font size as "presented by" */
+}
+
+.presented a:hover, .presented a:focus, .presented a:active {
+    text-decoration: underline; /* Keeps the underline on hover, focus, and active states */
+    color: #888888; /* Maintain the color on interaction */
+}
+

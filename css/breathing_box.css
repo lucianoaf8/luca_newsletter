@@ -1,0 +1,54 @@
+.breathing-box-animated {
+    padding: 20px;
+    background: linear-gradient(to right, #c2e9fb, #a1c4fd);
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+.breathing-title {
+    font-family: 'Georgia', serif;
+    font-size: 28px;
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+.breathing-animation {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 100px;
+}
+
+.box {
+    width: 20%;
+    height: 100%;
+    border-radius: 10px;
+    transition: background-color 1s ease-in-out;
+    animation: breath 16s infinite;
+}
+
+@keyframes breath {
+    0% { background-color: #d4fc79; }
+    25% { background-color: #fddb92; }
+    50% { background-color: #fbd3e9; }
+    75% { background-color: #fddb92; }
+    100% { background-color: #d4fc79; }
+}
+
+.inhale {
+    animation-delay: 0s;
+}
+
+.hold {
+    animation-delay: 4s;
+}
+
+.exhale {
+    animation-delay: 8s;
+}
+
+.hold {
+    animation-delay: 12s;
+}

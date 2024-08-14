@@ -1,6 +1,7 @@
 {
     "header": {
-        "title": "Good Morning",
+        "title": "Good Morning!",
+        "name": "",
         "icon_url": "assets/imgs/sun-icon.png",
         "date": "August 12, 2024",
         "weekday": "Monday",
@@ -142,5 +143,21 @@
             "rate": "1.25",
             "change": 0.10
         }
+    },
+    "design": {
+    "font_style": "sans-serif"
+    },
+    "word_of_the_day": {
+        "word": "Eloquence",
+        "pronunciation": "ˈeləkwəns",
+        "meaning": "Fluent or persuasive speaking or writing.",
+        "example": "She spoke with great eloquence."
+    },
+    "english_tip": {
+        "tip": "When learning new vocabulary, try to use the words in your daily conversations to better retain them."
+    },
+    "daily_challenge": {
+        "task": "Read a book for 10 minutes today!",
+        "motivation": "Taking a few minutes to read can refresh your mind and spark creativity."
     }
 }

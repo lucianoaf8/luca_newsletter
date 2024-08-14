@@ -5,13 +5,8 @@
     margin: 0; /* Remove margin */
     padding: 0; /* Remove padding */
     box-shadow: 0 8px 10px rgba(0, 0, 0, 0.1); /* Matches the common section styling */
-    width: 50%; /* Occupies half of the parent container */
+    width: 100%; /* Occupies half of the parent container */
     box-sizing: border-box; /* Ensures correct sizing */
-}
-
-.spacer {
-    width: 50%;
-    box-sizing: border-box;
 }
 
 .currency-row {

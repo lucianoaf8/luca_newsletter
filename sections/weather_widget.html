@@ -1,11 +1,25 @@
-<!-- sections/weather_widget.html -->
-<div class="weather-widget {{ data.weather.weather_condition }}">
-    <div class="city">{{ data.weather.city }}</div>
-    <img src="{{ data.weather.icon_url }}" alt="Weather Icon">
-    <div class="temperature">{{ data.weather.temperature }}</div>
-    <div class="temp-range">Min: {{ data.weather.min_temp }} | Max: {{ data.weather.max_temp }}</div>
-    <div class="sunrise-sunset">
-        <div><img src="{{ data.weather.sunrise.icon_url }}" alt="Sunrise"> {{ data.weather.sunrise.time }}</div>
-        <div><img src="{{ data.weather.sunset.icon_url }}" alt="Sunset"> {{ data.weather.sunset.time }}</div>
+<div class="weather-widget sunny">
+    <div class="icon-container">
+        <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+            <circle cx="32" cy="32" r="14" fill="#FFDF00"/>
+            <!-- Add rays of the sun here -->
+        </svg>
+    </div>
+    <div class="temperature">25°C</div>
+    <div class="real-feel">Real Feel: 27°C</div>
+    <div class="weather-description">Sunny with light clouds</div>
+    <div class="additional-info">
+        <div class="info-item">
+            <svg class="humidity-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="24" height="24">
+                <!-- SVG for humidity icon -->
+            </svg>
+            Humidity: 50%
+        </div>
+        <div class="info-item">
+            <svg class="wind-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="24" height="24">
+                <!-- SVG for wind speed icon -->
+            </svg>
+            Wind Speed: 15 km/h
+        </div>
     </div>
 </div>
