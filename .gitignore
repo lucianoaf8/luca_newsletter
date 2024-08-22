@@ -1,6 +1,7 @@
 # Custom
 /_all_source_files
 *.json
+data/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
