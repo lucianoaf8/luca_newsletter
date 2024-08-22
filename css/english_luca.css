@@ -1,0 +1,93 @@
+.english-with-luca {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background-color: #eaf4fe;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+.english-luca-title {
+    font-family: 'Georgia', serif;
+    font-size: 28px;
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 12px;
+    margin-top: 0px;
+}
+
+.english-content {
+    display: flex;
+    justify-content: space-between;
+}
+
+.word-of-the-day, .tip-of-the-day {
+    flex: 1;
+    margin: 10px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.section-header {
+    font-family: 'Georgia', serif;
+    font-size: 24px;
+    color: #2c3e50;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.section-header .icon {
+    margin-right: 10px;
+    font-size: 24px;
+}
+
+.word-content {
+    margin-top: 10px;
+}
+
+.word {
+    font-family: 'Dancing Script', cursive;
+    font-size: 28px;
+    font-weight: bold;
+    color: #2980b9;
+    margin-bottom: 5px;
+}
+
+.pronunciation {
+    font-family: 'Georgia', serif;
+    font-size: 18px;
+    color: #7f8c8d;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.pronunciation .speaker-icon {
+    font-size: 20px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.definition, .example {
+    font-family: 'Lato', sans-serif;
+    font-size: 18px;
+    color: #333;
+}
+
+.example {
+    font-style: italic;
+}
+
+.tip-content {
+    font-family: 'Lato', sans-serif;
+    font-size: 18px;
+    color: #34495e;
+    padding: 10px;
+    background-color: #ecf0f1;
+    border-left: 4px solid #2980b9;
+    margin: 0;
+}

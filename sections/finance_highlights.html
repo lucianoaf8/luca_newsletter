@@ -1,0 +1,32 @@
+<div class="finance-highlights">
+    <div class="currency-row">
+        <span class="currency-pair">CAD/BRL</span>
+        <span class="exchange-rate">{{ data.finance.cad_brl.rate }}</span>
+        <span class="change">
+            <span class="arrow {{ 'up' if data.finance.cad_brl.change > 0 else 'down' }}">
+                [up/down] <!-- Placeholder for the arrow -->
+            </span>
+            {{ data.finance.cad_brl.change }}%
+        </span>
+    </div>
+    <div class="currency-row">
+        <span class="currency-pair">USD/BRL</span>
+        <span class="exchange-rate">{{ data.finance.usd_brl.rate }}</span>
+        <span class="change">
+            <span class="arrow {{ 'up' if data.finance.usd_brl.change > 0 else 'down' }}">
+                [up/down] <!-- Placeholder for the arrow -->
+            </span>
+            {{ data.finance.usd_brl.change }}%
+        </span>
+    </div>
+    <div class="currency-row">
+        <span class="currency-pair">USD/CAD</span>
+        <span class="exchange-rate">{{ data.finance.usd_cad.rate }}</span>
+        <span class="change">
+            <span class="arrow {{ 'up' if data.finance.usd_cad.change > 0 else 'down' }}">
+                [up/down] <!-- Placeholder for the arrow -->
+            </span>
+            {{ data.finance.usd_cad.change }}%
+        </span>
+    </div>
+</div>

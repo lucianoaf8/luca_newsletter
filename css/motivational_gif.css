@@ -1,0 +1,23 @@
+.motivational-gif-section {
+    text-align: center;
+    background-color: #F5F5F5;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05);
+    margin-top: 20px;
+}
+
+.motivational-gif-section .gif-container img {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.motivational-gif-section .gif-caption {
+    margin-top: 10px;
+    font-family: 'Lato', sans-serif;
+    font-size: 16px;
+    color: #555555;
+}

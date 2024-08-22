@@ -1,0 +1,49 @@
+/* css/finance_highlights.css */
+.finance-highlights {
+    background: #f0f4f8; /* Light background for contrast */
+    border-radius: 10px;
+    margin: 0; /* Remove margin */
+    padding: 0; /* Remove padding */
+    box-shadow: 0 8px 10px rgba(0, 0, 0, 0.1); /* Matches the common section styling */
+    width: 100%; /* Occupies half of the parent container */
+    box-sizing: border-box; /* Ensures correct sizing */
+}
+
+.currency-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px; /* Add padding inside the content for spacing */
+    border-bottom: 1px solid #ddd;
+}
+
+.currency-row:last-child {
+    border-bottom: none;
+}
+
+.currency-pair {
+    font-size: 18px;
+    font-weight: bold;
+    color: #2c3e50; /* Deep navy */
+}
+
+.exchange-rate {
+    font-size: 18px;
+    color: #2c3e50;
+}
+
+.change {
+    font-size: 16px;
+    color: #555;
+}
+
+.arrow {
+    margin-right: 5px;
+}
+
+.arrow.up {
+    color: #28a745; /* Green for appreciation */
+}
+
+.arrow.down {
+    color: #dc3545; /* Red for depreciation */
+}

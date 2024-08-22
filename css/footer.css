@@ -1,0 +1,40 @@
+/* Importing the Great Vibes font from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+
+.footer {
+    margin-top: 20px;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    color: #5a5a5a; /* Light gray for subtle contrast */
+}
+
+.footer-message {
+    font-family: 'Georgia', serif; /* Same font as the header for consistency */
+    font-size: 24px; /* Slightly larger for emphasis */
+    font-weight: normal; /* Regular weight for a softer appearance */
+    margin-bottom: 15px;
+    color: #333; /* Slightly darker gray for the main footer text */
+}
+
+
+/* Unsubscribe Bar Styled like Header */
+.unsubscribe-bar {
+    background: #e4ece1; /* Bright golden yellow background similar to the header */
+    padding: 10px;
+    border-top: 2px solid #2c3e50; /* Top border matching the header's bottom border */
+    text-align: center;
+    margin-top: 15px;
+}
+
+.unsubscribe-link {
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    color: #2c3e50; /* Deep navy blue matching the header text */
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.unsubscribe-link:hover {
+    color: #1a2533; /* Darken slightly on hover for visibility */
+}

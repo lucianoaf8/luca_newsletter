@@ -11,6 +11,7 @@
     "weather": {
         "city": "New York, NY",
         "temperature": "25°C",
+<<<<<<< HEAD
         "real_feel": "27°C",
         "weather_condition": "Clear skies",
         "humidity": "50",
@@ -26,6 +27,20 @@
             "time": "8:00 PM"
         },
         "icon_url": "assets/icons/weather/wi_clear-day.svg"
+=======
+        "min_temp": "18°C",
+        "max_temp": "27°C",
+        "weather_condition": "sunny",
+        "icon_url": "assets/imgs/sun-icon.png",
+        "sunrise": {
+            "time": "6:00 AM",
+            "icon_url": "assets/imgs/sunrise-icon.png"
+        },
+        "sunset": {
+            "time": "8:15 PM",
+            "icon_url": "assets/imgs/sunset-icon.png"
+        }
+>>>>>>> bf9bd46e934bd0542bf6dcecebf511e10938d568
     },
     "highlight": {
         "title": "Today's Highlight",
@@ -34,6 +49,7 @@
     "motivational_quote": {
         "quote": "The only way to do great work is to love what you do.",
         "author": "Steve Jobs",
+<<<<<<< HEAD
         "author_image_url": "assets/imgs/steve-jobs.png",
         "birth_year": 1654,
         "death_year": 2011
@@ -41,6 +57,13 @@
     "fun_fact": {
         "icon_url": "assets/imgs/lightbulb-fun-fact.svg",
         "fact": "Honey never spoils. Archaeologists have found pots of honey in ancient Egyptian tombs that are over 3,000 years old and still perfectly edible!"
+=======
+        "author_image_url": "assets/imgs/steve-jobs.png"
+    },
+    "fun_fact": {
+        "icon_url": "assets/imgs/lightbulb-icon.png",
+        "fact": "Did you know? Honey never spoils. Archaeologists have found pots of honey in ancient Egyptian tombs that are over 3,000 years old and still perfectly edible!"
+>>>>>>> bf9bd46e934bd0542bf6dcecebf511e10938d568
     },
     "motivational_gif": {
         "gif_url": "assets/imgs/fun_fact.png",
@@ -164,9 +187,14 @@
     "daily_challenge": {
         "task": "Read a book for 10 minutes today!",
         "motivation": "Taking a few minutes to read can refresh your mind and spark creativity."
+<<<<<<< HEAD
     },
     "joke_of_the_day": {
         "joke": "Hahahaha"
     }
 }
 
+=======
+    }
+}
+>>>>>>> bf9bd46e934bd0542bf6dcecebf511e10938d568
