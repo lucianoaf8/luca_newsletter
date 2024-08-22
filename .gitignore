@@ -2,6 +2,7 @@
 /_all_source_files
 *.json
 data/
+index_copy.html
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
