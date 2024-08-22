@@ -1,0 +1,172 @@
+{
+    "header": {
+        "title": "Good Morning!",
+        "name": "",
+        "icon_url": "assets/imgs/sun-icon.png",
+        "date": "August 12, 2024",
+        "weekday": "Monday",
+        "curated_message": "Here is your Luca Newsletter, curated by AI",
+        "luca_link": "https://luca137.com"
+    },
+    "weather": {
+        "city": "New York, NY",
+        "temperature": "25°C",
+        "real_feel": "27°C",
+        "weather_condition": "Clear skies",
+        "humidity": "50",
+        "windSpeed": "15",
+        "windDirection": "NW",
+        "precipitationProbability": "10",
+        "uvIndex": "2",
+        "cloudCover": "20",
+        "sunrise": {
+            "time": "6:00 AM"
+        },
+        "sunset": {
+            "time": "8:00 PM"
+        },
+        "icon_url": "assets/icons/weather/wi_clear-day.svg"
+    },
+    "highlight": {
+        "title": "Today's Highlight",
+        "message": "Don't forget to enjoy the sunshine and have a productive day!"
+    },
+    "motivational_quote": {
+        "quote": "The only way to do great work is to love what you do.",
+        "author": "Steve Jobs",
+        "author_image_url": "assets/imgs/steve-jobs.png",
+        "birth_year": 1654,
+        "death_year": 2011
+    },
+    "fun_fact": {
+        "icon_url": "assets/imgs/lightbulb-fun-fact.svg",
+        "fact": "Honey never spoils. Archaeologists have found pots of honey in ancient Egyptian tombs that are over 3,000 years old and still perfectly edible!"
+    },
+    "motivational_gif": {
+        "gif_url": "assets/imgs/fun_fact.png",
+        "caption": "Here's a little motivation for you!"
+    },
+    "news": {
+        "artificial_intelligence": [
+            {
+                "title": "The Future of AI in Healthcare",
+                "bullet_points": [
+                    "AI improves diagnosis accuracy.",
+                    "Reduces patient wait times.",
+                    "Enhances personalized treatment."
+                ],
+                "url": "https://example.com/ai-healthcare"
+            },
+            {
+                "title": "AI Ethics and Governance",
+                "bullet_points": [
+                    "Challenges in AI decision-making.",
+                    "Ethical guidelines development.",
+                    "Global AI regulations impact."
+                ],
+                "url": "https://example.com/ai-ethics"
+            },
+            {
+                "title": "AI in Autonomous Vehicles",
+                "bullet_points": [
+                    "Improves road safety.",
+                    "Reduces human error.",
+                    "Advances in AI navigation."
+                ],
+                "url": "https://example.com/ai-autonomous-vehicles"
+            }
+        ],
+        "design": [
+            {
+                "title": "The Rise of Minimalist Design",
+                "bullet_points": [
+                    "Focus on simplicity.",
+                    "Use of negative space.",
+                    "Growing popularity in web design."
+                ],
+                "url": "https://example.com/minimalist-design"
+            },
+            {
+                "title": "Designing for Accessibility",
+                "bullet_points": [
+                    "Importance of inclusive design.",
+                    "Techniques for better accessibility.",
+                    "Examples of successful designs."
+                ],
+                "url": "https://example.com/accessibility-design"
+            },
+            {
+                "title": "The Impact of Color Theory",
+                "bullet_points": [
+                    "Color psychology in design.",
+                    "Choosing the right color palette.",
+                    "Impact on user experience."
+                ],
+                "url": "https://example.com/color-theory"
+            }
+        ],
+        "visuals": [
+            {
+                "title": "The Power of Visual Storytelling",
+                "bullet_points": [
+                    "Engages audience emotionally.",
+                    "Simplifies complex ideas.",
+                    "Visuals in branding and marketing."
+                ],
+                "url": "https://example.com/visual-storytelling"
+            },
+            {
+                "title": "Trends in Visual Design 2024",
+                "bullet_points": [
+                    "Use of bold colors.",
+                    "Rise of 3D elements.",
+                    "Focus on micro-interactions."
+                ],
+                "url": "https://example.com/visual-design-trends"
+            },
+            {
+                "title": "Visuals and User Experience",
+                "bullet_points": [
+                    "Role of visuals in UI/UX.",
+                    "Enhancing user engagement.",
+                    "Balancing aesthetics and function."
+                ],
+                "url": "https://example.com/visuals-ux"
+            }
+        ]
+    },
+    "finance": {
+        "cad_brl": {
+            "rate": "3.25",
+            "change": 0.25
+        },
+        "usd_brl": {
+            "rate": "5.15",
+            "change": 0.15
+        },
+        "usd_cad": {
+            "rate": "1.25",
+            "change": 0.10
+        }
+    },
+    "design": {
+    "font_style": "sans-serif"
+    },
+    "word_of_the_day": {
+        "word": "Eloquence",
+        "pronunciation": "ˈeləkwəns",
+        "meaning": "Fluent or persuasive speaking or writing.",
+        "example": "She spoke with great eloquence."
+    },
+    "english_tip": {
+        "tip": "When learning new vocabulary, try to use the words in your daily conversations to better retain them."
+    },
+    "daily_challenge": {
+        "task": "Read a book for 10 minutes today!",
+        "motivation": "Taking a few minutes to read can refresh your mind and spark creativity."
+    },
+    "joke_of_the_day": {
+        "joke": "Hahahaha"
+    }
+}
+

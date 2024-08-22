@@ -1,0 +1,70 @@
+{
+    "pagination": {
+        "limit": 5,
+        "offset": 0,
+        "count": 5,
+        "total": 10000
+    },
+    "data": [
+        {
+            "author": "Ellen Perrault",
+            "title": "California Announces $250M Partnership to Support Local Journalism and AI Innovation",
+            "description": "California has established a partnership between the state, news publishers, tech companies, and philanthropy to provide financial support to newsrooms and launch a National AI Accelerator, with $250 million in public and private funding over the next five years.The post California Announces $250M Partnership to Support Local Journalism and AI Innovation appeared first on Black Voice News.",
+            "url": "https://blackvoicenews.com/2024/08/21/california-news-publishers-partnership/",
+            "source": "blackvoicenews",
+            "image": null,
+            "category": "general",
+            "language": "en",
+            "country": "us",
+            "published_at": "2024-08-22T01:22:18+00:00"
+        },
+        {
+            "author": "Chris Roush",
+            "title": "Dallas Morning News hires Womack to cover retail",
+            "description": "The Dallas Morning News has hired\u00a0Brian Womack\u00a0to cover retail. He previously was at the Dallas Business Journal covering technology and a senior marketing writer at Amazon Web Services. Womack previously worked as one of Bloomberg\u2019s reporters in San Francisco, spending nine years covering companies such as Alphabet, eBay, Facebook, HP, Oracle, Twitter and\u00a0Yahoo. Prior to [&#8230;]",
+            "url": "https://talkingbiznews.com/media-news/dallas-morning-news-hires-womack-to-cover-retail/",
+            "source": "Talking Biz News",
+            "image": null,
+            "category": "business",
+            "language": "en",
+            "country": "us",
+            "published_at": "2024-08-22T01:21:21+00:00"
+        },
+        {
+            "author": "Wes Davis",
+            "title": "OpenAI exec says California\u2019s AI safety bill might slow progress",
+            "description": "Image: The Verge In a new letter, OpenAI chief strategy officer Jason Kwon insists that AI regulations should be left to the federal government. As reported previously by Bloomberg, Kwon says that a new AI safety bill under consideration in California could slow progress and cause companies to leave the state.A federally-driven set of AI policies, rather than a patchwork of state laws, will foster innovation and position the U.S. to lead the development of global standards. As a result, we join other AI labs, developers, experts and members of California\u2019s Congressional delegation in...",
+            "url": "https://www.theverge.com/2024/8/21/24225648/openai-letter-california-ai-safety-bill-sb-1047",
+            "source": "The Verge",
+            "image": null,
+            "category": "technology",
+            "language": "en",
+            "country": "us",
+            "published_at": "2024-08-22T01:15:48+00:00"
+        },
+        {
+            "author": "Chris Roush",
+            "title": "Lane of Forbes on the issues with Perplexity\u2019s AI",
+            "description": "Gretchen Peck\u00a0interviewed Forbes chief\u00a0 content officer Randall Lane about his concerns with artificial intelligence developer Perplexity and its impact on its content. Here&#8217;s an excerpt: E&P: Since you published the June 11th column, have you encountered other similar cases of your content appearing in AI-authored articles or search summaries? Lane:\u00a0While other AI companies are training [&#8230;]",
+            "url": "https://talkingbiznews.com/media-news/lane-of-forbes-on-the-issues-with-perplexitys-ai/",
+            "source": "Talking Biz News",
+            "image": null,
+            "category": "business",
+            "language": "en",
+            "country": "us",
+            "published_at": "2024-08-22T01:14:44+00:00"
+        },
+        {
+            "author": "AP News",
+            "title": "California announces new deal with tech to fund journalism, AI research",
+            "description": "California will be the first U.S. state to direct millions of dollars from taxpayer money and tech companies to help pay for journalism and AI research under a new deal announced Wednesday. Under the agreement, the state and tech companies would collectively pay roughly $250 million over five years to support California-based news organizations and create an AI research program. The initiatives are set to kick in in 2025 with $100 million the first year. The deal effectively marks the end of a legislation that would force tech companies to pay media companies for linking to their content.",
+            "url": "https://www.mymotherlode.com/news/state/3411643/california-announces-new-deal-with-tech-to-fund-journalism-ai-research.html",
+            "source": "mymotherlode",
+            "image": null,
+            "category": "general",
+            "language": "en",
+            "country": "us",
+            "published_at": "2024-08-22T01:05:47+00:00"
+        }
+    ]
+}

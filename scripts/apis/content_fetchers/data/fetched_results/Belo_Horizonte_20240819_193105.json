@@ -1,0 +1,33 @@
+{
+  "data": {
+    "time": "2024-08-20T01:31:00Z",
+    "values": {
+      "cloudBase": null,
+      "cloudCeiling": null,
+      "cloudCover": 0,
+      "dewPoint": 8.38,
+      "freezingRainIntensity": 0,
+      "humidity": 44,
+      "precipitationProbability": 0,
+      "pressureSurfaceLevel": 919.97,
+      "rainIntensity": 0,
+      "sleetIntensity": 0,
+      "snowIntensity": 0,
+      "temperature": 21.19,
+      "temperatureApparent": 21.19,
+      "uvHealthConcern": 0,
+      "uvIndex": 0,
+      "visibility": 16,
+      "weatherCode": 1000,
+      "windDirection": 72.13,
+      "windGust": 8.31,
+      "windSpeed": 2.81
+    }
+  },
+  "location": {
+    "lat": -19.922731399536133,
+    "lon": -43.94509506225586,
+    "name": "Belo Horizonte, Regi\u00e3o Geogr\u00e1fica Imediata de Belo Horizonte, Regi\u00e3o Metropolitana de Belo Horizonte, Regi\u00e3o Geogr\u00e1fica Intermedi\u00e1ria de Belo Horizonte, Minas Gerais, Regi\u00e3o Sudeste, Brasil",
+    "type": "administrative"
+  }
+}

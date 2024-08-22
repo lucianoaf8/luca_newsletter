@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luca Newsletter</title>
+    <style>
+        /* General resets */
+        body, table, td, a {
+            margin: 0;
+            padding: 0;
+        }
+
+        table {
+            border-collapse: collapse !important;
+        }
+
+        img {
+            border: 0;
+            line-height: 100%;
+            outline: none;
+            text-decoration: none;
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Global Font Styles */
+        .sans-serif-fonts-primary {
+            font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+        }
+        .sans-serif-fonts-secondary {
+            font-family: 'Lato', 'Helvetica', 'Arial', sans-serif;
+        }
+        .serif-fonts-primary {
+            font-family: 'Georgia', 'Times New Roman', serif;
+        }
+        .serif-fonts-primary {
+            font-family: 'Palatino', 'Garamond', serif;
+        }
+
+        /* Background and Typography */
+        body {
+            width: 100%;
+            background-color: #f9f9f9;
+            font-family: 'Lato', sans-serif;
+            color: #333333;
+        }
+        
+        /* Ensure all text elements inherit the font */
+        p, span, div, a {
+            font-family: inherit;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container sans-serif-fonts" style="width: 100%; max-width: 600px; margin: 0 auto; background-color: #ffffff; padding: 20px; border-radius: 10px; box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05);">
+        <!-- Header -->
+        <div class="header" style="background: #e4ece1; padding: 20px; text-align: center; position: relative; font-family: 'Lato', sans-serif; border-bottom: 2px solid #2c3e50; border-radius: 10px; box-shadow: 0 8px 10px rgba(0, 0, 0, 0.1); margin-top: 0;">
+            <h1 style="font-size: 64px; margin: 0; color: #2c3e50; letter-spacing: 1px; font-weight: bold; text-align: center;">
+                <span style="display: block; width: 80%; height: 2px; background-color: #2c3e50; margin: 0 auto 15px auto;"></span>
+                {{ newsletter_title }}
+                <span style="display: block; width: 80%; height: 2px; background-color: #2c3e50; margin: 10px auto 0 auto;"></span>
+            </h1>
+                      
+
+            <p class="date-weekday" style="font-family: 'Lato', sans-serif; font-size: 24px; font-weight: bolder; margin-top: 15px; color: #2c3e50;">
+                {{ newsletter_date }}
+            </p>
+
+            <p class="welcome-message" style="font-family: 'Lato', sans-serif; font-size: 27px; color: #2c3e50; margin-top: 15px;">
+                {{ welcome_message }}
+            </p>
+
+            <p class="curated-message" style="font-family: 'Lato', sans-serif; font-size: 18px; color: #202e3b; text-align: center; margin-top: -15px;">
+                {{ curated_message }}
+            </p>
+
+            <div style="text-align: right; margin: 0;">
+                <table role="presentation" style="border-spacing: 0; border-collapse: collapse; width: 100%;">
+                    <tr>
+                        <td style="width: 0px; height: 0px; padding: 0; margin: 0;">
+                            <!-- Empty Cell A1 -->
+                        </td>
+                        <td style="padding: 0; margin: 0;">
+                            <img src="https://i.imgur.com/SoN3krP.jpg" alt="Luca137" style="width: 30px; height: 30px; border-radius: 50%; margin-bottom: 2px; display: inline-block;">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 0px; height: 0px; padding: 0; margin: 0;">
+                            <!-- Empty Cell A2 -->
+                        </td>
+                        <td style="padding-left: 10px;">
+                            <p style="font-family: 'Lato', sans-serif; font-size: 14px; color: #888888; text-align: right; margin: 0;">
+                                presented by <a href="https://luca137.com" style="color: #888888; text-decoration: underline;">Luca137</a>
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- Weather -->
+        <!--[if gte mso 9]>
+        <v:background xmlns:v="urn:schemas-microsoft-com:vml" fill="t">
+            <v:fill type="gradient" color="#0766c5" color2="#40ade7" angle="270"/>
+        </v:background>
+        <![endif]-->
+        <table class="weather-widget" cellpadding="0" cellspacing="0" border="0" width="100%" style="width: 100%; max-width: 650px; margin: 20px auto; background-color: #0766c5; background-image: linear-gradient(to bottom, #0766c5, #40ade7); border-radius: 15px; box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3); color: #ffffff; padding: 20px;">
+            <tr>
+                <!-- Top-Left Quadrant: Main Weather Information -->
+                <td width="50%" valign="center" style="padding: 15px; text-align: center;">
+                    <img src="https://i.imgur.com/91t4phy.png" alt="Sunny Day" width="80" height="80" style="display: block; margin: 0 auto 10px;">
+                    <div style="font-size: 48px; font-family: 'Arial', sans-serif; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);">
+                        {{ weather.temperature }}°C
+                    </div>
+                    <div style="font-size: 18px; font-family: 'Arial', sans-serif; margin-top: 10px; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);">
+                        Feels Like: {{ weather.feels_like }}°C
+                    </div>
+                    <div style="font-size: 18px; font-family: 'Arial', sans-serif; margin-top: 10px; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);">
+                        {{ weather.description }}
+                    </div>
+                </td>
+
+                <!-- Top-Right Quadrant: Additional Weather Details -->
+                <td width="50%" valign="center" style="padding: 15px; text-align: left;">
+                    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                        <tr>
+                            <td style="padding-bottom: 8px;">
+                                <img src="https://i.imgur.com/9u12ZvL.png" alt="cloud cover" width="28" height="28" style="vertical-align: middle; margin-right: 10px;">
+                                <span style="font-family: 'Arial', sans-serif; font-size: 16px; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);">Cloud Cover: {{ weather.cloud_cover }}%</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding-bottom: 8px;">
+                                <img src="https://i.imgur.com/GVFkwgh.png" alt="sunrise" width="28" height="28" style="vertical-align: middle; margin-right: 10px;">
+                                <span style="font-family: 'Arial', sans-serif; font-size: 16px; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);">Sunrise: {{ weather.sunrise }} AM</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <img src="https://i.imgur.com/jxyfxWW.png" alt="sunset" width="28" height="28" style="vertical-align: middle; margin-right: 10px;">
+                                <span style="font-family: 'Arial', sans-serif; font-size: 16px; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);">Sunset: {{ weather.sunset }} PM</span>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <!-- Bottom-Left Quadrant: Extended Weather Information -->
+                <td width="50%" valign="center" style="padding: 15px; text-align: left;">
+                    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                        <tr>
+                            <td style="padding-bottom: 8px;">
+                                <img src="https://i.imgur.com/E7zY6cJ.png" alt="humidity" width="28" height="28" style="vertical-align: middle; margin-right: 10px;">
+                                <span style="font-family: 'Arial', sans-serif; font-size: 16px; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);">Humidity: {{ weather.humidity }}%</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding-bottom: 8px;">
+                                <img src="https://i.imgur.com/QtkIVJJ.png" alt="wind" width="28" height="28" style="vertical-align: middle; margin-right: 10px;">
+                                <span style="font-family: 'Arial', sans-serif; font-size: 16px; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);">Wind:  {{ weather.wind }} km/h NW</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding-bottom: 8px;">
+                                <img src="https://i.imgur.com/FFYknas.png" alt="precipitation" width="28" height="28" style="vertical-align: middle; margin-right: 10px;">
+                                <span style="font-family: 'Arial', sans-serif; font-size: 16px; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);">Precipitation: {{ weather.precipitation }}%</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <img src="https://i.imgur.com/pe253k2.png" alt="uv index" width="28" height="28" style="vertical-align: middle; margin-right: 10px;">
+                                <span style="font-family: 'Arial', sans-serif; font-size: 16px; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);">UV Index: {{ weather.uv_index }}</span>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+
+                <!-- Bottom-Right Quadrant: Placeholder -->
+                <td width="50%" valign="middle" align="center" style="padding: 15px;">
+                    <!--[if gte mso 9]>
+                    <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="true" strokecolor="#ff3333" fillcolor="#ff6666" style="width:200px;height:60px;">
+                    <v:shadow on="t" color="#000000" opacity="30%" offset="4px,4px"/>
+                    <v:textbox inset="0,0,0,0">
+                    <div style="font-family:'Arial',sans-serif;font-size:18px;font-weight:bold;color:#ffffff;text-align:center;padding-top:20px;">
+                    Coming soon!
+                    </div>
+                    </v:textbox>
+                    </v:roundrect>
+                    <![endif]-->
+                    <!--[if !mso]><!-->
+                    <div style="background-color: #ff6666; color: #ffffff; font-family: 'Arial', sans-serif; font-size: 18px; font-weight: bold; padding: 10px 20px; border: 2px solid #ff3333; border-radius: 10px; text-align: center; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3); display: inline-block; transform: rotate(-10deg);">
+                        Coming soon!
+                    </div>
+                    <!--<![endif]-->
+                </td>
+            </tr>
+        </table>
+
+        <!-- Exchange Rates -->
+        <table class="finance-highlights" style="width: 100%; background: #2c3e50; border-radius: 10px; padding: 20px; box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); color: white; box-sizing: border-box;">
+            <tr>
+                <td colspan="6" style="text-align: center; font-size: 18px; font-weight: bold; color: #ffffff; padding-top: 10px; padding-bottom: 3px;">
+                    Exchange Rates
+                </td>
+            </tr>
+
+            <!-- Currency Row 1 -->
+            <tr>
+                <!-- Column A: Left Flag -->
+                <td style="text-align: center; width: 10%;">
+                    <img src="https://i.imgur.com/wGiabgR.png" alt="Canada Flag" style="width: 26px; height: 26px;">
+                </td>
+                <!-- Column B: Currency Codes -->
+                <td style="font-size: 18px; font-weight: bold; color: #ffffff; text-align: center; padding-left: 15px;">
+                    CAD/BRL
+                </td>
+                <!-- Column C: Right Flag -->
+                <td style="text-align: left; width: 10%; padding-left: 5px;"> <!-- Reduced padding-left -->
+                    <img src="https://i.imgur.com/kk38cAE.png" alt="Brazil Flag" style="width: 26px; height: 26px;">
+                </td>
+                <!-- Column D: ISO Currency -->
+                <td style="font-size: 18px; color: #ffffff; text-align: left; padding-left: 5px;"> <!-- Reduced padding-left -->
+                    $ {{ exchange_rates.cad_brl }}
+                </td>
+                <!-- Column E: Percentage Change -->
+                <td style="font-size: 16px; font-weight: bold; color: green; text-align: left; padding-left: 5px;"> <!-- Reduced padding-left -->
+                    {{ exchange_rates.cad_brl_change }}%
+                </td>
+                <!-- Column F: Placeholder -->
+                <td style="width: 35%;"></td>
+            </tr>
+
+            <!-- Currency Row 2 -->
+            <tr>
+                <!-- Column A: Left Flag -->
+                <td style="text-align: center; width: 10%;">
+                    <img src="https://i.imgur.com/U2Z7kwo.png" alt="USA Flag" style="width: 26px; height: 26px;">
+                </td>
+                <!-- Column B: Currency Codes -->
+                <td style="font-size: 18px; font-weight: bold; color: #ffffff; text-align: center; padding-left: 15px;">
+                    USD/BRL
+                </td>
+                <!-- Column C: Right Flag -->
+                <td style="text-align: left; width: 10%; padding-left: 5px;"> <!-- Reduced padding-left -->
+                    <img src="https://i.imgur.com/kk38cAE.png" alt="Brazil Flag" style="width: 26px; height: 26px;">
+                </td>
+                <!-- Column D: ISO Currency -->
+                <td style="font-size: 18px; color: #ffffff; text-align: left; padding-left: 5px;"> <!-- Reduced padding-left -->
+                    $ {{ exchange_rates.usd_brl }}
+                </td>
+                <!-- Column E: Percentage Change -->
+                <td style="font-size: 16px; font-weight: bold; color: green; text-align: left; padding-left: 5px;"> <!-- Reduced padding-left -->
+                    {{ exchange_rates.usd_brl_change }}%
+                </td>
+                <!-- Column F: Placeholder -->
+                <td style="width: 35%;"></td>
+            </tr>
+
+            <!-- Currency Row 3 -->
+            <tr>
+                <!-- Column A: Left Flag -->
+                <td style="text-align: center; width: 10%;">
+                    <img src="https://i.imgur.com/U2Z7kwo.png" alt="USA Flag" style="width: 26px; height: 26px;">
+                </td>
+                <!-- Column B: Currency Codes -->
+                <td style="font-size: 18px; font-weight: bold; color: #ffffff; text-align: center; padding-left: 15px;">
+                    USD/CAD
+                </td>
+                <!-- Column C: Right Flag -->
+                <td style="text-align: left; width: 10%; padding-left: 5px;"> <!-- Reduced padding-left -->
+                    <img src="https://i.imgur.com/wGiabgR.png" alt="Canada Flag" style="width: 26px; height: 26px;">
+                </td>
+                <!-- Column D: ISO Currency -->
+                <td style="font-size: 18px; color: #ffffff; text-align: left; padding-left: 5px;"> <!-- Reduced padding-left -->
+                    $ {{ exchange_rates.usd_cad }}
+                </td>
+                <!-- Column E: Percentage Change -->
+                <td style="font-size: 16px; font-weight: bold; color: red; text-align: left; padding-left: 5px;"> <!-- Reduced padding-left -->
+                    {{ exchange_rates.usd_cad_change }}%
+                </td>
+                <!-- Column F: Placeholder -->
+                <td style="width: 35%;"></td>
+            </tr>
+        </table>
+
+        <!-- Today's Highlights -->
+         <!--[if gte mso 9]>
+        <v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="true" style="width:100%;">
+        <v:fill type="tile" src="https://i.imgur.com/YiTaP2d.png" color="#fdfcf6" />
+        <v:stroke color="#cccccc" weight="1pt" />
+        <v:textbox inset="20px,20px,20px,20px">
+        <![endif]-->
+        <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-top: 20px; background-color: #fdfcf6; border: 1px solid #ccc; border-radius: 5px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+            <tr>
+                <td style="padding: 20px; background-image: url(''); background-size: cover; font-family: 'Times New Roman', serif;">
+                    <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+                        <tr>
+                            <td align="center" style="padding-bottom: 15px; border-bottom: 2px solid #333;">
+                                <h2 style="font-family: 'Georgia', serif; font-size: 24px; color: #333; margin: 0; text-transform: uppercase; letter-spacing: 1px;">Today's Highlights</h2>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding-top: 15px; font-family: 'Times New Roman', serif; color: #333; font-size: 18px; line-height: 1.6;">
+                                <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+                                    <tr>
+                                        <td width="20" valign="top" style="padding-right: 10px;">&#8226;</td>
+                                        <td>{{ data.highlight.point_1 }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="20" valign="top" style="padding-right: 10px;">&#8226;</td>
+                                        <td>{{ data.highlight.point_2 }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="20" valign="top" style="padding-right: 10px;">&#8226;</td>
+                                        <td>{{ data.highlight.point_3 }}</td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        <!--[if gte mso 9]>
+        </v:textbox>
+        </v:rect>
+        <![endif]-->
+
+        <!-- Motivational Quote -->
+        <!--[if gte mso 9]>
+        <v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:100%;">
+        <v:fill type="gradient" color="#e0d7af" color2="#a1b6a1" angle="90" />
+        <v:textbox inset="0,0,0,0">
+        <![endif]-->
+        <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-top: 10px;">
+            <tr>
+                <td style="padding: 10px; background-color: #e0d7af; background-image: linear-gradient(to right, #e0d7af, #a1b6a1); border-radius: 15px; box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);">
+                    <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+                        <tr>
+                            <td style="position: relative; overflow: hidden;">
+                                <!--[if gte mso 9]>
+                                <v:oval xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="position:absolute; left:-50px; top:-50px; width:150px; height:150px;">
+                                <v:fill type="solid" color="#ffffff" opacity="5%" />
+                                </v:oval>
+                                <v:oval xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="position:absolute; right:-40px; bottom:-40px; width:150px; height:150px;">
+                                <v:fill type="solid" color="#000000" opacity="5%" />
+                                </v:oval>
+                                <![endif]-->
+                                <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+                                    <tr>
+                                        <td width="70%" valign="middle" style="font-family: 'Georgia', serif; font-size: 24px; font-style: italic; color: #2d3436; letter-spacing: 1px; padding-left: 10px; border-left: 4px solid #a1b6a1;">
+                                            {{ motivational_quote.text }}
+                                        </td>
+                                        <td width="30%" valign="middle" align="center" style="padding-left: 10px;">
+                                            <img src={{ motivational_quote.author_pic }} alt="Author Pic" width="100" height="100" style="border-radius: 50%; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); margin-bottom: 10px; display: block;">
+                                            <p style="font-family: Arial, sans-serif; font-size: 18px; color: #333333; margin: 0; text-align: center;">
+                                                {{ motivational_quote.author }}
+                                            </p>
+                                            <p style="font-family: Arial, sans-serif; font-size: 16px; color: #666666; margin: 0; text-align: center;">
+                                                {{ motivational_quote.years }}
+                                            </p>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        <!--[if gte mso 9]>
+        </v:textbox>
+        </v:rect>
+        <![endif]-->
+
+        <!--Fun Fact  -->
+        <!--[if gte mso 9]>
+        <v:background xmlns:v="urn:schemas-microsoft-com:vml" fill="t">
+            <v:fill type="gradient" color="#FFECB3" color2="#FFCC80" angle="135"/>
+        </v:background>
+        <![endif]-->
+        <table cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-top: 20px;">
+            <tr>
+                <td>
+                    <!--[if gte mso 9]>
+                    <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:100%;" arcsize="10%">
+                    <v:fill type="gradient" color="#FFECB3" color2="#FFCC80" angle="135"/>
+                    <v:shadow on="t" color="#000000" opacity="20%" offset="10px,15px"/>
+                    <![endif]-->
+                    <table cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color: #FFECB3; background-image: linear-gradient(135deg, #FFECB3, #FFCC80); border-radius: 25px; box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1); position: relative; overflow: hidden;">
+                        <tr>
+                            <td style="padding: 20px;">
+                                <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                                    <tr>
+                                        <td width="50" valign="center" style="padding-right: 10px;">
+                                            <img src="https://i.imgur.com/gCDTlCa.png" alt="Fun Fact Icon" width="30" height="30" style="display: block;">
+                                        </td>
+                                        <td valign="middle">
+                                            <p style="font-family: Arial, sans-serif; font-size: 18px; color: #333333; line-height: 1.5; margin: 0;">
+                                                <span style="color: #ff7043; font-weight: bold;">Did you know?</span> {{ fun_fact }}
+                                            </p>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                    <!--[if gte mso 9]>
+                    </v:roundrect>
+                    <![endif]-->
+                </td>
+            </tr>
+        </table>
+
+        <!-- Joke -->
+        <!--[if gte mso 9]>
+        <v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:100%;">
+        <v:fill type="tile" color="#fef9c3" />
+        <v:textbox inset="0,0,0,0">
+        <![endif]-->
+        <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-top: 20px;">
+            <tr>
+                <td style="background-color: #fef9c3; border-radius: 12px; padding: 20px; text-align: center;">
+                    <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+                        <tr>
+                            <td style="padding: 20px;">
+                                <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+                                    <tr>
+                                        <td style="font-family: 'Fredoka', Arial, sans-serif; font-size: 24px; color: #e67e22; padding-bottom: 10px;">
+                                            Joke of the Day
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-family: 'Lato', Arial, sans-serif; font-size: 18px; color: #2c3e50; padding-bottom: 15px;">
+                                            {{ joke_of_the_day }}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-size: 24px; color: #f39c12; padding-top: 10px;">
+                                            &#128514;&#129315;&#128540;&#128518;&#128579;
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        <!--[if gte mso 9]>
+        </v:textbox>
+        </v:rect>
+        <![endif]--> 
+
+        <!-- English with Luca -->
+        <!--[if gte mso 9]>
+        <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:100%;" arcsize="10%">
+        <v:fill type="solid" color="#eaf4fe"/>
+        <v:shadow on="t" color="#000000" opacity="20%" offset="4px,8px"/>
+        <![endif]-->
+        <table cellpadding="0" cellspacing="0" border="0" width="100%" style="width: 100%; background-color: #eaf4fe; border-radius: 10px; padding: 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); margin-top: 20px;">
+            <tr>
+                <td colspan="2" style="text-align: center; font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 28px; color: #2c3e50; padding-top: 5px; padding-bottom: 15px;">
+                    English with Luca
+                </td>
+            </tr>
+            <tr>
+                <!-- Word of the Day Section -->
+                <td width="50%" valign="top" style="padding: 10px;">
+                    <table cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color: #ffffff; border-radius: 10px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+                        <tr>
+                            <td style="padding: 20px; border-left: 5px solid #eaf4fe;">
+                                <h2 style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 24px; margin-top: 0; margin-bottom: 15px;">
+                                    Word of the Day
+                                </h2>
+                                <h3 style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 28px; font-weight: bold; color: #2980b9; margin-top: 0; margin-bottom: 5px;">
+                                    {{ word_of_the_day.word }}
+                                </h3>
+                                <p style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 18px; color: #7f8c8d; margin-top: 0; margin-bottom: 10px;">
+                                    {{ word_of_the_day.pronunciation }}
+                                </p>
+                                <p style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 18px; color: #333; margin-top: 0; margin-bottom: 10px;">
+                                    {{ word_of_the_day.definition }}
+                                </p>
+                                <p style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 18px; font-style: italic; color: #333; margin-top: 0; margin-bottom: 0;">
+                                    <em>Example:</em> <strong>"{{ word_of_the_day.example }}"</strong>
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+
+                <!-- Tip of the Day Section -->
+                <td width="50%" valign="top" style="padding: 10px;">
+                    <table cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color: #ffffff; border-radius: 10px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+                        <tr>
+                            <td style="padding: 20px; border-left: 8px solid #eaf4fe; border-right: 8px solid #eaf4fe;">
+                                <h2 style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 24px; margin-top: 0; margin-bottom: 15px; padding-right: 10px; text-align: left;">
+                                    English Tip of the Day
+                                </h2>
+                                <table cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color: #ecf0f1;">
+                                    <tr>
+                                        <td style="padding: 10px; border-left: 5px solid #2980b9;">
+                                            <p style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 18px; color: #34495e; margin: 0;">
+                                                {{ english_tip_of_the_day }}
+                                            </p>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        <!--[if gte mso 9]>
+        </v:roundrect>
+        <![endif]-->
+
+        <!-- Top News -->
+        <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="max-width: 650px; margin: 20px auto; background-color: #f9f9f9; border-radius: 10px; padding: 20px;">
+            <tr>
+                <td>
+                    <h2 style="font-family: 'Georgia', serif; font-size: 32px; color: #2c3e50; text-align: center; margin-bottom: 20px; margin-top: 15px;">Top News</h2>
+                    
+                    <!-- Artificial Intelligence Category -->
+                    <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+                        <tr>
+                            <td style="font-family: 'Georgia', serif; font-size: 24px; color: #333333; padding-bottom: 5px; border-bottom: 1px solid #dddddd;">
+                                {{ news.topic.title }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding-top: 15px;">
+                                <!-- AI News Card 1 -->
+                                <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color: #f1f7f1; border-radius: 10px; border: 1px solid #ddd; border-left: 5px solid #1e90ff; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); margin-bottom: 25px;">
+                                    <tr>
+                                        <td style="padding: 25px;">
+                                            <h4 style="font-size: 22px; font-weight: bold; color: #2c3e50; margin-top: 0; margin-bottom: 15px; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);">
+                                                <a href="https://example.com/ai-healthcare" target="_blank" style="color: #2c3e50; text-decoration: none;">The Future of AI in Healthcare</a>
+                                            </h4>
+                                            <ul style="list-style-type: none; padding-left: 0; margin-top: 15px;">
+                                                <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
+                                                    <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
+                                                    AI improves diagnosis accuracy.
+                                                </li>
+                                                <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
+                                                    <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
+                                                    Reduces patient wait times.
+                                                </li>
+                                                <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
+                                                    <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
+                                                    Enhances personalized treatment.
+                                                </li>
+                                            </ul>
+                                            <a href="https://example.com/ai-healthcare" style="display: block; font-size: 16px; color: #1e90ff; text-decoration: none; margin-top: 10px;">Read More</a>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <!-- AI News Card 2 -->
+                                <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color: #f1f7f1; border-radius: 10px; border: 1px solid #ddd; border-left: 5px solid #1e90ff; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); margin-bottom: 25px;">
+                                    <tr>
+                                        <td style="padding: 25px;">
+                                            <h4 style="font-size: 22px; font-weight: bold; color: #2c3e50; margin-top: 0; margin-bottom: 15px; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);">
+                                                <a href="https://example.com/ai-ethics" target="_blank" style="color: #2c3e50; text-decoration: none;">AI Ethics and Governance</a>
+                                            </h4>
+                                            <ul style="list-style-type: none; padding-left: 0; margin-top: 15px;">
+                                                <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
+                                                    <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
+                                                    Challenges in AI decision-making.
+                                                </li>
+                                                <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
+                                                    <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
+                                                    Ethical guidelines development.
+                                                </li>
+                                                <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
+                                                    <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
+                                                    Global AI regulations impact.
+                                                </li>
+                                            </ul>
+                                            <a href="https://example.com/ai-ethics" style="display: block; font-size: 16px; color: #1e90ff; text-decoration: none; margin-top: 10px;">Read More</a>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <!-- AI News Card 3 -->
+                                <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color: #f1f7f1; border-radius: 10px; border: 1px solid #ddd; border-left: 5px solid #1e90ff; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); margin-bottom: 25px;">
+                                    <tr>
+                                        <td style="padding: 25px;">
+                                            <h4 style="font-size: 22px; font-weight: bold; color: #2c3e50; margin-top: 0; margin-bottom: 15px; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);">
+                                                <a href="https://example.com/ai-autonomous-vehicles" target="_blank" style="color: #2c3e50; text-decoration: none;">AI in Autonomous Vehicles</a>
+                                            </h4>
+                                            <ul style="list-style-type: none; padding-left: 0; margin-top: 15px;">
+                                                <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
+                                                    <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
+                                                    Improves road safety.
+                                                </li>
+                                                <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
+                                                    <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
+                                                    Reduces human error.
+                                                </li>
+                                                <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
+                                                    <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
+                                                    Advances in AI navigation.
+                                                </li>
+                                            </ul>
+                                            <a href="https://example.com/ai-autonomous-vehicles" style="display: block; font-size: 16px; color: #1e90ff; text-decoration: none; margin-top: 10px;">Read More</a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                    <!-- Design Category -->
+                    <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-top: 30px;">
+                        <tr>
+                            <td style="font-family: 'Georgia', serif; font-size: 24px; color: #333333; padding-bottom: 5px; border-bottom: 1px solid #dddddd;">
+                                {{ news.topic.title }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding-top: 15px;">
+                                <!-- Design News Card 1 -->
+                                <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color: #f1f7f1; border-radius: 10px; border: 1px solid #ddd; border-left: 5px solid #1e90ff; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); margin-bottom: 25px;">
+                                    <tr>
+                                        <td style="padding: 25px;">
+                                            <h4 style="font-size: 22px; font-weight: bold; color: #2c3e50; margin-top: 0; margin-bottom: 15px; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);">
+                                                <a href="https://example.com/minimalist-design" target="_blank" style="color: #2c3e50; text-decoration: none;">The Rise of Minimalist Design</a>
+                                            </h4>
+                                            <ul style="list-style-type: none; padding-left: 0; margin-top: 15px;">
+                                                <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
+                                                    <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
+                                                    Focus on simplicity.
+                                                </li>
+                                                <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
+                                                    <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
+                                                    Use of negative space.
+                                                </li>
+                                                <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
+                                                    <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
+                                                    Growing popularity in web design.
+                                                </li>
+                                            </ul>
+                                            <a href="https://example.com/minimalist-design" style="display: block; font-size: 16px; color: #1e90ff; text-decoration: none; margin-top: 10px;">Read More</a>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <!-- Design News Card 2 -->
+                                <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color: #f1f7f1; border-radius: 10px; border: 1px solid #ddd; border-left: 5px solid #1e90ff; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); margin-bottom: 25px;">
+                                    <tr>
+                                        <td style="padding: 25px;">
+                                            <h4 style="font-size: 22px; font-weight: bold; color: #2c3e50; margin-top: 0; margin-bottom: 15px; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);">
+                                                <a href="https://example.com/accessibility-design" target="_blank" style="color: #2c3e50; text-decoration: none;">Designing for Accessibility</a>
+                                            </h4>
+                                            <ul style="list-style-type: none; padding-left: 0; margin-top: 15px;">
+                                                <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
+                                                    <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
+                                                    Importance of inclusive design.
+                                                </li>
+                                                <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
+                                                    <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
+                                                    Techniques for better accessibility.
+                                                </li>
+                                                <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
+                                                    <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
+                                                    Examples of successful designs.
+                                                </li>
+                                            </ul>
+                                            <a href="https://example.com/accessibility-design" style="display: block; font-size: 16px; color: #1e90ff; text-decoration: none; margin-top: 10px;">Read More</a>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <!-- Design News Card 3 -->
+                                <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color: #f1f7f1; border-radius: 10px; border: 1px solid #ddd; border-left: 5px solid #1e90ff; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); margin-bottom: 25px;">
+                                    <tr>
+                                        <td style="padding: 25px;">
+                                            <h4 style="font-size: 22px; font-weight: bold; color: #2c3e50; margin-top: 0; margin-bottom: 15px; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);">
+                                                <a href="https://example.com/color-theory" target="_blank" style="color: #2c3e50; text-decoration: none;">The Impact of Color Theory</a>
+                                            </h4>
+                                            <ul style="list-style-type: none; padding-left: 0; margin-top: 15px;">
+                                                <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
+                                                    <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
+                                                    Color psychology in design.
+                                                </li>
+                                                <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
+                                                    <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
+                                                    Choosing the right color palette.
+                                                </li>
+                                                <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
+                                                    <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
+                                                    Impact on user experience.
+                                                </li>
+                                            </ul>
+                                            <a href="https://example.com/color-theory" style="display: block; font-size: 16px; color: #1e90ff; text-decoration: none; margin-top: 10px;">Read More</a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                    <!-- Visuals Category -->
+                    <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-top: 30px;">
+                        <tr>
+                            <td style="font-family: 'Georgia', serif; font-size: 24px; color: #333333; padding-bottom: 5px; border-bottom: 1px solid #dddddd;">
+                                Visuals
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding-top: 15px;">
+                                <!-- Visuals News Card 1 -->
+                                <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color: #f1f7f1; border-radius: 10px; border: 1px solid #ddd; border-left: 5px solid #1e90ff; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); margin-bottom: 25px;">
+                                    <tr>
+                                        <td style="padding: 25px;">
+                                            <h4 style="font-size: 22px; font-weight: bold; color: #2c3e50; margin-top: 0; margin-bottom: 15px; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);">
+                                                <a href="https://example.com/visual-storytelling" target="_blank" style="color: #2c3e50; text-decoration: none;">The Power of Visual Storytelling</a>
+                                            </h4>
+                                            <ul style="list-style-type: none; padding-left: 0; margin-top: 15px;">
+                                                <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
+                                                    <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
+                                                    Engages audience emotionally.
+                                                </li>
+                                                <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
+                                                    <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
+                                                    Simplifies complex ideas.
+                                                </li>
+                                                <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
+                                                    <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
+                                                    Visuals in branding and marketing.
+                                                </li>
+                                            </ul>
+                                            <a href="https://example.com/visual-storytelling" style="display: block; font-size: 16px; color: #1e90ff; text-decoration: none; margin-top: 10px;">Read More</a>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <!-- Visuals News Card 2 -->
+                                <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color: #f1f7f1; border-radius: 10px; border: 1px solid #ddd; border-left: 5px solid #1e90ff; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); margin-bottom: 25px;">
+                                    <tr>
+                                        <td style="padding: 25px;">
+                                            <h4 style="font-size: 22px; font-weight: bold; color: #2c3e50; margin-top: 0; margin-bottom: 15px; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);">
+                                                <a href="https://example.com/visual-design-trends" target="_blank" style="color: #2c3e50; text-decoration: none;">Trends in Visual Design 2024</a>
+                                            </h4>
+                                            <ul style="list-style-type: none; padding-left: 0; margin-top: 15px;">
+                                                <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
+                                                    <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
+                                                    Use of bold colors.
+                                                </li>
+                                                <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
+                                                    <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
+                                                    Rise of 3D elements.
+                                                </li>
+                                                <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
+                                                    <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
+                                                    Focus on micro-interactions.
+                                                </li>
+                                            </ul>
+                                            <a href="https://example.com/visual-design-trends" style="display: block; font-size: 16px; color: #1e90ff; text-decoration: none; margin-top: 10px;">Read More</a>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <!-- Visuals News Card 3 -->
+                                <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color: #f1f7f1; border-radius: 10px; border: 1px solid #ddd; border-left: 5px solid #1e90ff; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); margin-bottom: 25px;">
+                                    <tr>
+                                        <td style="padding: 25px;">
+                                            <h4 style="font-size: 22px; font-weight: bold; color: #2c3e50; margin-top: 0; margin-bottom: 15px; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);">
+                                                <a href="https://example.com/visuals-ux" target="_blank" style="color: #2c3e50; text-decoration: none;">Visuals and User Experience</a>
+                                            </h4>
+                                            <ul style="list-style-type: none; padding-left: 0; margin-top: 15px;">
+                                                <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
+                                                    <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
+                                                    Role of visuals in UI/UX.
+                                                </li>
+                                                <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
+                                                    <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
+                                                    Enhancing user engagement.
+                                                </li>
+                                                <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
+                                                    <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
+                                                    Balancing aesthetics and function.
+                                                </li>
+                                            </ul>
+                                            <a href="https://example.com/visuals-ux" style="display: block; font-size: 16px; color: #1e90ff; text-decoration: none; margin-top: 10px;">Read More</a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+        <!-- Challenge -->
+        <!--[if gte mso 9]>
+        <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:100%;" arcsize="10%">
+        <v:fill type="gradient" color="#b3e6f2" color2="#c6f2e0" angle="0"/>
+        <v:shadow on="t" color="#000000" opacity="10%" offset="4px,10px"/>
+        <![endif]-->
+        <table cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-top: 15px;">
+            <tr>
+                <td style="padding: 15px; background-color: #b3e6f2; background-image: linear-gradient(to right, #b3e6f2, #c6f2e0); border-radius: 10px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);">
+                    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                        <tr>
+                            <td width="50" style="vertical-align: top; padding-right: 15px;">
+                                <!--[if gte mso 9]>
+                                <v:image xmlns:v="urn:schemas-microsoft-com:vml" src="https://i.imgur.com/axKyg0G.png" style="width:50px;height:50px;" />
+                                <![endif]-->
+                                <!--[if !mso]><!-->
+                                <img src="https://i.imgur.com/axKyg0G.png" alt="Challenge Icon" width="50" height="50" style="display: block; max-width: 50px; filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));">
+                                <!--<![endif]-->
+                            </td>
+                            <td style="vertical-align: top;">
+                                <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                                    <tr>
+                                        <td style="font-family: 'Arial', sans-serif; font-size: 18px; color: #2c3e50; padding-bottom: 8px;">
+                                            Today's Challenge:
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <table cellpadding="0" cellspacing="0" border="0" style="margin-bottom: 10px;">
+                                                <tr>
+                                                    <td style="font-family: 'Arial', sans-serif; font-size: 22px; font-weight: 700; color: #2c3e50; text-align: left; position: relative; padding-bottom: 10px;">
+                                                        Read a book for 10 minutes today!
+                                                        <!--[if gte mso 9]>
+                                                        <v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="position:absolute;width:100%;height:4px;bottom:6px;">
+                                                        <v:fill type="solid" color="#ffe066"/>
+                                                        <v:shadow on="t" color="#000000" opacity="15%" offset="0,4px"/>
+                                                        </v:rect>
+                                                        <![endif]-->
+                                                        <!--[if !mso]><!-->
+                                                        <div style="position: absolute; bottom: 5px; left: 0; width: 100%; height: 4px; background-color: #ffe066; border-radius: 4px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);"></div>
+                                                        <!--<![endif]-->
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-family: 'Arial', sans-serif; font-size: 14px; color: #7f8c8d; font-style: italic;">
+                                            "Taking a few minutes to read can refresh your mind and spark creativity."
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        <!--[if gte mso 9]>
+        </v:roundrect>
+        <![endif]-->
+
+        <!-- History -->
+        <!--[if gte mso 9]>
+        <v:background xmlns:v="urn:schemas-microsoft-com:vml" fill="t">
+            <v:fill type="tile" src="assets/imgs/paper-texture.png" color="#f5f0e1"/>
+        </v:background>
+        <![endif]-->
+        <table cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-top: 30px;">
+            <tr>
+                <td>
+                    <table cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color: #f5f0e1; border-radius: 12px; box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);">
+                        <!--[if gte mso 9]>
+                        <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:100%;" arcsize="4%">
+                        <v:fill type="tile" src="assets/imgs/paper-texture.png" color="#f5f0e1"/>
+                        <v:shadow on="t" color="#000000" opacity="20%" offset="8px,15px"/>
+                        <![endif]-->
+                        <tr>
+                            <td style="padding: 30px;">
+                                <table cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color: rgba(255, 255, 255, 0.8); border: 1px solid #b08b5e; border-radius: 10px;">
+                                    <tr>
+                                        <td style="padding: 20px;">
+                                            <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                                                <tr>
+                                                    <td width="160" valign="top" style="padding-right: 25px;">
+                                                        <!--[if gte mso 9]>
+                                                        <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="true" strokecolor="#b08b5e" strokeweight="3px" style="width:160px;height:160px;">
+                                                        <v:fill type="frame" src="src/assets/imgs/event-image.png" color="#f5f0e1"/>
+                                                        <v:shadow on="t" color="#000000" opacity="20%" offset="6px,10px"/>
+                                                        </v:roundrect>
+                                                        <![endif]-->
+                                                        <!--[if !mso]><!-->
+                                                        <img src="src/assets/imgs/event-image.png" alt="Historical Event" width="160" style="display: block; border: 3px solid #b08b5e; border-radius: 10px; box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);">
+                                                        <!--<![endif]-->
+                                                    </td>
+                                                    <td valign="middle">
+                                                        <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                                                            <tr>
+                                                                <td align="center" style="font-family: Georgia, 'Times New Roman', serif; font-size: 12px; color: #8b5e34; padding-bottom: 10px;">✦</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="font-family: Georgia, 'Times New Roman', serif; font-size: 22px; font-weight: bold; color: #8b5e34; padding-bottom: 8px; font-style: italic;">
+                                                                    On this day in 1997
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="font-family: Georgia, 'Times New Roman', serif; font-size: 18px; line-height: 1.6; color: #3d2e24; font-weight: 500;">
+                                                                    Something significant happened that changed history in an unforgettable way.
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td align="center" style="font-family: Georgia, 'Times New Roman', serif; font-size: 12px; color: #8b5e34; padding-top: 10px;">✦</td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <!--[if gte mso 9]>
+                        </v:roundrect>
+                        <![endif]-->
+                    </table>
+                </td>
+            </tr>
+        </table>
+        
+        <!-- Breathing Gif -->
+        <!--[if gte mso 9]>
+        <v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:100%;">
+        <v:fill type="tile" color="#F5F5F5" />
+        <v:textbox inset="0,0,0,0">
+        <![endif]-->
+        <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-top: 20px;">
+            <tr>
+                <td style="padding: 20px; background-color: #F5F5F5; border-radius: 10px;">
+                    <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+                        <tr>
+                            <td align="center" style="padding-bottom: 10px;">
+                                <!--[if gte mso 9]>
+                                <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" style="height:auto;width:500px;" arcsize="10%" stroke="false" fillcolor="#FFFFFF">
+                                <w:anchorlock/>
+                                <v:textbox inset="0,0,0,0">
+                                <center>
+                                <![endif]-->
+                                <img src="https://i.imgur.com/tdwyPAr.gif" alt="Breathing GIF" width="500" style="width: 100%; max-width: 500px; height: auto; border-radius: 10px; display: block; border: 0;" />
+                                <!--[if gte mso 9]>
+                                </center>
+                                </v:textbox>
+                                </v:roundrect>
+                                <![endif]-->
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" style="font-family: 'Lato', Arial, sans-serif; font-size: 16px; color: #555555;">
+                                Just breathe!
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        <!--[if gte mso 9]>
+        </v:textbox>
+        </v:rect>
+        <![endif]-->
+
+        <!-- Footer -->
+        <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-top: 40px;">
+            <tr>
+                <td align="center" style="font-family: 'Roboto', Arial, sans-serif; color: #5a5a5a;">
+                    <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+                        <tr>
+                            <td align="center" style="padding-bottom: 15px;">
+                                <p style="font-family: 'Georgia', Times, serif; font-size: 24px; font-weight: normal; margin: 0; color: #333333;">
+                                    That's it for today. Have a great day! See you tomorrow.
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+        
+                    <!-- Unsubscribe Bar Styled like Header -->
+                    <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color: #e4ece1; border-top: 2px solid #2c3e50; margin-top: 5px;">
+                        <tr>
+                            <td align="center" style="padding: 10px;">
+                                <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                                    <tr>
+                                        <td style="padding: 5px 0;">
+                                            <a href="https://www.linkedin.com/in/lucianoaf8" target="_blank" style="display: inline-block; margin-right: 10px;">
+                                                <img src="https://i.imgur.com/E4nyPW1.png" alt="LinkedIn" width="24" height="24" style="display: block; border: 0;">
+                                            </a>
+                                        </td>
+                                        <td style="padding: 5px 0;">
+                                            <a href="https://github.com/lucianoaf8" target="_blank" style="display: inline-block; margin-right: 10px;">
+                                                <img src="https://i.imgur.com/gMpv4ZW.png" alt="GitHub" width="24" height="24" style="display: block; border: 0;">
+                                            </a>
+                                        </td>
+                                        <td style="padding: 5px 0;">
+                                            <a href="mailto:info@luca137.com" style="display: inline-block; margin-right: 10px;">
+                                                <img src="https://i.imgur.com/hzhoxLM.png" alt="Email" width="24" height="24" style="display: block; border: 0;">
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <tr>
+                                <td align="center" style="font-family: 'Roboto', Arial, sans-serif; font-size: 14px; color: #2c3e50; font-weight: bold; padding-bottom: 10px;">
+                                    <a href="mailto:newsletter@luca137.com?subject=Unsubscribe%20Me" style="color: #2c3e50; text-decoration: none; font-weight: bold;">
+                                        <span style="border-bottom: 1px solid #2c3e50;">Reply</span>
+                                    </a> to unsubscribe, report an error, or request a new feature
+                                </td>
+                            </tr>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>
