@@ -4,7 +4,7 @@ from utils.send_email import send_html_email
 
 # Prepare the HTML content
 html_content = load_html_and_inline_css(
-    "index.html"
+    r"C:\Projects\luca_newsletter_official\data\newsletter_ready\rendered_newsletter.html"
 )
 
 # Send the email

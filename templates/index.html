@@ -91,7 +91,7 @@
                         </td>
                         <td style="padding-left: 10px;">
                             <p style="font-family: 'Lato', sans-serif; font-size: 14px; color: #888888; text-align: right; margin: 0;">
-                                presented by <a href="https://luca137.com" style="color: #888888; text-decoration: underline;">Luca137</a>
+                                {{ presented_by }}<a href="https://luca137.com" style="color: #888888; text-decoration: underline;">Luca137</a>
                             </p>
                         </td>
                     </tr>
@@ -109,12 +109,12 @@
             <tr>
                 <!-- Top-Left Quadrant: Main Weather Information -->
                 <td width="50%" valign="center" style="padding: 15px; text-align: center;">
-                    <img src="https://i.imgur.com/91t4phy.png" alt="Sunny Day" width="80" height="80" style="display: block; margin: 0 auto 10px;">
+                    <img src={{ weather.icon }} alt="Sunny Day" width="80" height="80" style="display: block; margin: 0 auto 10px;">
                     <div style="font-size: 48px; font-family: 'Arial', sans-serif; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);">
                         {{ weather.temperature }}°C
                     </div>
                     <div style="font-size: 18px; font-family: 'Arial', sans-serif; margin-top: 10px; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);">
-                        Feels Like: {{ weather.feels_like }}°C
+                        {{ weather.feels_like_name }}: {{ weather.feels_like }}°C
                     </div>
                     <div style="font-size: 18px; font-family: 'Arial', sans-serif; margin-top: 10px; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);">
                         {{ weather.description }}
@@ -127,19 +127,19 @@
                         <tr>
                             <td style="padding-bottom: 8px;">
                                 <img src="https://i.imgur.com/9u12ZvL.png" alt="cloud cover" width="28" height="28" style="vertical-align: middle; margin-right: 10px;">
-                                <span style="font-family: 'Arial', sans-serif; font-size: 16px; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);">Cloud Cover: {{ weather.cloud_cover }}%</span>
+                                <span style="font-family: 'Arial', sans-serif; font-size: 16px; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);">{{ weather.cloud_cover_name }}: {{ weather.cloud_cover }}%</span>
                             </td>
                         </tr>
                         <tr>
                             <td style="padding-bottom: 8px;">
                                 <img src="https://i.imgur.com/GVFkwgh.png" alt="sunrise" width="28" height="28" style="vertical-align: middle; margin-right: 10px;">
-                                <span style="font-family: 'Arial', sans-serif; font-size: 16px; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);">Sunrise: {{ weather.sunrise }} AM</span>
+                                <span style="font-family: 'Arial', sans-serif; font-size: 16px; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);">{{ weather.sunrise_name }}: {{ weather.sunrise }} AM</span>
                             </td>
                         </tr>
                         <tr>
                             <td>
                                 <img src="https://i.imgur.com/jxyfxWW.png" alt="sunset" width="28" height="28" style="vertical-align: middle; margin-right: 10px;">
-                                <span style="font-family: 'Arial', sans-serif; font-size: 16px; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);">Sunset: {{ weather.sunset }} PM</span>
+                                <span style="font-family: 'Arial', sans-serif; font-size: 16px; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);">{{ weather.sunset_name }}: {{ weather.sunset }} PM</span>
                             </td>
                         </tr>
                     </table>
@@ -152,25 +152,25 @@
                         <tr>
                             <td style="padding-bottom: 8px;">
                                 <img src="https://i.imgur.com/E7zY6cJ.png" alt="humidity" width="28" height="28" style="vertical-align: middle; margin-right: 10px;">
-                                <span style="font-family: 'Arial', sans-serif; font-size: 16px; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);">Humidity: {{ weather.humidity }}%</span>
+                                <span style="font-family: 'Arial', sans-serif; font-size: 16px; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);">{{ weather.humidity_name }}: {{ weather.humidity }}%</span>
                             </td>
                         </tr>
                         <tr>
                             <td style="padding-bottom: 8px;">
                                 <img src="https://i.imgur.com/QtkIVJJ.png" alt="wind" width="28" height="28" style="vertical-align: middle; margin-right: 10px;">
-                                <span style="font-family: 'Arial', sans-serif; font-size: 16px; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);">Wind:  {{ weather.wind }} km/h NW</span>
+                                <span style="font-family: 'Arial', sans-serif; font-size: 16px; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);">{{ weather.wind_name }}:  {{ weather.wind }} km/h NW</span>
                             </td>
                         </tr>
                         <tr>
                             <td style="padding-bottom: 8px;">
                                 <img src="https://i.imgur.com/FFYknas.png" alt="precipitation" width="28" height="28" style="vertical-align: middle; margin-right: 10px;">
-                                <span style="font-family: 'Arial', sans-serif; font-size: 16px; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);">Precipitation: {{ weather.precipitation }}%</span>
+                                <span style="font-family: 'Arial', sans-serif; font-size: 16px; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);">{{ weather.precipitation_name }}: {{ weather.precipitation }}%</span>
                             </td>
                         </tr>
                         <tr>
                             <td>
                                 <img src="https://i.imgur.com/pe253k2.png" alt="uv index" width="28" height="28" style="vertical-align: middle; margin-right: 10px;">
-                                <span style="font-family: 'Arial', sans-serif; font-size: 16px; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);">UV Index: {{ weather.uv_index }}</span>
+                                <span style="font-family: 'Arial', sans-serif; font-size: 16px; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);">{{ weather.uv_index_name }}: {{ weather.uv_index }}</span>
                             </td>
                         </tr>
                     </table>
@@ -190,7 +190,7 @@
                     <![endif]-->
                     <!--[if !mso]><!-->
                     <div style="background-color: #ff6666; color: #ffffff; font-family: 'Arial', sans-serif; font-size: 18px; font-weight: bold; padding: 10px 20px; border: 2px solid #ff3333; border-radius: 10px; text-align: center; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3); display: inline-block; transform: rotate(-10deg);">
-                        Coming soon!
+                        {{ coming_soon }}
                     </div>
                     <!--<![endif]-->
                 </td>
@@ -201,7 +201,7 @@
         <table class="finance-highlights" style="width: 100%; background: #2c3e50; border-radius: 10px; padding: 20px; box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); color: white; box-sizing: border-box;">
             <tr>
                 <td colspan="6" style="text-align: center; font-size: 18px; font-weight: bold; color: #ffffff; padding-top: 10px; padding-bottom: 3px;">
-                    Exchange Rates
+                    {{ exchange_rates.header }}
                 </td>
             </tr>
 
@@ -428,12 +428,12 @@
                                 <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
                                     <tr>
                                         <td style="font-family: 'Fredoka', Arial, sans-serif; font-size: 24px; color: #e67e22; padding-bottom: 10px;">
-                                            Joke of the Day
+                                            {{ joke_of_the_day.header }}
                                         </td>
                                     </tr>
                                     <tr>
                                         <td style="font-family: 'Lato', Arial, sans-serif; font-size: 18px; color: #2c3e50; padding-bottom: 15px;">
-                                            {{ joke_of_the_day }}
+                                            {{ joke_of_the_day.joke }}
                                         </td>
                                     </tr>
                                     <tr>
@@ -528,7 +528,7 @@
                     <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
                         <tr>
                             <td style="font-family: 'Georgia', serif; font-size: 24px; color: #333333; padding-bottom: 5px; border-bottom: 1px solid #dddddd;">
-                                {{ news.topic.title }}
+                                {{ news.topic.1.title }}
                             </td>
                         </tr>
                         <tr>
@@ -538,23 +538,23 @@
                                     <tr>
                                         <td style="padding: 25px;">
                                             <h4 style="font-size: 22px; font-weight: bold; color: #2c3e50; margin-top: 0; margin-bottom: 15px; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);">
-                                                <a href="https://example.com/ai-healthcare" target="_blank" style="color: #2c3e50; text-decoration: none;">The Future of AI in Healthcare</a>
+                                                <a href="{{ news.topic.1.news.1.url }}" target="_blank" style="color: #2c3e50; text-decoration: none;">{{ news.topic.1.news.1.headline }}</a>
                                             </h4>
                                             <ul style="list-style-type: none; padding-left: 0; margin-top: 15px;">
                                                 <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
                                                     <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
-                                                    AI improves diagnosis accuracy.
+                                                    {{ news.topic.1.news.1.point.1 }}
                                                 </li>
                                                 <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
                                                     <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
-                                                    Reduces patient wait times.
+                                                    {{ news.topic.1.news.1.point.2 }}
                                                 </li>
                                                 <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
                                                     <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
-                                                    Enhances personalized treatment.
+                                                    {{ news.topic.1.news.1.point.3 }}
                                                 </li>
                                             </ul>
-                                            <a href="https://example.com/ai-healthcare" style="display: block; font-size: 16px; color: #1e90ff; text-decoration: none; margin-top: 10px;">Read More</a>
+                                            <a href={{ news.topic.1.news.1.url }} style="display: block; font-size: 16px; color: #1e90ff; text-decoration: none; margin-top: 10px;">Read More</a>
                                         </td>
                                     </tr>
                                 </table>
@@ -563,23 +563,23 @@
                                     <tr>
                                         <td style="padding: 25px;">
                                             <h4 style="font-size: 22px; font-weight: bold; color: #2c3e50; margin-top: 0; margin-bottom: 15px; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);">
-                                                <a href="https://example.com/ai-ethics" target="_blank" style="color: #2c3e50; text-decoration: none;">AI Ethics and Governance</a>
+                                                <a href={{ news.topic.1.news.2.url }} target="_blank" style="color: #2c3e50; text-decoration: none;">{{ news.topic.1.news.2.headline }}</a>
                                             </h4>
                                             <ul style="list-style-type: none; padding-left: 0; margin-top: 15px;">
                                                 <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
                                                     <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
-                                                    Challenges in AI decision-making.
+                                                    {{ news.topic.1.news.2.point.1 }}
                                                 </li>
                                                 <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
                                                     <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
-                                                    Ethical guidelines development.
+                                                    {{ news.topic.1.news.2.point.2 }}
                                                 </li>
                                                 <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
                                                     <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
-                                                    Global AI regulations impact.
+                                                    {{ news.topic.1.news.2.point.3 }}
                                                 </li>
                                             </ul>
-                                            <a href="https://example.com/ai-ethics" style="display: block; font-size: 16px; color: #1e90ff; text-decoration: none; margin-top: 10px;">Read More</a>
+                                            <a href="{{ news.topic.1.news.2.url }}" style="display: block; font-size: 16px; color: #1e90ff; text-decoration: none; margin-top: 10px;">Read More</a>
                                         </td>
                                     </tr>
                                 </table>
@@ -588,23 +588,23 @@
                                     <tr>
                                         <td style="padding: 25px;">
                                             <h4 style="font-size: 22px; font-weight: bold; color: #2c3e50; margin-top: 0; margin-bottom: 15px; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);">
-                                                <a href="https://example.com/ai-autonomous-vehicles" target="_blank" style="color: #2c3e50; text-decoration: none;">AI in Autonomous Vehicles</a>
+                                                <a href={{ news.topic.1.news.3.url }} target="_blank" style="color: #2c3e50; text-decoration: none;">{{ news.topic.1.news.3.headline }}</a>
                                             </h4>
                                             <ul style="list-style-type: none; padding-left: 0; margin-top: 15px;">
                                                 <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
                                                     <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
-                                                    Improves road safety.
+                                                    {{ news.topic.1.news.3.point.1 }}
                                                 </li>
                                                 <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
                                                     <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
-                                                    Reduces human error.
+                                                    {{ news.topic.1.news.3.point.2 }}
                                                 </li>
                                                 <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
                                                     <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
-                                                    Advances in AI navigation.
+                                                    {{ news.topic.1.news.3.point.3 }}
                                                 </li>
                                             </ul>
-                                            <a href="https://example.com/ai-autonomous-vehicles" style="display: block; font-size: 16px; color: #1e90ff; text-decoration: none; margin-top: 10px;">Read More</a>
+                                            <a href={{ news.topic.1.news.3.url }} style="display: block; font-size: 16px; color: #1e90ff; text-decoration: none; margin-top: 10px;">Read More</a>
                                         </td>
                                     </tr>
                                 </table>
@@ -615,7 +615,7 @@
                     <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-top: 30px;">
                         <tr>
                             <td style="font-family: 'Georgia', serif; font-size: 24px; color: #333333; padding-bottom: 5px; border-bottom: 1px solid #dddddd;">
-                                {{ news.topic.title }}
+                                {{ news.topic.2.title }}
                             </td>
                         </tr>
                         <tr>
@@ -625,23 +625,23 @@
                                     <tr>
                                         <td style="padding: 25px;">
                                             <h4 style="font-size: 22px; font-weight: bold; color: #2c3e50; margin-top: 0; margin-bottom: 15px; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);">
-                                                <a href="https://example.com/minimalist-design" target="_blank" style="color: #2c3e50; text-decoration: none;">The Rise of Minimalist Design</a>
+                                                <a href="https://example.com/minimalist-design" target="_blank" style="color: #2c3e50; text-decoration: none;">{{ news.topic.2.news.1.headline }}</a>
                                             </h4>
                                             <ul style="list-style-type: none; padding-left: 0; margin-top: 15px;">
                                                 <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
                                                     <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
-                                                    Focus on simplicity.
+                                                    {{ news.topic.2.news.1.point.1 }}
                                                 </li>
                                                 <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
                                                     <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
-                                                    Use of negative space.
+                                                    {{ news.topic.2.news.1.point.2 }}
                                                 </li>
                                                 <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
                                                     <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
-                                                    Growing popularity in web design.
+                                                    {{ news.topic.2.news.1.point.3 }}
                                                 </li>
                                             </ul>
-                                            <a href="https://example.com/minimalist-design" style="display: block; font-size: 16px; color: #1e90ff; text-decoration: none; margin-top: 10px;">Read More</a>
+                                            <a href={{ news.topic.2.news.1.url }} style="display: block; font-size: 16px; color: #1e90ff; text-decoration: none; margin-top: 10px;">Read More</a>
                                         </td>
                                     </tr>
                                 </table>
@@ -650,23 +650,23 @@
                                     <tr>
                                         <td style="padding: 25px;">
                                             <h4 style="font-size: 22px; font-weight: bold; color: #2c3e50; margin-top: 0; margin-bottom: 15px; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);">
-                                                <a href="https://example.com/accessibility-design" target="_blank" style="color: #2c3e50; text-decoration: none;">Designing for Accessibility</a>
+                                                <a href="{{ news.topic.2.news.2.url }}" target="_blank" style="color: #2c3e50; text-decoration: none;">{{ news.topic.2.news.2.headline }}</a>
                                             </h4>
                                             <ul style="list-style-type: none; padding-left: 0; margin-top: 15px;">
                                                 <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
                                                     <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
-                                                    Importance of inclusive design.
+                                                    {{ news.topic.2.news.2.point.1 }}
                                                 </li>
                                                 <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
                                                     <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
-                                                    Techniques for better accessibility.
+                                                    {{ news.topic.2.news.2.point.2 }}
                                                 </li>
                                                 <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
                                                     <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
-                                                    Examples of successful designs.
+                                                    {{ news.topic.2.news.2.point.3 }}
                                                 </li>
                                             </ul>
-                                            <a href="https://example.com/accessibility-design" style="display: block; font-size: 16px; color: #1e90ff; text-decoration: none; margin-top: 10px;">Read More</a>
+                                            <a href="{{ news.topic.2.news.2.url }}" style="display: block; font-size: 16px; color: #1e90ff; text-decoration: none; margin-top: 10px;">Read More</a>
                                         </td>
                                     </tr>
                                 </table>
@@ -675,23 +675,23 @@
                                     <tr>
                                         <td style="padding: 25px;">
                                             <h4 style="font-size: 22px; font-weight: bold; color: #2c3e50; margin-top: 0; margin-bottom: 15px; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);">
-                                                <a href="https://example.com/color-theory" target="_blank" style="color: #2c3e50; text-decoration: none;">The Impact of Color Theory</a>
+                                                <a href="{{ news.topic.2.news.3.url }}" target="_blank" style="color: #2c3e50; text-decoration: none;">{{ news.topic.2.news.3.headline }}</a>
                                             </h4>
                                             <ul style="list-style-type: none; padding-left: 0; margin-top: 15px;">
                                                 <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
                                                     <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
-                                                    Color psychology in design.
+                                                    {{ news.topic.2.news.3.point.1 }}
                                                 </li>
                                                 <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
                                                     <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
-                                                    Choosing the right color palette.
+                                                    {{ news.topic.2.news.3.point.2 }}
                                                 </li>
                                                 <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
                                                     <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
-                                                    Impact on user experience.
+                                                    {{ news.topic.2.news.3.point.3 }}
                                                 </li>
                                             </ul>
-                                            <a href="https://example.com/color-theory" style="display: block; font-size: 16px; color: #1e90ff; text-decoration: none; margin-top: 10px;">Read More</a>
+                                            <a href="{{ news.topic.2.news.3.url }}" style="display: block; font-size: 16px; color: #1e90ff; text-decoration: none; margin-top: 10px;">Read More</a>
                                         </td>
                                     </tr>
                                 </table>
@@ -702,7 +702,7 @@
                     <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-top: 30px;">
                         <tr>
                             <td style="font-family: 'Georgia', serif; font-size: 24px; color: #333333; padding-bottom: 5px; border-bottom: 1px solid #dddddd;">
-                                Visuals
+                                {{ news.topic.3.title }}
                             </td>
                         </tr>
                         <tr>
@@ -712,23 +712,23 @@
                                     <tr>
                                         <td style="padding: 25px;">
                                             <h4 style="font-size: 22px; font-weight: bold; color: #2c3e50; margin-top: 0; margin-bottom: 15px; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);">
-                                                <a href="https://example.com/visual-storytelling" target="_blank" style="color: #2c3e50; text-decoration: none;">The Power of Visual Storytelling</a>
+                                                <a href={{ news.topic.3.news.1.url }} target="_blank" style="color: #2c3e50; text-decoration: none;">{{ news.topic.3.news.1.headline }}</a>
                                             </h4>
                                             <ul style="list-style-type: none; padding-left: 0; margin-top: 15px;">
                                                 <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
                                                     <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
-                                                    Engages audience emotionally.
+                                                    {{ news.topic.3.news.1.point.1 }}
                                                 </li>
                                                 <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
                                                     <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
-                                                    Simplifies complex ideas.
+                                                    {{ news.topic.3.news.1.point.2 }}
                                                 </li>
                                                 <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
                                                     <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
-                                                    Visuals in branding and marketing.
+                                                    {{ news.topic.3.news.1.point.3 }}
                                                 </li>
                                             </ul>
-                                            <a href="https://example.com/visual-storytelling" style="display: block; font-size: 16px; color: #1e90ff; text-decoration: none; margin-top: 10px;">Read More</a>
+                                            <a href="{{ news.topic.3.news.1.url }}" style="display: block; font-size: 16px; color: #1e90ff; text-decoration: none; margin-top: 10px;">Read More</a>
                                         </td>
                                     </tr>
                                 </table>
@@ -737,23 +737,23 @@
                                     <tr>
                                         <td style="padding: 25px;">
                                             <h4 style="font-size: 22px; font-weight: bold; color: #2c3e50; margin-top: 0; margin-bottom: 15px; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);">
-                                                <a href="https://example.com/visual-design-trends" target="_blank" style="color: #2c3e50; text-decoration: none;">Trends in Visual Design 2024</a>
+                                                <a href={{ news.topic.3.news.2.url }} target="_blank" style="color: #2c3e50; text-decoration: none;">{{ news.topic.3.news.2.headline }}</a>
                                             </h4>
                                             <ul style="list-style-type: none; padding-left: 0; margin-top: 15px;">
                                                 <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
                                                     <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
-                                                    Use of bold colors.
+                                                    {{ news.topic.3.news.2.point.1 }}
                                                 </li>
                                                 <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
                                                     <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
-                                                    Rise of 3D elements.
+                                                    {{ news.topic.3.news.2.point.2 }}
                                                 </li>
                                                 <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
                                                     <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
-                                                    Focus on micro-interactions.
+                                                    {{ news.topic.3.news.2.point.3 }}
                                                 </li>
                                             </ul>
-                                            <a href="https://example.com/visual-design-trends" style="display: block; font-size: 16px; color: #1e90ff; text-decoration: none; margin-top: 10px;">Read More</a>
+                                            <a href="{{ news.topic.3.news.2.url }}" style="display: block; font-size: 16px; color: #1e90ff; text-decoration: none; margin-top: 10px;">Read More</a>
                                         </td>
                                     </tr>
                                 </table>
@@ -762,23 +762,23 @@
                                     <tr>
                                         <td style="padding: 25px;">
                                             <h4 style="font-size: 22px; font-weight: bold; color: #2c3e50; margin-top: 0; margin-bottom: 15px; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);">
-                                                <a href="https://example.com/visuals-ux" target="_blank" style="color: #2c3e50; text-decoration: none;">Visuals and User Experience</a>
+                                                <a href="{{ news.topic.3.news.3.url }}" target="_blank" style="color: #2c3e50; text-decoration: none;">{{ news.topic.3.news.3.headline }}</a>
                                             </h4>
                                             <ul style="list-style-type: none; padding-left: 0; margin-top: 15px;">
                                                 <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
                                                     <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
-                                                    Role of visuals in UI/UX.
+                                                    {{ news.topic.3.news.3.point.1 }}
                                                 </li>
                                                 <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
                                                     <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
-                                                    Enhancing user engagement.
+                                                    {{ news.topic.3.news.3.point.2 }}
                                                 </li>
                                                 <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
                                                     <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
-                                                    Balancing aesthetics and function.
+                                                    {{ news.topic.3.news.3.point.3 }}
                                                 </li>
                                             </ul>
-                                            <a href="https://example.com/visuals-ux" style="display: block; font-size: 16px; color: #1e90ff; text-decoration: none; margin-top: 10px;">Read More</a>
+                                            <a href={{ news.topic.3.news.3.url }} style="display: block; font-size: 16px; color: #1e90ff; text-decoration: none; margin-top: 10px;">Read More</a>
                                         </td>
                                     </tr>
                                 </table>
@@ -812,7 +812,7 @@
                                 <table cellpadding="0" cellspacing="0" border="0" width="100%">
                                     <tr>
                                         <td style="font-family: 'Arial', sans-serif; font-size: 18px; color: #2c3e50; padding-bottom: 8px;">
-                                            Today's Challenge:
+                                            {{ challenge.header }}
                                         </td>
                                     </tr>
                                     <tr>
@@ -820,7 +820,7 @@
                                             <table cellpadding="0" cellspacing="0" border="0" style="margin-bottom: 10px;">
                                                 <tr>
                                                     <td style="font-family: 'Arial', sans-serif; font-size: 22px; font-weight: 700; color: #2c3e50; text-align: left; position: relative; padding-bottom: 10px;">
-                                                        Read a book for 10 minutes today!
+                                                        {{ challenge.description }}
                                                         <!--[if gte mso 9]>
                                                         <v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="position:absolute;width:100%;height:4px;bottom:6px;">
                                                         <v:fill type="solid" color="#ffe066"/>
@@ -837,7 +837,7 @@
                                     </tr>
                                     <tr>
                                         <td style="font-family: 'Arial', sans-serif; font-size: 14px; color: #7f8c8d; font-style: italic;">
-                                            "Taking a few minutes to read can refresh your mind and spark creativity."
+                                            {{ challenge.motivation }}
                                         </td>
                                     </tr>
                                 </table>
@@ -881,7 +881,7 @@
                                                         </v:roundrect>
                                                         <![endif]-->
                                                         <!--[if !mso]><!-->
-                                                        <img src="src/assets/imgs/event-image.png" alt="Historical Event" width="160" style="display: block; border: 3px solid #b08b5e; border-radius: 10px; box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);">
+                                                        <img src={{ history.image }} alt="Historical Event" width="160" style="display: block; border: 3px solid #b08b5e; border-radius: 10px; box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);">
                                                         <!--<![endif]-->
                                                     </td>
                                                     <td valign="middle">
@@ -891,12 +891,12 @@
                                                             </tr>
                                                             <tr>
                                                                 <td style="font-family: Georgia, 'Times New Roman', serif; font-size: 22px; font-weight: bold; color: #8b5e34; padding-bottom: 8px; font-style: italic;">
-                                                                    On this day in 1997
+                                                                    On this day in {{ history.year }}
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <td style="font-family: Georgia, 'Times New Roman', serif; font-size: 18px; line-height: 1.6; color: #3d2e24; font-weight: 500;">
-                                                                    Something significant happened that changed history in an unforgettable way.
+                                                                    {{ history.event }}
                                                                 </td>
                                                             </tr>
                                                             <tr>
@@ -947,7 +947,7 @@
                         </tr>
                         <tr>
                             <td align="center" style="font-family: 'Lato', Arial, sans-serif; font-size: 16px; color: #555555;">
-                                Just breathe!
+                                {{ breathe.motivation }}
                             </td>
                         </tr>
                     </table>
@@ -967,7 +967,7 @@
                         <tr>
                             <td align="center" style="padding-bottom: 15px;">
                                 <p style="font-family: 'Georgia', Times, serif; font-size: 24px; font-weight: normal; margin: 0; color: #333333;">
-                                    That's it for today. Have a great day! See you tomorrow.
+                                    {{ footer.goodbye }}
                                 </p>
                             </td>
                         </tr>
@@ -1002,8 +1002,8 @@
                             <tr>
                                 <td align="center" style="font-family: 'Roboto', Arial, sans-serif; font-size: 14px; color: #2c3e50; font-weight: bold; padding-bottom: 10px;">
                                     <a href="mailto:newsletter@luca137.com?subject=Unsubscribe%20Me" style="color: #2c3e50; text-decoration: none; font-weight: bold;">
-                                        <span style="border-bottom: 1px solid #2c3e50;">Reply</span>
-                                    </a> to unsubscribe, report an error, or request a new feature
+                                        <span style="border-bottom: 1px solid #2c3e50;">{{ footer.reply }}</span>
+                                    </a> {{ footer.unsubscribe }}
                                 </td>
                             </tr>
                         </tr>

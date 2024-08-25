@@ -1,134 +1,110 @@
+# path: news_fetcher.py
 import os
-import sys
-import requests
 import json
+from newsapi import NewsApiClient
+from datetime import datetime
 from dotenv import load_dotenv
-from pathlib import Path
 
-sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
-from utils.logger_config import get_logger
-
-logger = get_logger('news_api')
-
-# Load .env file
+# Load .env file containing the NEWSAPI_KEY
 load_dotenv()
 
-def load_api_key():
-    """
-    Loads the API key from the .env file.
-    Raises an error if the key is missing.
-    """
-    api_key = os.getenv('MEDIASTACK_API')
+# Initialize the NewsAPI client
+def initialize_newsapi():
+    api_key = os.getenv('NEWSAPI_KEY')  # Ensure your API key is stored as an environment variable
     if not api_key:
-        raise ValueError("API key not found in .env file.")
-    return api_key
+        raise ValueError("API Key for NewsAPI not found.")
+    return NewsApiClient(api_key=api_key)
 
-def fetch_news_data(api_key, topic, country=None, region=None, language='en', limit=5):
-    """
-    Fetches the latest news for a given topic, country, and region using the Mediastack API.
-    
-    Parameters:
-    - api_key (str): The API key to authenticate requests.
-    - topic (str): The topic to search for.
-    - country (str): The country to filter the news (optional).
-    - region (str): The region to filter the news (optional).
-    - language (str): The language of the news articles (default is 'en').
-    - limit (int): The maximum number of news articles to return.
-    
-    Returns:
-    - dict: The JSON response from the API containing the news data.
-    """
-    url = 'http://api.mediastack.com/v1/news'
-    params = {
-        'access_key': api_key,
-        'keywords': topic,
-        'languages': language,
-        'countries': country,
-        'regions': region,
-        'sort': 'published_desc',
-        'limit': limit
-    }
-    
+# Fetch available news sources for the country
+def fetch_sources(country):
+    newsapi = initialize_newsapi()
+
     try:
-        response = requests.get(url, params=params)
-        response.raise_for_status()  # Raises HTTPError for bad responses
-        return response.json()
-    except requests.exceptions.HTTPError as http_err:
-        logger.error(f"HTTP error occurred: {http_err}")
-    except requests.exceptions.ConnectionError:
-        logger.error("Error: Unable to connect to the API.")
-    except requests.exceptions.Timeout:
-        logger.error("Error: Request timed out.")
-    except requests.exceptions.RequestException as err:
-        logger.error(f"An error occurred: {err}")
-    return None
+        # Fetch sources for the specified country
+        sources = newsapi.get_sources(country=country)
 
-def save_news_data_as_json(news_data, folder_path):
-    """
-    Saves the news data to a JSON file.
+        if sources.get('status') != 'ok':
+            print(f"Failed to fetch sources: {sources.get('message')}")
+            return []
 
-    Parameters:
-    - news_data (dict): The JSON response containing the news articles.
-    - folder_path (str): The directory where the news data will be saved.
-    """
-    # Create the folder if it doesn't exist
-    Path(folder_path).mkdir(parents=True, exist_ok=True)
+        # Return the sources list
+        return sources.get('sources', [])
+    except Exception as e:
+        print(f"An error occurred while fetching sources: {e}")
+        return []
+
+# Fetch top headlines based on the country (without language filter)
+def fetch_news(country, category=None, query=None):
+    newsapi = initialize_newsapi()
+
+    try:
+        # Log the parameters being used for the request
+        print(f"Fetching top headlines for country: {country}, category: {category or 'none'}, query: {query or 'none'}")
+
+        # Fetch articles with the maximum pageSize (100) and optional category or query
+        news = newsapi.get_top_headlines(
+            country=country, 
+            page_size=100, 
+            category=category, 
+            q=query
+        )
+        
+        # Check and log the API response status
+        if news.get('status') != 'ok':
+            print(f"Failed to fetch news: {news.get('message')}")
+            return None
+        
+        # Log total results and some metadata
+        print(f"Total results: {news.get('totalResults')}")
+        
+        return news
+    except Exception as e:
+        print(f"An error occurred while fetching news: {e}")
+        return None
+
+# Save news data to a JSON file with timestamp
+def save_news_to_json(data, country):
+    # Create the directory if it doesn't exist
+    folder_path = r"C:\Projects\luca_newsletter_official\data\fetched_results\top_news"
+    os.makedirs(folder_path, exist_ok=True)
+
+    # Get the current timestamp for the filename
+    timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+
+    # Create a filename with country and timestamp
+    file_name = f"news_{country}_{timestamp}.json"
+    file_path = os.path.join(folder_path, file_name)
+
+    # Save the data as a JSON file
+    with open(file_path, 'w', encoding='utf-8') as f:
+        json.dump(data, f, ensure_ascii=False, indent=4)
+
+    print(f"News data saved to {file_path}")
+
+# Main function
+def main(country, category=None, query=None):
+    # Fetch sources for the country
+    sources = fetch_sources(country)
+    if not sources:
+        print(f"No sources available for country: {country}")
+        return
     
-    # Define the file path
-    file_path = os.path.join(folder_path, 'news_data.json')
-    
-    if news_data:
-        try:
-            with open(file_path, 'w') as json_file:
-                json.dump(news_data, json_file, indent=4)
-            logger.info(f"News data saved to {file_path}")
-        except IOError as e:
-            logger.error(f"Failed to save news data to {file_path}: {e}")
-    else:
-        logger.error("No news data available to save.")
+    # List available sources
+    print(f"Available sources for {country}: {[source['name'] for source in sources]}")
 
-def display_news(news_data):
-    """
-    Displays the news articles from the JSON response.
+    # Fetch top headlines without language filter
+    news_data = fetch_news(country, category=category, query=query)
 
-    Parameters:
-    - news_data (dict): The JSON response containing the news articles.
-    """
-    if news_data and 'data' in news_data:
-        for article in news_data['data']:
-            logger.info(f"Title: {article['title']}")
-            logger.debug(f"Description: {article['description']}")
-            logger.debug(f"Source: {article['source']}")
-            logger.debug(f"URL: {article['url']}")
-            logger.debug(f"Published at: {article['published_at']}")
-            logger.debug("-" * 80)
-    else:
-        logger.debug("No news found for this topic or error in API response.")
+    if not news_data or 'articles' not in news_data or len(news_data['articles']) == 0:
+        print("No news articles found.")
+        return
 
-def get_latest_news(topic, country=None, region=None, language='en', limit=5, save_as_json=True):
-    """
-    Fetches and displays the latest news about a given topic, and optionally saves it as a JSON file.
-
-    Parameters:
-    - topic (str): The topic to search for.
-    - country (str): The country to filter the news (optional).
-    - region (str): The region to filter the news (optional).
-    - language (str): The language of the news articles (default is 'en').
-    - limit (int): The maximum number of news articles to fetch.
-    - save_as_json (bool): Whether to save the news data as a JSON file.
-    """
-    api_key = load_api_key()
-    news_data = fetch_news_data(api_key, topic, country, region, language, limit)
-    display_news(news_data)
-    
-    if save_as_json:
-        # Define the path where the data will be saved
-        folder_path = r"C:\Projects\luca_newsletter_official\scripts\apis\content_fetchers\data\top_news"
-        save_news_data_as_json(news_data, folder_path)
+    # Save the fetched news data to a JSON file
+    save_news_to_json(news_data, country)
 
 if __name__ == "__main__":
-    topic = "Cultura Pop"  # Example topic
-    country = "br"  # Example country
-    region = None  # Example region (optional)
-    language = "pt"  # Example language
-    get_latest_news(topic, country, region, language)
+    # Fetch top headlines from Canada and Brazil with category and query examples
+    main(country="ca", category="general")  # General news from Canada
+    main(country="br", category="entertainment")  # General news from Brazil
+    main(country="ca", query="politics")    # Specific query for politics in Canada
+    main(country="br", query="economia")     # Specific query for economy in Brazil

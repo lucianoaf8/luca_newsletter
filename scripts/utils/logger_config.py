@@ -1,3 +1,5 @@
+# C:\Projects\luca_newsletter_official\scripts\utils\logger_config.py
+
 import logging
 import os
 from datetime import datetime
