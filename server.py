@@ -1,93 +1,93 @@
-import json
-import logging
+import os
+import sys
 import time
 import webbrowser
-from http.server import SimpleHTTPRequestHandler
+from flask import Flask, render_template_string
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
-from jinja2 import Environment, FileSystemLoader
-from livereload import Server
+from threading import Thread
+from scripts.utils.content_loader import load_json_data, validate_data, load_html_template, render_template  # Import content loader functions
+from scripts.utils.logger_config import get_logger  # Your logger config
 
-# Set up logging
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+# Initialize logger
+logger = get_logger('server')
 
-class EmailTemplateHandler(SimpleHTTPRequestHandler):
-    def do_GET(self):
-        if self.path == '/':
-            self.path = '/index.html'
-        return SimpleHTTPRequestHandler.do_GET(self)
+app = Flask(__name__)
 
-def load_data():
+# Paths for content and template
+content_file_path = os.path.join(os.getcwd(), 'data', 'content_feeder', 'content.json')
+template_file_path = os.path.join(os.getcwd(), 'templates', 'template.html')
+
+# Serve the page by rendering the template with content data
+@app.route('/')
+def serve_newsletter():
     try:
-        with open('data.json', 'r') as f:
-            return json.load(f)
-    except FileNotFoundError:
-        logging.error("data.json file not found")
-        return {}
-    except json.JSONDecodeError:
-        logging.error("Error decoding data.json")
-        return {}
+        # Load and validate the JSON data
+        content = load_json_data(content_file_path)
+        validate_data(content)
 
-def render_template():
-    try:
-        env = Environment(loader=FileSystemLoader('.'))
-        template = env.get_template('templates/base.html')
-        data = load_data()
+        # Load the HTML template
+        template_content = load_html_template(template_file_path)
+
+        # Render the template with the loaded data
+        rendered_html = render_template(template_content, content)
         
-        with open('index.html', 'w') as f:
-            f.write(template.render(data=data))
-        logging.info("index.html rendered successfully")
+        return render_template_string(rendered_html)  # Using Flask to serve the rendered content
     except Exception as e:
-        logging.error(f"Error rendering template: {str(e)}")
+        logger.error(f"Error rendering template: {e}")
+        return "An error occurred while rendering the newsletter."
 
-class ChangeHandler(FileSystemEventHandler):
-    def __init__(self):
-        self.last_modified = {}
+# Watchdog event handler to track file changes
+class ReloadHandler(FileSystemEventHandler):
+    def __init__(self, app):
+        self.app = app
 
     def on_modified(self, event):
-        if event.is_directory:
-            return
-        if event.src_path.endswith(('.html', '.css', '.json')):
-            current_time = time.time()
-            if event.src_path not in self.last_modified or current_time - self.last_modified[event.src_path] > 1:
-                self.last_modified[event.src_path] = current_time
-                logging.info(f"File {event.src_path} has been changed")
-                if event.src_path.endswith(('.html', '.json')):
-                    render_template()
+        try:
+            if event.src_path == content_file_path or event.src_path == template_file_path:
+                with app.app_context():
+                    # Reload the template and content
+                    logger.info(f'{event.src_path} modified, reloading page...')
+                    self.app.jinja_env.cache.clear()
+        except Exception as e:
+            logger.error(f"Error while reloading due to file changes: {e}")
 
-def watch_files():
-    event_handler = ChangeHandler()
-    observer = Observer()
-    observer.schedule(event_handler, path='.', recursive=True)
-    observer.start()
+# Start the Flask server in a separate thread
+def start_server():
     try:
-        while True:
-            time.sleep(1)
-    except KeyboardInterrupt:
-        observer.stop()
-    observer.join()
+        # Open the browser after a small delay to ensure the server is running
+        time.sleep(1)
+        webbrowser.open('http://localhost:5000')
+        logger.info("Browser opened at http://localhost:5000")
+        app.run(debug=True, use_reloader=False)
+    except Exception as e:
+        logger.error(f"Error starting Flask server: {e}")
 
-def open_browser():
-    webbrowser.open('http://localhost:8000')
+# Monitor template.html and content.json for changes
+def monitor_files():
+    try:
+        event_handler = ReloadHandler(app)
+        observer = Observer()
+        observer.schedule(event_handler, path=os.path.dirname(content_file_path), recursive=False)
+        observer.schedule(event_handler, path=os.path.dirname(template_file_path), recursive=False)
+        observer.start()
+        logger.info("Started file monitoring for content and template changes.")
+        try:
+            while True:
+                time.sleep(1)
+        except KeyboardInterrupt:
+            observer.stop()
+        observer.join()
+    except Exception as e:
+        logger.error(f"Error during file monitoring: {e}")
 
 if __name__ == '__main__':
-    render_template()
-    
-    # Set up livereload server
-    server = Server()
-    server.watch('index.html')
-    server.watch('css/')
-    server.watch('sections/')
-    server.watch('data.json')
-    
-    # Start file watcher in a separate thread
-    import threading
-    watcher_thread = threading.Thread(target=watch_files)
-    watcher_thread.start()
-    
-    # Open the browser after a short delay
-    threading.Timer(1.0, open_browser).start()
-    
-    # Serve the application
-    logging.info("Starting server at http://localhost:8000")
-    server.serve(root='.', port=8000, host='localhost')
+    try:
+        # Start Flask server in a separate thread
+        server_thread = Thread(target=start_server)
+        server_thread.start()
+
+        # Start file monitoring
+        monitor_files()
+    except Exception as e:
+        logger.error(f"Critical error in main execution: {e}")

@@ -1,8 +1,9 @@
+# scripts\utils\content_loader.py
+
 import json
 import jinja2
 import os
 import sys
-from pprint import pformat
 
 # Add the parent directory of 'scripts' to the Python path
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
@@ -13,7 +14,7 @@ from scripts.utils.logger_config import get_logger
 logger = get_logger("content_loader")
 
 JSON_FILE_PATH = r"C:\Projects\luca_newsletter_official\data\content_feeder\content.json"
-TEMPLATE_FILE_PATH = r"C:\Projects\luca_newsletter_official\templates\index.html"
+TEMPLATE_FILE_PATH = r"C:\Projects\luca_newsletter_official\templates\template.html"
 OUTPUT_FILE_PATH = r"C:\Projects\luca_newsletter_official\data\newsletter_ready\rendered_newsletter.html"
 
 def convert_string_to_int_keys(data):
@@ -26,11 +27,11 @@ def convert_string_to_int_keys(data):
 
 def load_json_data(file_path):
     try:
-        with open(file_path, 'r') as file:
+        # Explicitly specify 'utf-8' encoding when reading the JSON file
+        with open(file_path, 'r', encoding='utf-8') as file:
             data = json.load(file)
         logger.info(f"Successfully loaded JSON data from {file_path}")
         data = convert_string_to_int_keys(data)
-        logger.debug(f"JSON data structure after key conversion:\n{pformat(data)}")
         return data
     except FileNotFoundError:
         logger.error(f"JSON file not found: {file_path}")
@@ -41,7 +42,8 @@ def load_json_data(file_path):
 
 def load_html_template(file_path):
     try:
-        with open(file_path, 'r') as file:
+        # Explicitly specify 'utf-8' encoding when reading the HTML template
+        with open(file_path, 'r', encoding='utf-8') as file:
             template = file.read()
         logger.info(f"Successfully loaded HTML template from {file_path}")
         return template
