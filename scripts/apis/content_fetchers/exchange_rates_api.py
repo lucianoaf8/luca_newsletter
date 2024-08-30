@@ -1,126 +1,121 @@
 import os
+import sys
 import json
 from datetime import datetime, timedelta
-import freecurrencyapi
+import requests
 from dotenv import load_dotenv
-import sys
-sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
-from utils.logger_config import get_logger
+
+# Add the project root to the Python path
+project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..'))
+sys.path.insert(0, project_root)
+
+from scripts.utils.logger_config import get_logger
+from scripts.utils.db_insert_api_calls import insert_api_response
+
+# Load environment variables
+load_dotenv()
 
 # Initialize logger
-logger = get_logger('fetch_exchange_rates')
+logger = get_logger(__name__)
 
-def get_api_key():
-    """Fetch the API key from environment variables."""
-    logger.info("Attempting to load API key from environment variables")
-    api_key = os.getenv('FREECURRENCYAPI_KEY')
-    if not api_key:
-        logger.error('API Key not found in environment variables. Please check your .env file.')
-        raise ValueError("API Key is missing")
-    logger.info("API key loaded successfully")
-    return api_key
+# Constants
+BASE_URL_HISTORICAL = 'https://api.freecurrencyapi.com/v1/historical'
+BASE_URL_LATEST = 'https://api.freecurrencyapi.com/v1/latest'
+API_KEY = os.getenv('FREECURRENCYAPI_KEY')
 
-def fetch_exchange_rates(client, base_currency, currencies, date=None):
-    """Fetch the latest or historical exchange rates for specified currencies."""
-    if date:
-        logger.info(f"Fetching historical exchange rates for {date} for currencies: {currencies}")
-        result = client.historical(date=date, base_currency=base_currency, currencies=currencies)
+def fetch_currency_data(url, params):
+    try:
+        response = requests.get(url, params=params)
+        response.raise_for_status()
+        return response.json()
+    except requests.RequestException as e:
+        logger.error(f"API request failed: {e}")
+        raise
+
+def calculate_rate(from_currency, to_currency, data):
+    if from_currency == 'USD':
+        return data[to_currency]
+    elif to_currency == 'USD':
+        return 1 / data[from_currency]
     else:
-        logger.info(f"Fetching latest exchange rates for currencies: {currencies}")
-        result = client.latest(base_currency=base_currency, currencies=currencies)
-    return result
+        return data[to_currency] / data[from_currency]
 
-def process_exchange_rates(result, currencies):
-    """Process and log the fetched exchange rates."""
-    logger.info("Processing fetched exchange rates")
-    exchange_rates = {}
-    for currency in currencies:
-        rate = result['data'].get(currency)
-        if rate:
-            exchange_rates[currency] = rate
-            logger.info(f"{result['meta']['base_currency']} to {currency} = {rate}")
-        else:
-            logger.warning(f"Exchange rate for {currency} not found in the response")
-    return exchange_rates
+def calculate_percentage_difference(yesterday_rate, today_rate):
+    return ((today_rate - yesterday_rate) / yesterday_rate) * 100
 
-def calculate_percentage_change(current_rate, previous_rate):
-    """Calculate the percentage change between two rates."""
-    if previous_rate == 0:
-        return 0.0
-    return ((current_rate - previous_rate) / previous_rate) * 100
+def process_exchange_rates():
+    today = datetime.now().strftime('%Y-%m-%d')
+    yesterday = (datetime.now() - timedelta(days=1)).strftime('%Y-%m-%d')
 
-def save_json_response(data, output_dir='data/fetched_results/exchange_rates'):
-    """Save the entire JSON response to a file."""
-    os.makedirs(output_dir, exist_ok=True)
+    # Fetch yesterday's data
+    params_yesterday = {
+        'apikey': API_KEY,
+        'date': yesterday,
+        'base_currency': 'USD',
+        'currencies': 'CAD,BRL'
+    }
+    yesterday_data = fetch_currency_data(BASE_URL_HISTORICAL, params_yesterday)['data'][yesterday]
+
+    # Fetch today's data
+    params_today = {
+        'apikey': API_KEY,
+        'base_currency': 'USD',
+        'currencies': 'CAD,BRL'
+    }
+    today_data = fetch_currency_data(BASE_URL_LATEST, params_today)['data']
+
+    # Calculate rates and differences
+    currency_pairs = [('USD', 'BRL'), ('CAD', 'BRL'), ('USD', 'CAD')]
+    output = {}
+
+    for from_currency, to_currency in currency_pairs:
+        pair_key = f"{from_currency}_to_{to_currency}"
+        yesterday_rate = calculate_rate(from_currency, to_currency, yesterday_data)
+        today_rate = calculate_rate(from_currency, to_currency, today_data)
+        diff = calculate_percentage_difference(yesterday_rate, today_rate)
+
+        output[pair_key] = {
+            'yesterday': round(yesterday_rate, 4),
+            'today': round(today_rate, 4),
+            'percentage_difference': round(diff, 2)
+        }
+
+    return output
+
+def save_output(output):
     timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-    filename = f"exchange_rates_{timestamp}.json"
-    file_path = os.path.join(output_dir, filename)
-    
+    filename = f'exchange_rates_{timestamp}.json'
+    file_path = os.path.join(project_root, 'data', 'fetched_results', 'exchange_rates', filename)
+
+    os.makedirs(os.path.dirname(file_path), exist_ok=True)
+
     with open(file_path, 'w') as f:
-        json.dump(data, f, indent=2)
-    
-    logger.info(f"Saved JSON response to {file_path}")
+        json.dump(output, f, indent=4)
+
+    logger.info(f"Output saved to {file_path}")
+    return file_path
 
 def main():
     try:
-        # Load environment variables
-        load_dotenv()
-        logger.info("Environment variables loaded")
+        output = process_exchange_rates()
 
-        # Get API key
-        api_key = get_api_key()
-
-        # Initialize the FreeCurrencyAPI client
-        client = freecurrencyapi.Client(api_key)
-        logger.info("FreeCurrencyAPI client initialized")
-
-        # Define base currency and currencies to fetch
-        base_currency = 'USD'
-        currencies = ['CAD', 'BRL']
-
-        # Fetch today's exchange rates
-        result_today = fetch_exchange_rates(client, base_currency, currencies)
-
-        # Fetch yesterday's exchange rates
-        yesterday = (datetime.now() - timedelta(days=1)).strftime('%Y-%m-%d')
-        result_yesterday = fetch_exchange_rates(client, base_currency, currencies, date=yesterday)
-
-        # Process exchange rates
-        exchange_rates_today = process_exchange_rates(result_today, currencies)
-        exchange_rates_yesterday = process_exchange_rates(result_yesterday, currencies)
-
-        # Calculate percentage changes and prepare final data
-        final_data = {
-            'base_currency': base_currency,
-            'date': datetime.now().strftime('%Y-%m-%d'),
-            'exchange_rates': {}
+        # Prepare the combined payload
+        payload = {
+            'base_currency': 'USD',
+            'target_currencies': ['CAD', 'BRL'],
+            'date_range': {
+                'from': (datetime.now() - timedelta(days=1)).strftime('%Y-%m-%d'),
+                'to': datetime.now().strftime('%Y-%m-%d')
+            }
         }
 
-        for currency in currencies:
-            if currency in exchange_rates_today and currency in exchange_rates_yesterday:
-                rate_today = exchange_rates_today[currency]
-                rate_yesterday = exchange_rates_yesterday[currency]
-                change = calculate_percentage_change(rate_today, rate_yesterday)
-                final_data['exchange_rates'][currency] = {
-                    'rate': rate_today,
-                    'rate_yesterday': rate_yesterday,
-                    'percentage_change': round(change, 4)
-                }
+        # Log the single API call with the final output
+        script_path = os.path.abspath(__file__)
+        insert_api_response(script_path, payload, output)
         
-        # Save the response
-        save_json_response(final_data)
-
-        # Print results
-        print("Exchange rates and percentage changes:")
-        for currency, details in final_data['exchange_rates'].items():
-            print(f"{base_currency} to {currency}: Today's rate = {details['rate']}, Yesterday's rate = {details['rate_yesterday']}, Change = {details['percentage_change']}%")
-
-    except ValueError as ve:
-        logger.error(f"Value Error: {ve}")
+        logger.info("Exchange rates processed and saved successfully")
     except Exception as e:
-        logger.error(f"Unexpected error: {e}")
-    finally:
-        logger.info("Script execution completed")
+        logger.error(f"An error occurred in main: {e}")
 
 if __name__ == "__main__":
     main()
