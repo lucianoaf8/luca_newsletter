@@ -1,13 +1,11 @@
 import os
 import json
-from datetime import datetime
+from datetime import datetime, timedelta
 import freecurrencyapi
 from dotenv import load_dotenv
 import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 from utils.logger_config import get_logger
-
-
 
 # Initialize logger
 logger = get_logger('fetch_exchange_rates')
@@ -22,16 +20,15 @@ def get_api_key():
     logger.info("API key loaded successfully")
     return api_key
 
-def fetch_exchange_rates(client, currencies):
-    """Fetch the latest exchange rates for specified currencies."""
-    logger.info(f"Fetching exchange rates for currencies: {currencies}")
-    try:
-        result = client.latest(currencies=currencies)
-        logger.info("Exchange rates fetched successfully")
-        return result
-    except Exception as e:
-        logger.error(f"Error fetching exchange rates: {e}")
-        raise
+def fetch_exchange_rates(client, base_currency, currencies, date=None):
+    """Fetch the latest or historical exchange rates for specified currencies."""
+    if date:
+        logger.info(f"Fetching historical exchange rates for {date} for currencies: {currencies}")
+        result = client.historical(date=date, base_currency=base_currency, currencies=currencies)
+    else:
+        logger.info(f"Fetching latest exchange rates for currencies: {currencies}")
+        result = client.latest(base_currency=base_currency, currencies=currencies)
+    return result
 
 def process_exchange_rates(result, currencies):
     """Process and log the fetched exchange rates."""
@@ -41,48 +38,28 @@ def process_exchange_rates(result, currencies):
         rate = result['data'].get(currency)
         if rate:
             exchange_rates[currency] = rate
-            logger.info(f"USD to {currency} = {rate}")
+            logger.info(f"{result['meta']['base_currency']} to {currency} = {rate}")
         else:
             logger.warning(f"Exchange rate for {currency} not found in the response")
     return exchange_rates
 
-def calculate_cross_rate(exchange_rates, from_currency, to_currency):
-    """Calculate the cross-rate between two currencies."""
-    if from_currency not in exchange_rates or to_currency not in exchange_rates:
-        logger.error(f"Cannot calculate cross-rate: missing data for {from_currency} or {to_currency}")
-        return None
-    
-    # Calculate cross-rate
-    if from_currency == 'USD':
-        cross_rate = exchange_rates[to_currency]
-    elif to_currency == 'USD':
-        cross_rate = 1 / exchange_rates[from_currency]
-    else:
-        cross_rate = exchange_rates[to_currency] / exchange_rates[from_currency]
-    
-    logger.info(f"Calculated cross-rate: 1 {from_currency} = {cross_rate:.4f} {to_currency}")
-    return cross_rate
+def calculate_percentage_change(current_rate, previous_rate):
+    """Calculate the percentage change between two rates."""
+    if previous_rate == 0:
+        return 0.0
+    return ((current_rate - previous_rate) / previous_rate) * 100
 
-def save_json_response(data, currency_pairs):
-    """Save the entire JSON response along with cross-rates to a file."""
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    data_dir = os.path.join(script_dir, 'data', 'exchange_rates')
-    os.makedirs(data_dir, exist_ok=True)
-    
+def save_json_response(data, output_dir='data/fetched_results/exchange_rates'):
+    """Save the entire JSON response to a file."""
+    os.makedirs(output_dir, exist_ok=True)
     timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
     filename = f"exchange_rates_{timestamp}.json"
-    file_path = os.path.join(data_dir, filename)
-    
-    # Add cross-rates to the data
-    data['cross_rates'] = {
-        f"{from_currency}_to_{to_currency}": rate
-        for (from_currency, to_currency), rate in currency_pairs.items()
-    }
+    file_path = os.path.join(output_dir, filename)
     
     with open(file_path, 'w') as f:
         json.dump(data, f, indent=2)
     
-    logger.info(f"Saved JSON response with cross-rates to {file_path}")
+    logger.info(f"Saved JSON response to {file_path}")
 
 def main():
     try:
@@ -97,36 +74,46 @@ def main():
         client = freecurrencyapi.Client(api_key)
         logger.info("FreeCurrencyAPI client initialized")
 
-        # Define currencies to fetch
-        currencies = ['USD', 'CAD', 'BRL']
+        # Define base currency and currencies to fetch
+        base_currency = 'USD'
+        currencies = ['CAD', 'BRL']
 
-        # Define currency pairs to calculate
-        currency_pairs = [
-            ('CAD', 'BRL'),
-            ('USD', 'BRL'),
-            ('USD', 'CAD')
-        ]
+        # Fetch today's exchange rates
+        result_today = fetch_exchange_rates(client, base_currency, currencies)
 
-        # Fetch exchange rates
-        result = fetch_exchange_rates(client, currencies)
+        # Fetch yesterday's exchange rates
+        yesterday = (datetime.now() - timedelta(days=1)).strftime('%Y-%m-%d')
+        result_yesterday = fetch_exchange_rates(client, base_currency, currencies, date=yesterday)
 
         # Process exchange rates
-        exchange_rates = process_exchange_rates(result, currencies)
+        exchange_rates_today = process_exchange_rates(result_today, currencies)
+        exchange_rates_yesterday = process_exchange_rates(result_yesterday, currencies)
 
-        # Calculate cross-rates
-        cross_rates = {}
-        for from_currency, to_currency in currency_pairs:
-            rate = calculate_cross_rate(exchange_rates, from_currency, to_currency)
-            if rate:
-                cross_rates[(from_currency, to_currency)] = rate
+        # Calculate percentage changes and prepare final data
+        final_data = {
+            'base_currency': base_currency,
+            'date': datetime.now().strftime('%Y-%m-%d'),
+            'exchange_rates': {}
+        }
 
-        # Save the response along with cross-rates
-        save_json_response(result, cross_rates)
+        for currency in currencies:
+            if currency in exchange_rates_today and currency in exchange_rates_yesterday:
+                rate_today = exchange_rates_today[currency]
+                rate_yesterday = exchange_rates_yesterday[currency]
+                change = calculate_percentage_change(rate_today, rate_yesterday)
+                final_data['exchange_rates'][currency] = {
+                    'rate': rate_today,
+                    'rate_yesterday': rate_yesterday,
+                    'percentage_change': round(change, 4)
+                }
+        
+        # Save the response
+        save_json_response(final_data)
 
         # Print results
-        print("Exchange rates:")
-        for (from_currency, to_currency), rate in cross_rates.items():
-            print(f"1 {from_currency} = {rate:.4f} {to_currency}")
+        print("Exchange rates and percentage changes:")
+        for currency, details in final_data['exchange_rates'].items():
+            print(f"{base_currency} to {currency}: Today's rate = {details['rate']}, Yesterday's rate = {details['rate_yesterday']}, Change = {details['percentage_change']}%")
 
     except ValueError as ve:
         logger.error(f"Value Error: {ve}")

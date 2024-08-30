@@ -1,11 +1,18 @@
+# scripts\apis\content_fetchers\weather_api.py
+
 import sys
 import os
 import json
 import requests
 from datetime import datetime
 from dotenv import load_dotenv
-sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
-from utils.logger_config import get_logger
+
+# Add the project root to the Python path
+project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..'))
+sys.path.insert(0, project_root)
+
+from scripts.utils.logger_config import get_logger  # noqa: E402
+from scripts.utils.db_insert_api_calls import insert_api_response # noqa: E402
 
 # Load environment variables from .env file
 load_dotenv()
@@ -38,8 +45,8 @@ def fetch_weather_data(api_key, location):
 
 def save_json_response(data, location):
     """Save the entire JSON response to a file."""
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    data_dir = os.path.join(script_dir, 'data', 'fetched_results')
+    script_dir = os.getcwd()
+    data_dir = os.path.join(script_dir, 'data', 'fetched_results', 'weather_api')
     os.makedirs(data_dir, exist_ok=True)
     
     timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
@@ -50,6 +57,7 @@ def save_json_response(data, location):
         json.dump(data, f, indent=2)
     
     logger.info(f"Saved entire JSON response to {file_path}")
+    return timestamp
 
 def process_weather_data(weather_data, location):
     """Process and log the weather data."""
@@ -69,7 +77,13 @@ def main(location):
         api_key = get_api_key()
         weather_data = fetch_weather_data(api_key, location)
         process_weather_data(weather_data, location)
-        save_json_response(weather_data, location)
+        
+        # Insert into api_calls table
+        script_path = os.path.abspath(__file__)
+        payload = {'location': location, 'units': 'metric'}
+        custom_params = f"location={location}&units=metric"
+        insert_api_response(script_path, payload, weather_data, custom_params)
+        
     except requests.exceptions.HTTPError as http_err:
         logger.error(f"HTTP error occurred for {location}: {http_err}")
     except requests.exceptions.ConnectionError:
@@ -86,5 +100,5 @@ def main(location):
         logger.info(f"Script execution finished for {location}.")
 
 if __name__ == "__main__":
-    location = "Belo Horizonte Minas Gerais"  # You can change this to any location (city, lat/lon, etc.)
+    location = "Belo Horizonte"  # You can change this to any location (city, lat/lon, etc.)
     main(location)
