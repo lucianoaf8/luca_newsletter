@@ -23,6 +23,9 @@ BASE_URL_HISTORICAL = 'https://api.freecurrencyapi.com/v1/historical'
 BASE_URL_LATEST = 'https://api.freecurrencyapi.com/v1/latest'
 API_KEY = os.getenv('FREECURRENCYAPI_KEY')
 
+def remove_api_key_from_params(params):
+    return {k: v for k, v in params.items() if k != 'apikey'}
+
 def fetch_currency_data(url, params):
     try:
         response = requests.get(url, params=params)
@@ -80,7 +83,7 @@ def process_exchange_rates():
             'percentage_difference': round(diff, 2)
         }
 
-    return output
+    return output, {'yesterday': params_yesterday, 'today': params_today}
 
 def save_output(output):
     timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
@@ -97,21 +100,19 @@ def save_output(output):
 
 def main():
     try:
-        output = process_exchange_rates()
+        output, combined_params = process_exchange_rates()
+        output_file_path = save_output(output)
 
-        # Prepare the combined payload
-        payload = {
-            'base_currency': 'USD',
-            'target_currencies': ['CAD', 'BRL'],
-            'date_range': {
-                'from': (datetime.now() - timedelta(days=1)).strftime('%Y-%m-%d'),
-                'to': datetime.now().strftime('%Y-%m-%d')
-            }
-        }
+        # Remove API key from combined_params
+        combined_params['yesterday'] = remove_api_key_from_params(combined_params['yesterday'])
+        combined_params['today'] = remove_api_key_from_params(combined_params['today'])
 
-        # Log the single API call with the final output
+        # Log the combined API call with the final output
         script_path = os.path.abspath(__file__)
-        insert_api_response(script_path, payload, output)
+        with open(output_file_path, 'r') as f:
+            final_output = json.load(f)
+        
+        insert_api_response(script_path, combined_params, final_output)
         
         logger.info("Exchange rates processed and saved successfully")
     except Exception as e:
