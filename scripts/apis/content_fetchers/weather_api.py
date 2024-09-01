@@ -100,5 +100,5 @@ def main(location):
         logger.info(f"Script execution finished for {location}.")
 
 if __name__ == "__main__":
-    location = "Belo Horizonte"  # You can change this to any location (city, lat/lon, etc.)
+    location = "Calgary"  # You can change this to any location (city, lat/lon, etc.)
     main(location)
