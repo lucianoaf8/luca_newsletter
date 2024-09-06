@@ -11,8 +11,8 @@ from dotenv import load_dotenv
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..'))
 sys.path.insert(0, project_root)
 
-from scripts.utils.logger_config import get_logger  # noqa: E402
-from scripts.utils.db_insert_api_calls import insert_api_response # noqa: E402
+from scripts.utils.logger_config import get_logger
+from scripts.utils.db_insert_api_calls import insert_api_response
 
 # Load environment variables from .env file
 load_dotenv()
@@ -100,5 +100,5 @@ def main(location):
         logger.info(f"Script execution finished for {location}.")
 
 if __name__ == "__main__":
-    location = "Calgary"  # You can change this to any location (city, lat/lon, etc.)
+    location = "Belo Horizonte"  # You can change this to any location (city, lat/lon, etc.)
     main(location)
