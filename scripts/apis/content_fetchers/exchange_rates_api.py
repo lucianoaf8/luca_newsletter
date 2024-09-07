@@ -1,3 +1,5 @@
+# scripts\apis\content_fetchers\exchange_rates_api.py
+
 import os
 import sys
 import json

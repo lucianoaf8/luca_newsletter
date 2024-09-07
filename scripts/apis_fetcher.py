@@ -12,7 +12,7 @@ sys.path.insert(0, project_root)
 from scripts.utils.logger_config import get_logger
 
 # Initialize logger
-logger = get_logger(__name__)
+logger = get_logger('apis_fetcher')
 
 # List of API scripts to be called
 # For the weather API, provide a tuple with the script and location

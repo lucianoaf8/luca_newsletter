@@ -45,8 +45,8 @@ def fetch_weather_data(api_key, location):
 
 def save_json_response(data, location):
     """Save the entire JSON response to a file."""
-    script_dir = os.getcwd()
-    data_dir = os.path.join(script_dir, 'data', 'fetched_results', 'weather_api')
+
+    data_dir = os.path.join(project_root, 'data', 'fetched_results', 'weather_api')
     os.makedirs(data_dir, exist_ok=True)
     
     timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
@@ -101,5 +101,5 @@ def main(location):
         logger.info(f"Script execution finished for {location}.")
 
 if __name__ == "__main__":
-    location = "Belo Horizonte"  # You can change this to any location (city, lat/lon, etc.)
+    location = "Calgary"
     main(location)
