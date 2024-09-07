@@ -55,6 +55,11 @@ def select_random_id(table):
         AND meta_id IS NOT NULL
         AND audio_file_us <> ''
         '''
+    elif table == 'historical_events':
+        additional_filters = '''
+        AND LOWER(month) = LOWER(MONTHNAME(CURDATE()))
+        AND day = DAY(CURDATE())
+        '''
     else:
         additional_filters = ''
     
@@ -118,11 +123,15 @@ def fetch_quotes_data():
         logger.warning("No available quotes to fetch")
         return pd.DataFrame()
 
-def fetch_fun_fact_data():
-    random_id = select_random_id('fun_fact')
+def fetch_fun_facts_data():
+    """
+    Fetches a random fun fact.
+    """
+    random_id = select_random_id('fun_facts')
     if random_id:
-        fun_fact='''
-        SELECT rd_of_the_day
+        fun_fact=f'''
+        SELECT id, category, fun_fact, reasoning, source, practical_implication
+        FROM fun_facts
         WHERE id = {random_id};
         '''
         return execute_query(fun_fact)
@@ -136,7 +145,7 @@ def fetch_word_of_the_day_data():
     """
     random_id = select_random_id('word_of_the_day')
     if random_id:
-        word_of_the_day='''
+        word_of_the_day=f'''
         SELECT id, category, word, part_of_speech, pronunciation_us, audio_file_us, shortdef_1, shortdef_2, shortdef_3, example_1, example_2, related_words, phrases_idioms, etymology, meta_offensive, headword, pronunciation_uk, audio_file_uk, grammatical_note, grammatical_info
         FROM word_of_the_day
         WHERE id = {random_id};
@@ -165,8 +174,9 @@ def fetch_english_tips_data():
 def fetch_historical_event_data():
     random_id = select_random_id('historical_events')
     if random_id:
-        historical_event='''
-        SELECT 
+        historical_event=f'''
+        SELECT month, day, year, category, event_description, significance, source
+        FROM historical_events
         WHERE id = {random_id};
         '''
         return execute_query(historical_event)
@@ -197,7 +207,7 @@ def fetch_all_data():
     weather_data = fetch_weather_data()
     exchange_rate_data = fetch_exchange_rate_data()
     quotes_data = fetch_quotes_data()
-    fun_fact_data = fetch_fun_fact_data()
+    fun_fact = fetch_fun_facts_data()
     word_of_the_day_data = fetch_word_of_the_day_data()
     english_tips_data = fetch_english_tips_data()
     historical_event = fetch_historical_event_data()
@@ -207,10 +217,10 @@ def fetch_all_data():
         'weather_data': weather_data,
         'exchange_rate_data': exchange_rate_data,
         'quotes_data': quotes_data,
-        'fun_fact_data': fun_fact_data,
+        'fun_fact_data': fun_fact,
         'word_of_the_day_data': word_of_the_day_data,
         'english_tips_data': english_tips_data,
-        'historical_event': historical_event,
+        'historical_events_data': historical_event,
         'daily_challenges_data': daily_challenges_data
     }
 
@@ -219,7 +229,7 @@ def main():
     for name, df in data.items():
         if not df.empty:
             logger.info(f"Fetched {len(df)} rows for {name}")
-            print(df.head()) 
+            # print(df.head()) 
         else:
             logger.warning(f"No data fetched for {name}")
 

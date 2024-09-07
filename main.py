@@ -13,7 +13,54 @@ from scripts.db.fetch_queries import fetch_all_data
 from scripts.utils.logger_config import get_logger
 
 # Initialize logger
-logger = get_logger(__name__)
+logger = get_logger('main')
+
+
+def prepare_subscriber_content(subscriber, weather_data, exchange_rate_data, quotes_data, fun_facts_data, word_of_the_day_data, english_tips_data, historical_events_data, daily_challenges_data):
+    subscriber_content = {}
+
+    # Prepare weather data
+    subscriber_city = subscriber['city']
+    city_weather = weather_data[weather_data['city'] == subscriber_city]
+    subscriber_content['weather'] = city_weather.iloc[0].to_dict() if not city_weather.empty else {}
+
+    # Prepare other content sections
+    subscriber_content['exchange_rates'] = exchange_rate_data.to_dict(orient='records')
+    subscriber_content['quote_of_the_day'] = quotes_data.iloc[0].to_dict() if not quotes_data.empty else {}
+    subscriber_content['fun_fact'] = fun_facts_data.iloc[0].to_dict() if not fun_facts_data.empty else {}
+    subscriber_content['word_of_the_day'] = word_of_the_day_data.iloc[0].to_dict() if not word_of_the_day_data.empty else {}
+    subscriber_content['english_tip'] = english_tips_data.iloc[0].to_dict() if not english_tips_data.empty else {}
+
+    subscriber_content['news'] = {"message": "News data fetching not implemented yet"}
+
+    subscriber_content['historical_event'] = historical_events_data.iloc[0].to_dict() if not historical_events_data.empty else {}
+    subscriber_content['challenge'] = daily_challenges_data.iloc[0].to_dict() if not daily_challenges_data.empty else {}
+
+    # TODO: Implement breahing box here
+    # Add code to parse one GIF URL (will replace later) per day of the week, so it will be 7 gif (urls), one for each days of the week.
+    
+    return subscriber_content
+
+def save_subscriber_content(subscriber, content, date, path):
+    file_name = f"{subscriber['nickname']}_{date}.json"
+    file_path = os.path.join(path, file_name)
+    try:
+        with open(file_path, 'w') as json_file:
+            json.dump(content, json_file, indent=4)
+        logger.info(f"Saved content for {subscriber['nickname']} at {file_path}")
+    except IOError as e:
+        logger.error(f"Error saving content for {subscriber['nickname']}: {e}")
+
+def render_and_save_newsletter(subscriber, content, date, template, path):
+    try:
+        rendered_html = template.render(content)
+        file_name = f"{subscriber['nickname']}_{date}.html"
+        file_path = os.path.join(path, file_name)
+        with open(file_path, 'w') as html_file:
+            html_file.write(rendered_html)
+        logger.info(f"Saved newsletter for {subscriber['nickname']} at {file_path}")
+    except Exception as e:
+        logger.error(f"Error rendering newsletter for {subscriber['nickname']}: {e}")
 
 def main():
     try:
@@ -39,11 +86,14 @@ def main():
         queries_data = fetch_all_data()
 
         # Prepare common section data
+        weather_data = queries_data['weather_data']
         exchange_rate_data = queries_data['exchange_rate_data']
         quotes_data = queries_data['quotes_data']
+        fun_fact_data = queries_data['fun_fact_data']
+        word_of_the_day_data = queries_data['word_of_the_day_data']
         english_tips_data = queries_data['english_tips_data']
+        historical_events_data = queries_data['historical_events_data']
         daily_challenges_data = queries_data['daily_challenges_data']
-        weather_data = queries_data['weather_data']
 
         # Initialize Jinja2 environment
         env = Environment(loader=FileSystemLoader(os.path.join(project_root, 'templates')))
@@ -52,7 +102,7 @@ def main():
         # Prepare content for each subscriber
         for _, subscriber in subscribers_df.iterrows():
             try:
-                subscriber_content = prepare_subscriber_content(subscriber, weather_data, exchange_rate_data, quotes_data, english_tips_data, daily_challenges_data)
+                subscriber_content = prepare_subscriber_content(subscriber, weather_data, exchange_rate_data, quotes_data, fun_fact_data, word_of_the_day_data, english_tips_data, historical_events_data, daily_challenges_data)
                 
                 # Save subscriber content as JSON
                 save_subscriber_content(subscriber, subscriber_content, formatted_date, content_feeder_path)
@@ -65,48 +115,5 @@ def main():
 
     except Exception as e:
         logger.error(f"An unexpected error occurred in main: {e}")
-
-def prepare_subscriber_content(subscriber, weather_data, exchange_rate_data, quotes_data, english_tips_data, daily_challenges_data):
-    subscriber_content = {}
-
-    # Prepare weather data
-    subscriber_city = subscriber['city']
-    city_weather = weather_data[weather_data['city'] == subscriber_city]
-    subscriber_content['weather'] = city_weather.iloc[0].to_dict() if not city_weather.empty else {}
-
-    # Prepare other content sections
-    subscriber_content['exchange_rates'] = exchange_rate_data.to_dict(orient='records')
-    subscriber_content['quote_of_the_day'] = quotes_data.iloc[0].to_dict() if not quotes_data.empty else {}
-    subscriber_content['word_of_the_day'] = english_tips_data.iloc[0].to_dict() if not english_tips_data.empty else {}
-    subscriber_content['challenge'] = daily_challenges_data.iloc[0].to_dict() if not daily_challenges_data.empty else {}
-
-    # Placeholder for news and fun fact (to be implemented)
-    subscriber_content['news'] = {"message": "News data fetching not implemented yet"}
-    subscriber_content['fun_fact'] = {"message": "Fun fact data fetching not implemented yet"}
-    subscriber_content['historical_event'] = {"message": "Historical event data fetching not implemented yet"}
-
-    return subscriber_content
-
-def save_subscriber_content(subscriber, content, date, path):
-    file_name = f"{subscriber['nickname']}_{date}.json"
-    file_path = os.path.join(path, file_name)
-    try:
-        with open(file_path, 'w') as json_file:
-            json.dump(content, json_file, indent=4)
-        logger.info(f"Saved content for {subscriber['nickname']} at {file_path}")
-    except IOError as e:
-        logger.error(f"Error saving content for {subscriber['nickname']}: {e}")
-
-def render_and_save_newsletter(subscriber, content, date, template, path):
-    try:
-        rendered_html = template.render(content)
-        file_name = f"{subscriber['nickname']}_{date}.html"
-        file_path = os.path.join(path, file_name)
-        with open(file_path, 'w') as html_file:
-            html_file.write(rendered_html)
-        logger.info(f"Saved newsletter for {subscriber['nickname']} at {file_path}")
-    except Exception as e:
-        logger.error(f"Error rendering newsletter for {subscriber['nickname']}: {e}")
-
 if __name__ == "__main__":
     main()
