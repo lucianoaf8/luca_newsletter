@@ -3,10 +3,8 @@
 import os
 import sys
 import pandas as pd
-from datetime import datetime
 import json
 import random
-import logging
 
 # Add the project root to the Python path
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
@@ -16,7 +14,7 @@ from scripts.utils.logger_config import get_logger
 from scripts.utils.db_connection import get_db_connection, close_connection
 
 # Initialize logger
-logger = get_logger(__name__)
+logger = get_logger('fetch_queries')
 
 def execute_query(query):
     """
@@ -50,8 +48,22 @@ def parse_json_columns(df, json_columns):
 def select_random_id(table):
     """
     Selects a random ID from the given table where 'used_in_newsletter' is 0.
+    Adds additional filters for 'word_of_the_day' table.
     """
-    query = f'SELECT DISTINCT id FROM {table} WHERE used_in_newsletter = 0;'
+    if table == 'word_of_the_day':
+        additional_filters = '''
+        AND meta_id IS NOT NULL
+        AND audio_file_us <> ''
+        '''
+    else:
+        additional_filters = ''
+    
+    query = f'''
+    SELECT DISTINCT id FROM {table} 
+    WHERE used_in_newsletter = 0
+    {additional_filters};
+    '''
+    
     ids_df = execute_query(query)
     if not ids_df.empty:
         return random.choice(ids_df['id'].tolist())
@@ -132,6 +144,23 @@ def fetch_daily_challenges_data():
         WHERE id = {random_id};
         '''
         return execute_query(daily_challenges_query)
+    else:
+        logger.warning("No available daily challenges to fetch")
+        return pd.DataFrame()
+
+def fetch_word_of_the_day_data():
+    """
+    Fetches a random word of the day.
+    """
+    random_id = select_random_id('word_of_the_day')
+    if random_id:
+        # word of the day
+        word_of_the_day='''
+        SELECT id, category, word, part_of_speech, pronunciation_us, audio_file_us, shortdef_1, shortdef_2, shortdef_3, example_1, example_2, related_words, phrases_idioms, etymology, meta_offensive, headword, pronunciation_uk, audio_file_uk, grammatical_note, grammatical_info
+        FROM word_of_the_day
+        WHERE id = {random_id};
+        '''
+        return execute_query(word_of_the_day)
     else:
         logger.warning("No available daily challenges to fetch")
         return pd.DataFrame()

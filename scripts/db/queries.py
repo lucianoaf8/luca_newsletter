@@ -31,3 +31,4 @@ SELECT id, category, challenge, instructions, motivation, used_in_newsletter,
 FROM daily_challenges
 WHERE used_in_newsletter = 0;
 '''
+

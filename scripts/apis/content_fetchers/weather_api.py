@@ -77,6 +77,7 @@ def main(location):
         api_key = get_api_key()
         weather_data = fetch_weather_data(api_key, location)
         process_weather_data(weather_data, location)
+        save_json_response(weather_data, location)
         
         # Insert into api_calls table
         script_path = os.path.abspath(__file__)
