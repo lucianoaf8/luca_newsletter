@@ -75,11 +75,12 @@ def fetch_weather_data():
     Fetches weather API calls from the database and parses JSON columns.
     """
     weather_query = '''
-    SELECT id, script_path, custom_params, payload, response, used_in_newsletter, timestamp
+    SELECT DISTINCT id, script_path, custom_params, payload, response, used_in_newsletter, created
     FROM api_calls
     WHERE script_path LIKE '%weather_api.py'
     AND used_in_newsletter = 0
-    AND timestamp >= NOW() - INTERVAL 5 HOUR;
+    AND created >= NOW() - INTERVAL 5 HOUR
+    LIMIT 2;
     '''
     df = execute_query(weather_query)
     return parse_json_columns(df, ['payload', 'response'])
@@ -89,11 +90,12 @@ def fetch_exchange_rate_data():
     Fetches exchange rate API calls from the database and parses JSON columns.
     """
     exchange_rate_query = '''
-    SELECT id, script_path, custom_params, payload, response, used_in_newsletter, timestamp
+    SELECT id, script_path, custom_params, payload, response, used_in_newsletter, created
     FROM api_calls
     WHERE script_path LIKE '%exchange_rates_api.py'
     AND used_in_newsletter = 0
-    AND timestamp >= NOW() - INTERVAL 5 HOUR;
+    AND created >= NOW() - INTERVAL 5 HOUR
+    LIMIT 1;
     '''
     df = execute_query(exchange_rate_query)
     return parse_json_columns(df, ['payload', 'response'])
@@ -105,8 +107,8 @@ def fetch_quotes_data():
     random_id = select_random_id('quotes')
     if random_id:
         quotes_query = f'''
-        SELECT q.id, q.quote, q.source, q.contextual_notes, q.author_name, q.author_overview, q.author_key_works, q.timestamp,
-            a.id AS author_id, a.birth_year, a.death_year, a.nationality, a.profession, a.known_for, a.timestamp AS author_timestamp
+        SELECT q.id, q.quote, q.source, q.contextual_notes, q.author_name, q.author_overview, q.author_key_works, q.created,
+            a.id AS author_id, a.birth_year, a.death_year, a.nationality, a.profession, a.known_for, a.created AS author_created
         FROM quotes q
         INNER JOIN authors a ON a.author = q.author_name
         WHERE q.id = {random_id};
@@ -116,6 +118,34 @@ def fetch_quotes_data():
         logger.warning("No available quotes to fetch")
         return pd.DataFrame()
 
+def fetch_fun_fact_data():
+    random_id = select_random_id('fun_fact')
+    if random_id:
+        fun_fact='''
+        SELECT rd_of_the_day
+        WHERE id = {random_id};
+        '''
+        return execute_query(fun_fact)
+    else:
+        logger.warning("No available fun facts to fetch")
+        return pd.DataFrame()
+
+def fetch_word_of_the_day_data():
+    """
+    Fetches a random word of the day.
+    """
+    random_id = select_random_id('word_of_the_day')
+    if random_id:
+        word_of_the_day='''
+        SELECT id, category, word, part_of_speech, pronunciation_us, audio_file_us, shortdef_1, shortdef_2, shortdef_3, example_1, example_2, related_words, phrases_idioms, etymology, meta_offensive, headword, pronunciation_uk, audio_file_uk, grammatical_note, grammatical_info
+        FROM word_of_the_day
+        WHERE id = {random_id};
+        '''
+        return execute_query(word_of_the_day)
+    else:
+        logger.warning("No available word of the day to fetch")
+        return pd.DataFrame()
+
 def fetch_english_tips_data():
     """
     Fetches a random English tip.
@@ -123,13 +153,25 @@ def fetch_english_tips_data():
     random_id = select_random_id('english_tips')
     if random_id:
         english_tips_query = f'''
-        SELECT id, category, title, content, subcontent1, subcontent2, quick_tip, used_in_newsletter, timestamp
+        SELECT id, category, title, content, subcontent1, subcontent2, quick_tip, used_in_newsletter, created
         FROM english_tips
         WHERE id = {random_id};
         '''
         return execute_query(english_tips_query)
     else:
         logger.warning("No available English tips to fetch")
+        return pd.DataFrame()
+
+def fetch_historical_event_data():
+    random_id = select_random_id('historical_events')
+    if random_id:
+        historical_event='''
+        SELECT 
+        WHERE id = {random_id};
+        '''
+        return execute_query(historical_event)
+    else:
+        logger.warning("No available historical events to fetch")
         return pd.DataFrame()
 
 def fetch_daily_challenges_data():
@@ -139,28 +181,11 @@ def fetch_daily_challenges_data():
     random_id = select_random_id('daily_challenges')
     if random_id:
         daily_challenges_query = f'''
-        SELECT id, category, challenge, instructions, motivation, used_in_newsletter, timestamp
+        SELECT id, category, challenge, instructions, motivation, used_in_newsletter, created
         FROM daily_challenges
         WHERE id = {random_id};
         '''
         return execute_query(daily_challenges_query)
-    else:
-        logger.warning("No available daily challenges to fetch")
-        return pd.DataFrame()
-
-def fetch_word_of_the_day_data():
-    """
-    Fetches a random word of the day.
-    """
-    random_id = select_random_id('word_of_the_day')
-    if random_id:
-        # word of the day
-        word_of_the_day='''
-        SELECT id, category, word, part_of_speech, pronunciation_us, audio_file_us, shortdef_1, shortdef_2, shortdef_3, example_1, example_2, related_words, phrases_idioms, etymology, meta_offensive, headword, pronunciation_uk, audio_file_uk, grammatical_note, grammatical_info
-        FROM word_of_the_day
-        WHERE id = {random_id};
-        '''
-        return execute_query(word_of_the_day)
     else:
         logger.warning("No available daily challenges to fetch")
         return pd.DataFrame()
@@ -172,14 +197,20 @@ def fetch_all_data():
     weather_data = fetch_weather_data()
     exchange_rate_data = fetch_exchange_rate_data()
     quotes_data = fetch_quotes_data()
+    fun_fact_data = fetch_fun_fact_data()
+    word_of_the_day_data = fetch_word_of_the_day_data()
     english_tips_data = fetch_english_tips_data()
+    historical_event = fetch_historical_event_data()
     daily_challenges_data = fetch_daily_challenges_data()
 
     return {
         'weather_data': weather_data,
         'exchange_rate_data': exchange_rate_data,
         'quotes_data': quotes_data,
+        'fun_fact_data': fun_fact_data,
+        'word_of_the_day_data': word_of_the_day_data,
         'english_tips_data': english_tips_data,
+        'historical_event': historical_event,
         'daily_challenges_data': daily_challenges_data
     }
 
@@ -188,7 +219,7 @@ def main():
     for name, df in data.items():
         if not df.empty:
             logger.info(f"Fetched {len(df)} rows for {name}")
-            print(df.head())  # Print the first few rows of each DataFrame
+            print(df.head()) 
         else:
             logger.warning(f"No data fetched for {name}")
 
