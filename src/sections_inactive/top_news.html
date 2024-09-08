@@ -1,0 +1,270 @@
+        <!-- Top News -->
+        <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="max-width: 650px; margin: 20px auto; background-color: #f9f9f9; border-radius: 10px; padding: 20px;">
+            <tr>
+                <td>
+                    <h2 style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 32px; color: #2c3e50; text-align: center; margin-bottom: 20px; margin-top: 15px;">Top News</h2>
+                    
+                    <!-- Artificial Intelligence Category -->
+                    <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+                        <tr>
+                            <td style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 24px; color: #333333; padding-bottom: 5px; border-bottom: 1px solid #dddddd;">
+                                {{ news.topic.1.title }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding-top: 15px;">
+                                <!-- AI News Card 1 -->
+                                <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color: #f1f7f1; border-radius: 10px; border: 1px solid #ddd; border-left: 5px solid #1e90ff; margin-bottom: 25px;">
+                                    <tr>
+                                        <td style="padding: 25px;">
+                                            <h4 style="font-size: 22px; font-weight: bold; color: #2c3e50; margin-top: 0; margin-bottom: 15px; ">
+                                                <a href="{{ news.topic.1.news.1.url }}" target="_blank" style="color: #2c3e50; text-decoration: none;">{{ news.topic.1.news.1.headline }}</a>
+                                            </h4>
+                                            <ul style="list-style-type: none; padding-left: 0; margin-top: 15px;">
+                                                <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
+                                                    <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
+                                                    {{ news.topic.1.news.1.point.1 }}
+                                                </li>
+                                                <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
+                                                    <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
+                                                    {{ news.topic.1.news.1.point.2 }}
+                                                </li>
+                                                <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
+                                                    <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
+                                                    {{ news.topic.1.news.1.point.3 }}
+                                                </li>
+                                            </ul>
+                                            <a href={{ news.topic.1.news.1.url }} style="display: block; font-size: 16px; color: #1e90ff; text-decoration: none; margin-top: 10px;">Read More</a>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <!-- AI News Card 2 -->
+                                <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color: #f1f7f1; border-radius: 10px; border: 1px solid #ddd; border-left: 5px solid #1e90ff; margin-bottom: 25px;">
+                                    <tr>
+                                        <td style="padding: 25px;">
+                                            <h4 style="font-size: 22px; font-weight: bold; color: #2c3e50; margin-top: 0; margin-bottom: 15px; ">
+                                                <a href={{ news.topic.1.news.2.url }} target="_blank" style="color: #2c3e50; text-decoration: none;">{{ news.topic.1.news.2.headline }}</a>
+                                            </h4>
+                                            <ul style="list-style-type: none; padding-left: 0; margin-top: 15px;">
+                                                <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
+                                                    <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
+                                                    {{ news.topic.1.news.2.point.1 }}
+                                                </li>
+                                                <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
+                                                    <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
+                                                    {{ news.topic.1.news.2.point.2 }}
+                                                </li>
+                                                <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
+                                                    <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
+                                                    {{ news.topic.1.news.2.point.3 }}
+                                                </li>
+                                            </ul>
+                                            <a href="{{ news.topic.1.news.2.url }}" style="display: block; font-size: 16px; color: #1e90ff; text-decoration: none; margin-top: 10px;">Read More</a>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <!-- AI News Card 3 -->
+                                <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color: #f1f7f1; border-radius: 10px; border: 1px solid #ddd; border-left: 5px solid #1e90ff; margin-bottom: 25px;">
+                                    <tr>
+                                        <td style="padding: 25px;">
+                                            <h4 style="font-size: 22px; font-weight: bold; color: #2c3e50; margin-top: 0; margin-bottom: 15px; ">
+                                                <a href={{ news.topic.1.news.3.url }} target="_blank" style="color: #2c3e50; text-decoration: none;">{{ news.topic.1.news.3.headline }}</a>
+                                            </h4>
+                                            <ul style="list-style-type: none; padding-left: 0; margin-top: 15px;">
+                                                <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
+                                                    <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
+                                                    {{ news.topic.1.news.3.point.1 }}
+                                                </li>
+                                                <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
+                                                    <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
+                                                    {{ news.topic.1.news.3.point.2 }}
+                                                </li>
+                                                <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
+                                                    <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
+                                                    {{ news.topic.1.news.3.point.3 }}
+                                                </li>
+                                            </ul>
+                                            <a href={{ news.topic.1.news.3.url }} style="display: block; font-size: 16px; color: #1e90ff; text-decoration: none; margin-top: 10px;">Read More</a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                    <!-- Design Category -->
+                    <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-top: 30px;">
+                        <tr>
+                            <td style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 24px; color: #333333; padding-bottom: 5px; border-bottom: 1px solid #dddddd;">
+                                {{ news.topic.2.title }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding-top: 15px;">
+                                <!-- Design News Card 1 -->
+                                <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color: #f1f7f1; border-radius: 10px; border: 1px solid #ddd; border-left: 5px solid #1e90ff; margin-bottom: 25px;">
+                                    <tr>
+                                        <td style="padding: 25px;">
+                                            <h4 style="font-size: 22px; font-weight: bold; color: #2c3e50; margin-top: 0; margin-bottom: 15px; ">
+                                                <a href="https://example.com/minimalist-design" target="_blank" style="color: #2c3e50; text-decoration: none;">{{ news.topic.2.news.1.headline }}</a>
+                                            </h4>
+                                            <ul style="list-style-type: none; padding-left: 0; margin-top: 15px;">
+                                                <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
+                                                    <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
+                                                    {{ news.topic.2.news.1.point.1 }}
+                                                </li>
+                                                <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
+                                                    <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
+                                                    {{ news.topic.2.news.1.point.2 }}
+                                                </li>
+                                                <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
+                                                    <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
+                                                    {{ news.topic.2.news.1.point.3 }}
+                                                </li>
+                                            </ul>
+                                            <a href={{ news.topic.2.news.1.url }} style="display: block; font-size: 16px; color: #1e90ff; text-decoration: none; margin-top: 10px;">Read More</a>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <!-- Design News Card 2 -->
+                                <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color: #f1f7f1; border-radius: 10px; border: 1px solid #ddd; border-left: 5px solid #1e90ff; margin-bottom: 25px;">
+                                    <tr>
+                                        <td style="padding: 25px;">
+                                            <h4 style="font-size: 22px; font-weight: bold; color: #2c3e50; margin-top: 0; margin-bottom: 15px; ">
+                                                <a href="{{ news.topic.2.news.2.url }}" target="_blank" style="color: #2c3e50; text-decoration: none;">{{ news.topic.2.news.2.headline }}</a>
+                                            </h4>
+                                            <ul style="list-style-type: none; padding-left: 0; margin-top: 15px;">
+                                                <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
+                                                    <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
+                                                    {{ news.topic.2.news.2.point.1 }}
+                                                </li>
+                                                <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
+                                                    <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
+                                                    {{ news.topic.2.news.2.point.2 }}
+                                                </li>
+                                                <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
+                                                    <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
+                                                    {{ news.topic.2.news.2.point.3 }}
+                                                </li>
+                                            </ul>
+                                            <a href="{{ news.topic.2.news.2.url }}" style="display: block; font-size: 16px; color: #1e90ff; text-decoration: none; margin-top: 10px;">Read More</a>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <!-- Design News Card 3 -->
+                                <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color: #f1f7f1; border-radius: 10px; border: 1px solid #ddd; border-left: 5px solid #1e90ff; margin-bottom: 25px;">
+                                    <tr>
+                                        <td style="padding: 25px;">
+                                            <h4 style="font-size: 22px; font-weight: bold; color: #2c3e50; margin-top: 0; margin-bottom: 15px; ">
+                                                <a href="{{ news.topic.2.news.3.url }}" target="_blank" style="color: #2c3e50; text-decoration: none;">{{ news.topic.2.news.3.headline }}</a>
+                                            </h4>
+                                            <ul style="list-style-type: none; padding-left: 0; margin-top: 15px;">
+                                                <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
+                                                    <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
+                                                    {{ news.topic.2.news.3.point.1 }}
+                                                </li>
+                                                <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
+                                                    <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
+                                                    {{ news.topic.2.news.3.point.2 }}
+                                                </li>
+                                                <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
+                                                    <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
+                                                    {{ news.topic.2.news.3.point.3 }}
+                                                </li>
+                                            </ul>
+                                            <a href="{{ news.topic.2.news.3.url }}" style="display: block; font-size: 16px; color: #1e90ff; text-decoration: none; margin-top: 10px;">Read More</a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                    <!-- Visuals Category -->
+                    <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-top: 30px;">
+                        <tr>
+                            <td style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 24px; color: #333333; padding-bottom: 5px; border-bottom: 1px solid #dddddd;">
+                                {{ news.topic.3.title }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding-top: 15px;">
+                                <!-- Visuals News Card 1 -->
+                                <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color: #f1f7f1; border-radius: 10px; border: 1px solid #ddd; border-left: 5px solid #1e90ff; margin-bottom: 25px;">
+                                    <tr>
+                                        <td style="padding: 25px;">
+                                            <h4 style="font-size: 22px; font-weight: bold; color: #2c3e50; margin-top: 0; margin-bottom: 15px; ">
+                                                <a href={{ news.topic.3.news.1.url }} target="_blank" style="color: #2c3e50; text-decoration: none;">{{ news.topic.3.news.1.headline }}</a>
+                                            </h4>
+                                            <ul style="list-style-type: none; padding-left: 0; margin-top: 15px;">
+                                                <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
+                                                    <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
+                                                    {{ news.topic.3.news.1.point.1 }}
+                                                </li>
+                                                <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
+                                                    <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
+                                                    {{ news.topic.3.news.1.point.2 }}
+                                                </li>
+                                                <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
+                                                    <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
+                                                    {{ news.topic.3.news.1.point.3 }}
+                                                </li>
+                                            </ul>
+                                            <a href="{{ news.topic.3.news.1.url }}" style="display: block; font-size: 16px; color: #1e90ff; text-decoration: none; margin-top: 10px;">Read More</a>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <!-- Visuals News Card 2 -->
+                                <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color: #f1f7f1; border-radius: 10px; border: 1px solid #ddd; border-left: 5px solid #1e90ff; margin-bottom: 25px;">
+                                    <tr>
+                                        <td style="padding: 25px;">
+                                            <h4 style="font-size: 22px; font-weight: bold; color: #2c3e50; margin-top: 0; margin-bottom: 15px; ">
+                                                <a href={{ news.topic.3.news.2.url }} target="_blank" style="color: #2c3e50; text-decoration: none;">{{ news.topic.3.news.2.headline }}</a>
+                                            </h4>
+                                            <ul style="list-style-type: none; padding-left: 0; margin-top: 15px;">
+                                                <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
+                                                    <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
+                                                    {{ news.topic.3.news.2.point.1 }}
+                                                </li>
+                                                <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
+                                                    <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
+                                                    {{ news.topic.3.news.2.point.2 }}
+                                                </li>
+                                                <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
+                                                    <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
+                                                    {{ news.topic.3.news.2.point.3 }}
+                                                </li>
+                                            </ul>
+                                            <a href="{{ news.topic.3.news.2.url }}" style="display: block; font-size: 16px; color: #1e90ff; text-decoration: none; margin-top: 10px;">Read More</a>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <!-- Visuals News Card 3 -->
+                                <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color: #f1f7f1; border-radius: 10px; border: 1px solid #ddd; border-left: 5px solid #1e90ff; margin-bottom: 20px;">
+                                    <tr>
+                                        <td style="padding: 25px;">
+                                            <h4 style="font-size: 22px; font-weight: bold; color: #2c3e50; margin-top: 0; margin-bottom: 15px; ">
+                                                <a href="{{ news.topic.3.news.3.url }}" target="_blank" style="color: #2c3e50; text-decoration: none;">{{ news.topic.3.news.3.headline }}</a>
+                                            </h4>
+                                            <ul style="list-style-type: none; padding-left: 0; margin-top: 15px;">
+                                                <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
+                                                    <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
+                                                    {{ news.topic.3.news.3.point.1 }}
+                                                </li>
+                                                <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
+                                                    <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
+                                                    {{ news.topic.3.news.3.point.2 }}
+                                                </li>
+                                                <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
+                                                    <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
+                                                    {{ news.topic.3.news.3.point.3 }}
+                                                </li>
+                                            </ul>
+                                            <a href={{ news.topic.3.news.3.url }} style="display: block; font-size: 16px; color: #1e90ff; text-decoration: none; margin-top: 10px;">Read More</a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>

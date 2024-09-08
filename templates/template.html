@@ -58,17 +58,17 @@
         <div class="header" style="background: #e4ece1; padding: 20px; text-align: center; position: relative; font-family: 'Lato', sans-serif; border-bottom: 2px solid #2c3e50; border-radius: 10px; box-shadow: 0 8px 10px rgba(0, 0, 0, 0.1); margin-top: 0;">
             <h1 style="font-size: 64px; margin: 0; color: #2c3e50; letter-spacing: 1px; font-weight: bold; text-align: center;">
                 <span style="display: block; width: 80%; height: 2px; background-color: #2c3e50; margin: 0 auto 15px auto;"></span>
-                {{ newsletter_title }} {{ newsletter_username }}!
+                {{ header.newsletter_title }} {{ header.newsletter_username }}!
                 <span style="display: block; width: 80%; height: 2px; background-color: #2c3e50; margin: 10px auto 0 auto;"></span>
             </h1>
                       
 
             <p class="date-weekday" style="font-family: 'Lato', sans-serif; font-size: 24px; font-weight: bolder; margin-top: 15px; color: #2c3e50;">
-                {{ newsletter_date }}
+                {{ header.newsletter_date }}
             </p>
 
             <p class="welcome-message" style="font-family: 'Lato', sans-serif; font-size: 27px; color: #2c3e50; margin-top: 15px;">
-                {{ welcome_message }}
+                {{ header.welcome_message }}
             </p>
 
             <div style="text-align: right; margin-top: -40px;">
@@ -105,12 +105,12 @@
             <tr>
                 <!-- Top-Left Quadrant: Main Weather Information -->
                 <td width="50%" valign="center" style="padding: 15px; text-align: center;">
-                    <img src={{ weather.icon }} alt="Sunny Day" width="75" height="75" style="display: block; margin: 0 auto 10px;">
+                    <img src="https://i.imgur.com/91t4phy.png" alt="Sunny Day" width="75" height="75" style="display: block; margin: 0 auto 10px;">
                     <div style="font-size: 45px; font-family: 'Roboto', Arial, Helvetica, sans-serif; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);">
                         {{ weather.temperature }}&deg;C
                     </div>
                     <div style="font-size: 16px; font-family: 'Roboto', Arial, Helvetica, sans-serif; margin-top: 10px; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);">
-                        {{ weather.feels_like_name }}: {{ weather.feels_like }}&deg;C
+                        {{ weather.feels_like_name }}: {{ weather.temperatureApparent }}&deg;C
                     </div>
                     <div style="font-size: 16px; font-family: 'Roboto', Arial, Helvetica, sans-serif; margin-top: 10px; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);">
                         {{ weather.description }}
@@ -135,13 +135,13 @@
                         <tr>
                             <td style="padding-bottom: 8px;">
                                 <img src="https://i.imgur.com/9u12ZvL.png" alt="cloud cover" width="24" height="24" style="vertical-align: middle; margin-right: 10px;">
-                                <span style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 16px; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);">{{ weather.cloud_cover_name }}: {{ weather.cloud_cover }}%</span>
+                                <span style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 16px; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);">{{ weather.cloud_cover_name }}: {{ weather.cloudCover }}%</span>
                             </td>
                         </tr>
                         <tr>
                             <td style="padding-bottom: 8px;">
                                 <img src="https://i.imgur.com/FFYknas.png" alt="precipitation" width="24" height="24" style="vertical-align: middle; margin-right: 10px;">
-                                <span style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 16px; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);">{{ weather.precipitation_name }}: {{ weather.precipitation }}%</span>
+                                <span style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 16px; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);">{{ weather.precipitation_name }}: {{ weather.precipitationProbability }}%</span>
                             </td>
                         </tr>
                     </table>
@@ -160,13 +160,13 @@
                         <tr>
                             <td style="padding-bottom: 8px;">
                                 <img src="https://i.imgur.com/QtkIVJJ.png" alt="wind" width="24" height="24" style="vertical-align: middle; margin-right: 10px;">
-                                <span style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 16px; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);">{{ weather.wind_name }}:  {{ weather.wind_speed }} km/h {{ weather.wind_direction }}</span>
+                                <span style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 16px; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);">{{ weather.wind_name }}:  {{ weather.windSpeed }} km/h</span>
                             </td>
                         </tr>
                         <tr>
                             <td>
                                 <img src="https://i.imgur.com/pe253k2.png" alt="uv index" width="24" height="24" style="vertical-align: middle; margin-right: 10px;">
-                                <span style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 16px; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);">{{ weather.uv_index_name }}: {{ weather.uv_index }}</span>
+                                <span style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 16px; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);">{{ weather.uv_index_name }}: {{ weather.uvIndex }}</span>
                             </td>
                         </tr>
                     </table>
@@ -305,16 +305,27 @@
                                 <![endif]-->
                                 <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
                                     <tr>
-                                        <td width="70%" valign="middle" style="font-family: 'Georgia', sans-serif; font-size: 24px; font-style: italic; color: #2d3436; letter-spacing: 1px; padding-left: 10px; border-left: 4px solid #a1b6a1;">
-                                            {{ motivational_quote.text }}
+                                        <td width="70%" valign="middle" style="padding-right: 20px;">
+                                            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+                                                <tr>
+                                                    <td style="border-left: 4px solid #a1b6a1; padding-left: 15px;">
+                                                        <p style="font-family: 'Georgia', serif; font-size: 24px; font-style: italic; color: #2d3436; line-height: 1.4; margin: 0 0 10px 0;">
+                                                            "{{ quote_of_the_day.quote }}"
+                                                        </p>
+                                                        <p style="font-family: Arial, sans-serif; font-size: 14px; color: #666666; margin: 0;">
+                                                            — {{ quote_of_the_day.source }}
+                                                        </p>
+                                                    </td>
+                                                </tr>
+                                            </table>
                                         </td>
                                         <td width="30%" valign="middle" align="center" style="padding-left: 10px;">
-                                            <img src={{ motivational_quote.author_pic }} alt="Author Pic" width="100" height="100" style="border-radius: 50%; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); margin-bottom: 10px; display: block;">
-                                            <p style="font-family: Arial, sans-serif; font-size: 18px; color: #333333; margin: 0; text-align: center;">
-                                                {{ motivational_quote.author }}
+                                            <img src="{{ quote_of_the_day.author_pic }}" alt="Author Pic" width="100" height="100" style="border-radius: 50%; border: 3px solid #a1b6a1; margin-bottom: 10px; display: block;">
+                                            <p style="font-family: Arial, sans-serif; font-size: 18px; color: #333333; margin: 0 0 5px 0; text-align: center;">
+                                                {{ quote_of_the_day.author_name }}
                                             </p>
-                                            <p style="font-family: Arial, sans-serif; font-size: 16px; color: #666666; margin: 0; text-align: center;">
-                                                {{ motivational_quote.years }}
+                                            <p style="font-family: Arial, sans-serif; font-size: 14px; color: #666666; margin: 0; text-align: center;">
+                                                {{ quote_of_the_day.birth_year }} - {{ quote_of_the_day.death_year }}
                                             </p>
                                         </td>
                                     </tr>
@@ -354,7 +365,7 @@
                                         </td>
                                         <td valign="middle">
                                             <p style="font-family: Arial, sans-serif; font-size: 18px; color: #333333; line-height: 1.5; margin: 0;">
-                                                <span style="color: #ff7043; font-weight: bold;">Did you know?</span> {{ fun_fact }}
+                                                <span style="color: #ff7043; font-weight: bold;">Did you know?</span> {{ fun_fact.fun_fact }}
                                             </p>
                                         </td>
                                     </tr>
@@ -394,13 +405,16 @@
                                     {{ word_of_the_day.word }}
                                 </h3>
                                 <p style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 18px; color: #7f8c8d; margin-top: 0; margin-bottom: 10px;">
-                                    {{ word_of_the_day.pronunciation }}
+                                    <span style="display: inline-block; vertical-align: middle; margin-right: 5px; width: 20px; height: 20px;">
+                                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Speaker_Icon.svg/480px-Speaker_Icon.svg.png" alt="Speaker Icon" style="width: 100%; height: 100%; vertical-align: middle;">
+                                    </span>
+                                    {{ word_of_the_day.pronunciation_us }}
                                 </p>
                                 <p style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 18px; color: #333; margin-top: 0; margin-bottom: 10px;">
-                                    {{ word_of_the_day.definition }}
+                                    {{ word_of_the_day.short_definitions }}
                                 </p>
                                 <p style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 18px; font-style: italic; color: #333; margin-top: 0; margin-bottom: 0;">
-                                    <em>Example:</em> <strong>"{{ word_of_the_day.example }}"</strong>
+                                    <em>Example(s):</em> <strong>"{{ word_of_the_day.examples }}"</strong>
                                 </p>
                             </td>
                         </tr>
@@ -419,7 +433,7 @@
                                     <tr>
                                         <td style="padding: 10px; border-left: 5px solid #2980b9;">
                                             <p style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 18px; color: #34495e; margin: 0;">
-                                                {{ english_tip_of_the_day }}
+                                                {{ english_tip.content }}
                                             </p>
                                         </td>
                                     </tr>
@@ -433,277 +447,6 @@
         <!--[if gte mso 9]>
         </v:roundrect>
         <![endif]-->
-
-        <!-- Top News -->
-        <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="max-width: 650px; margin: 20px auto; background-color: #f9f9f9; border-radius: 10px; padding: 20px;">
-            <tr>
-                <td>
-                    <h2 style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 32px; color: #2c3e50; text-align: center; margin-bottom: 20px; margin-top: 15px;">Top News</h2>
-                    
-                    <!-- Artificial Intelligence Category -->
-                    <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
-                        <tr>
-                            <td style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 24px; color: #333333; padding-bottom: 5px; border-bottom: 1px solid #dddddd;">
-                                {{ news.topic.1.title }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="padding-top: 15px;">
-                                <!-- AI News Card 1 -->
-                                <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color: #f1f7f1; border-radius: 10px; border: 1px solid #ddd; border-left: 5px solid #1e90ff; margin-bottom: 25px;">
-                                    <tr>
-                                        <td style="padding: 25px;">
-                                            <h4 style="font-size: 22px; font-weight: bold; color: #2c3e50; margin-top: 0; margin-bottom: 15px; ">
-                                                <a href="{{ news.topic.1.news.1.url }}" target="_blank" style="color: #2c3e50; text-decoration: none;">{{ news.topic.1.news.1.headline }}</a>
-                                            </h4>
-                                            <ul style="list-style-type: none; padding-left: 0; margin-top: 15px;">
-                                                <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
-                                                    <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
-                                                    {{ news.topic.1.news.1.point.1 }}
-                                                </li>
-                                                <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
-                                                    <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
-                                                    {{ news.topic.1.news.1.point.2 }}
-                                                </li>
-                                                <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
-                                                    <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
-                                                    {{ news.topic.1.news.1.point.3 }}
-                                                </li>
-                                            </ul>
-                                            <a href={{ news.topic.1.news.1.url }} style="display: block; font-size: 16px; color: #1e90ff; text-decoration: none; margin-top: 10px;">Read More</a>
-                                        </td>
-                                    </tr>
-                                </table>
-                                <!-- AI News Card 2 -->
-                                <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color: #f1f7f1; border-radius: 10px; border: 1px solid #ddd; border-left: 5px solid #1e90ff; margin-bottom: 25px;">
-                                    <tr>
-                                        <td style="padding: 25px;">
-                                            <h4 style="font-size: 22px; font-weight: bold; color: #2c3e50; margin-top: 0; margin-bottom: 15px; ">
-                                                <a href={{ news.topic.1.news.2.url }} target="_blank" style="color: #2c3e50; text-decoration: none;">{{ news.topic.1.news.2.headline }}</a>
-                                            </h4>
-                                            <ul style="list-style-type: none; padding-left: 0; margin-top: 15px;">
-                                                <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
-                                                    <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
-                                                    {{ news.topic.1.news.2.point.1 }}
-                                                </li>
-                                                <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
-                                                    <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
-                                                    {{ news.topic.1.news.2.point.2 }}
-                                                </li>
-                                                <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
-                                                    <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
-                                                    {{ news.topic.1.news.2.point.3 }}
-                                                </li>
-                                            </ul>
-                                            <a href="{{ news.topic.1.news.2.url }}" style="display: block; font-size: 16px; color: #1e90ff; text-decoration: none; margin-top: 10px;">Read More</a>
-                                        </td>
-                                    </tr>
-                                </table>
-                                <!-- AI News Card 3 -->
-                                <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color: #f1f7f1; border-radius: 10px; border: 1px solid #ddd; border-left: 5px solid #1e90ff; margin-bottom: 25px;">
-                                    <tr>
-                                        <td style="padding: 25px;">
-                                            <h4 style="font-size: 22px; font-weight: bold; color: #2c3e50; margin-top: 0; margin-bottom: 15px; ">
-                                                <a href={{ news.topic.1.news.3.url }} target="_blank" style="color: #2c3e50; text-decoration: none;">{{ news.topic.1.news.3.headline }}</a>
-                                            </h4>
-                                            <ul style="list-style-type: none; padding-left: 0; margin-top: 15px;">
-                                                <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
-                                                    <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
-                                                    {{ news.topic.1.news.3.point.1 }}
-                                                </li>
-                                                <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
-                                                    <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
-                                                    {{ news.topic.1.news.3.point.2 }}
-                                                </li>
-                                                <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
-                                                    <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
-                                                    {{ news.topic.1.news.3.point.3 }}
-                                                </li>
-                                            </ul>
-                                            <a href={{ news.topic.1.news.3.url }} style="display: block; font-size: 16px; color: #1e90ff; text-decoration: none; margin-top: 10px;">Read More</a>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
-                    </table>
-                    <!-- Design Category -->
-                    <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-top: 30px;">
-                        <tr>
-                            <td style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 24px; color: #333333; padding-bottom: 5px; border-bottom: 1px solid #dddddd;">
-                                {{ news.topic.2.title }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="padding-top: 15px;">
-                                <!-- Design News Card 1 -->
-                                <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color: #f1f7f1; border-radius: 10px; border: 1px solid #ddd; border-left: 5px solid #1e90ff; margin-bottom: 25px;">
-                                    <tr>
-                                        <td style="padding: 25px;">
-                                            <h4 style="font-size: 22px; font-weight: bold; color: #2c3e50; margin-top: 0; margin-bottom: 15px; ">
-                                                <a href="https://example.com/minimalist-design" target="_blank" style="color: #2c3e50; text-decoration: none;">{{ news.topic.2.news.1.headline }}</a>
-                                            </h4>
-                                            <ul style="list-style-type: none; padding-left: 0; margin-top: 15px;">
-                                                <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
-                                                    <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
-                                                    {{ news.topic.2.news.1.point.1 }}
-                                                </li>
-                                                <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
-                                                    <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
-                                                    {{ news.topic.2.news.1.point.2 }}
-                                                </li>
-                                                <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
-                                                    <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
-                                                    {{ news.topic.2.news.1.point.3 }}
-                                                </li>
-                                            </ul>
-                                            <a href={{ news.topic.2.news.1.url }} style="display: block; font-size: 16px; color: #1e90ff; text-decoration: none; margin-top: 10px;">Read More</a>
-                                        </td>
-                                    </tr>
-                                </table>
-                                <!-- Design News Card 2 -->
-                                <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color: #f1f7f1; border-radius: 10px; border: 1px solid #ddd; border-left: 5px solid #1e90ff; margin-bottom: 25px;">
-                                    <tr>
-                                        <td style="padding: 25px;">
-                                            <h4 style="font-size: 22px; font-weight: bold; color: #2c3e50; margin-top: 0; margin-bottom: 15px; ">
-                                                <a href="{{ news.topic.2.news.2.url }}" target="_blank" style="color: #2c3e50; text-decoration: none;">{{ news.topic.2.news.2.headline }}</a>
-                                            </h4>
-                                            <ul style="list-style-type: none; padding-left: 0; margin-top: 15px;">
-                                                <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
-                                                    <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
-                                                    {{ news.topic.2.news.2.point.1 }}
-                                                </li>
-                                                <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
-                                                    <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
-                                                    {{ news.topic.2.news.2.point.2 }}
-                                                </li>
-                                                <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
-                                                    <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
-                                                    {{ news.topic.2.news.2.point.3 }}
-                                                </li>
-                                            </ul>
-                                            <a href="{{ news.topic.2.news.2.url }}" style="display: block; font-size: 16px; color: #1e90ff; text-decoration: none; margin-top: 10px;">Read More</a>
-                                        </td>
-                                    </tr>
-                                </table>
-                                <!-- Design News Card 3 -->
-                                <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color: #f1f7f1; border-radius: 10px; border: 1px solid #ddd; border-left: 5px solid #1e90ff; margin-bottom: 25px;">
-                                    <tr>
-                                        <td style="padding: 25px;">
-                                            <h4 style="font-size: 22px; font-weight: bold; color: #2c3e50; margin-top: 0; margin-bottom: 15px; ">
-                                                <a href="{{ news.topic.2.news.3.url }}" target="_blank" style="color: #2c3e50; text-decoration: none;">{{ news.topic.2.news.3.headline }}</a>
-                                            </h4>
-                                            <ul style="list-style-type: none; padding-left: 0; margin-top: 15px;">
-                                                <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
-                                                    <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
-                                                    {{ news.topic.2.news.3.point.1 }}
-                                                </li>
-                                                <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
-                                                    <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
-                                                    {{ news.topic.2.news.3.point.2 }}
-                                                </li>
-                                                <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
-                                                    <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
-                                                    {{ news.topic.2.news.3.point.3 }}
-                                                </li>
-                                            </ul>
-                                            <a href="{{ news.topic.2.news.3.url }}" style="display: block; font-size: 16px; color: #1e90ff; text-decoration: none; margin-top: 10px;">Read More</a>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
-                    </table>
-                    <!-- Visuals Category -->
-                    <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-top: 30px;">
-                        <tr>
-                            <td style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 24px; color: #333333; padding-bottom: 5px; border-bottom: 1px solid #dddddd;">
-                                {{ news.topic.3.title }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="padding-top: 15px;">
-                                <!-- Visuals News Card 1 -->
-                                <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color: #f1f7f1; border-radius: 10px; border: 1px solid #ddd; border-left: 5px solid #1e90ff; margin-bottom: 25px;">
-                                    <tr>
-                                        <td style="padding: 25px;">
-                                            <h4 style="font-size: 22px; font-weight: bold; color: #2c3e50; margin-top: 0; margin-bottom: 15px; ">
-                                                <a href={{ news.topic.3.news.1.url }} target="_blank" style="color: #2c3e50; text-decoration: none;">{{ news.topic.3.news.1.headline }}</a>
-                                            </h4>
-                                            <ul style="list-style-type: none; padding-left: 0; margin-top: 15px;">
-                                                <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
-                                                    <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
-                                                    {{ news.topic.3.news.1.point.1 }}
-                                                </li>
-                                                <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
-                                                    <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
-                                                    {{ news.topic.3.news.1.point.2 }}
-                                                </li>
-                                                <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
-                                                    <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
-                                                    {{ news.topic.3.news.1.point.3 }}
-                                                </li>
-                                            </ul>
-                                            <a href="{{ news.topic.3.news.1.url }}" style="display: block; font-size: 16px; color: #1e90ff; text-decoration: none; margin-top: 10px;">Read More</a>
-                                        </td>
-                                    </tr>
-                                </table>
-                                <!-- Visuals News Card 2 -->
-                                <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color: #f1f7f1; border-radius: 10px; border: 1px solid #ddd; border-left: 5px solid #1e90ff; margin-bottom: 25px;">
-                                    <tr>
-                                        <td style="padding: 25px;">
-                                            <h4 style="font-size: 22px; font-weight: bold; color: #2c3e50; margin-top: 0; margin-bottom: 15px; ">
-                                                <a href={{ news.topic.3.news.2.url }} target="_blank" style="color: #2c3e50; text-decoration: none;">{{ news.topic.3.news.2.headline }}</a>
-                                            </h4>
-                                            <ul style="list-style-type: none; padding-left: 0; margin-top: 15px;">
-                                                <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
-                                                    <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
-                                                    {{ news.topic.3.news.2.point.1 }}
-                                                </li>
-                                                <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
-                                                    <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
-                                                    {{ news.topic.3.news.2.point.2 }}
-                                                </li>
-                                                <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
-                                                    <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
-                                                    {{ news.topic.3.news.2.point.3 }}
-                                                </li>
-                                            </ul>
-                                            <a href="{{ news.topic.3.news.2.url }}" style="display: block; font-size: 16px; color: #1e90ff; text-decoration: none; margin-top: 10px;">Read More</a>
-                                        </td>
-                                    </tr>
-                                </table>
-                                <!-- Visuals News Card 3 -->
-                                <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color: #f1f7f1; border-radius: 10px; border: 1px solid #ddd; border-left: 5px solid #1e90ff; margin-bottom: 20px;">
-                                    <tr>
-                                        <td style="padding: 25px;">
-                                            <h4 style="font-size: 22px; font-weight: bold; color: #2c3e50; margin-top: 0; margin-bottom: 15px; ">
-                                                <a href="{{ news.topic.3.news.3.url }}" target="_blank" style="color: #2c3e50; text-decoration: none;">{{ news.topic.3.news.3.headline }}</a>
-                                            </h4>
-                                            <ul style="list-style-type: none; padding-left: 0; margin-top: 15px;">
-                                                <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
-                                                    <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
-                                                    {{ news.topic.3.news.3.point.1 }}
-                                                </li>
-                                                <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
-                                                    <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
-                                                    {{ news.topic.3.news.3.point.2 }}
-                                                </li>
-                                                <li style="font-size: 16px; color: #555555; margin-bottom: 10px; padding-left: 20px; position: relative; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);">
-                                                    <span style="color: #1e90ff; font-weight: bold; font-size: 18px; position: absolute; left: 0; top: -2px;">&bull;</span>
-                                                    {{ news.topic.3.news.3.point.3 }}
-                                                </li>
-                                            </ul>
-                                            <a href={{ news.topic.3.news.3.url }} style="display: block; font-size: 16px; color: #1e90ff; text-decoration: none; margin-top: 10px;">Read More</a>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-        </table>
 
 
         <!-- History -->
@@ -736,7 +479,7 @@
                                                         </v:roundrect>
                                                         <![endif]-->
                                                         <!--[if !mso]><!-->
-                                                        <img src={{ history.image }} alt="Historical Event" width="160" style="display: block; border: 3px solid #b08b5e; border-radius: 10px; box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);">
+                                                        <img src="https://img.freepik.com/free-vector/red-grunge-style-coming-soon-design_1017-26691.jpg" alt="Historical Event" width="160" style="display: block; border: 3px solid #b08b5e; border-radius: 10px; box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);">
                                                         <!--<![endif]-->
                                                     </td>
                                                     <td valign="middle">
@@ -746,12 +489,12 @@
                                                             </tr>
                                                             <tr>
                                                                 <td style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 22px; font-weight: bold; color: #8b5e34; padding-bottom: 8px; font-style: italic;">
-                                                                    On this day in {{ history.year }}
+                                                                    On this day in {{ historical_event.year }}
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <td style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 18px; line-height: 1.6; color: #3d2e24; font-weight: 500;">
-                                                                    {{ history.event }}
+                                                                    {{ historical_event.event_description }}
                                                                 </td>
                                                             </tr>
                                                             <tr>
@@ -805,7 +548,7 @@
                                             <table cellpadding="0" cellspacing="0" border="0" style="margin-bottom: 10px;">
                                                 <tr>
                                                     <td style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 22px; font-weight: 700; color: #2c3e50; text-align: left; position: relative; padding-bottom: 10px;">
-                                                        {{ challenge.description }}
+                                                        {{ challenge.challenge }}
                                                         <!--[if gte mso 9]>
                                                         <v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="position:absolute;width:100%;height:4px;bottom:6px;">
                                                         <v:fill type="solid" color="#ffe066"/>
@@ -821,10 +564,16 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 14px; color: #7f8c8d; font-style: italic;">
+                                        <td style="font-family: 'Arial', 'Helvetica', sans-serif; font-size: 18px; line-height: 1.5; padding: 10px; background-color: #ecfffc34; border-radius: 8px; color: #333333; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                                            {{ challenge.instructions }}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-family: 'Arial', Arial, Helvetica, sans-serif; font-size: 14px; color: #535d5e; font-style: italic; padding-top: 10px;">
                                             {{ challenge.motivation }}
                                         </td>
                                     </tr>
+
                                 </table>
                             </td>
                         </tr>
@@ -865,7 +614,7 @@
                         </tr>
                         <tr>
                             <td align="center" style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 16px; color: #555555;">
-                                {{ breathe.motivation }}
+                                {{ breathing_technique.motivation }}
                             </td>
                         </tr>
                     </table>

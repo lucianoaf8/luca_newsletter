@@ -20,7 +20,8 @@ logger = get_logger(__name__)
 subscribers_query = '''
 SELECT id, full_name, email, nickname, interests, languages, city, country, days_receiving_newsletter
 FROM subscribers
-WHERE is_subscribed = 1;
+WHERE is_subscribed = 1
+LIMIT 1;
 '''
 
 def fetch_subscribers():

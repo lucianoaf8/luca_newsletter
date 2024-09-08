@@ -84,7 +84,7 @@ def fetch_weather_data():
     FROM api_calls
     WHERE script_path LIKE '%weather_api.py'
     AND used_in_newsletter = 0
-    AND created >= NOW() - INTERVAL 5 HOUR
+    ORDER BY id DESC
     LIMIT 2;
     '''
     df = execute_query(weather_query)
@@ -99,7 +99,7 @@ def fetch_exchange_rate_data():
     FROM api_calls
     WHERE script_path LIKE '%exchange_rates_api.py'
     AND used_in_newsletter = 0
-    AND created >= NOW() - INTERVAL 5 HOUR
+    ORDER BY id DESC
     LIMIT 1;
     '''
     df = execute_query(exchange_rate_query)
@@ -146,7 +146,7 @@ def fetch_word_of_the_day_data():
     random_id = select_random_id('word_of_the_day')
     if random_id:
         word_of_the_day=f'''
-        SELECT id, category, word, part_of_speech, pronunciation_us, audio_file_us, shortdef_1, shortdef_2, shortdef_3, example_1, example_2, related_words, phrases_idioms, etymology, meta_offensive, headword, pronunciation_uk, audio_file_uk, grammatical_note, grammatical_info
+        SELECT id, category, word, part_of_speech, pronunciation_us, audio_file_us, shortdef_1, shortdef_2, shortdef_3, short_definitions, example_1, example_2, examples, related_words, phrases_idioms, etymology, meta_offensive, headword, pronunciation_uk, audio_file_uk, grammatical_note, grammatical_info
         FROM word_of_the_day
         WHERE id = {random_id};
         '''

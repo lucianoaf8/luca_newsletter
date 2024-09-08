@@ -5,7 +5,7 @@ import os
 from datetime import datetime
 from logging.handlers import RotatingFileHandler
 
-def get_logger(script_name, log_level=logging.DEBUG, max_bytes=10485760, backup_count=5):
+def get_logger(script_name, log_level=logging.INFO, max_bytes=10485760, backup_count=5):
     try:
         # Create 'logs' directory if it doesn't exist
         logs_dir = os.path.join(os.path.dirname(__file__), '..', 'logs')

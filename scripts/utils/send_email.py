@@ -1,9 +1,12 @@
+# scripts\utils\send_email.py
+
 import smtplib
 import logging
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from dotenv import load_dotenv
 import os
+from email.utils import formataddr
 
 # Load environment variables from .env file
 load_dotenv()
@@ -35,9 +38,11 @@ def send_html_email(to_address, subject, html_content):
         # Load SMTP settings
         server, port, email, password = load_smtp_settings()
         
+        display_name = "Luca Newsletter"
+
         # Setup the MIME
         message = MIMEMultipart("alternative")
-        message['From'] = email
+        message['From'] = formataddr((display_name, email))
         message['To'] = to_address
         message['Subject'] = subject
 

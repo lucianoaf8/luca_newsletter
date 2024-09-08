@@ -30,18 +30,20 @@ def get_api_key():
     return api_key
 
 def fetch_weather_data(api_key, location):
-    """Fetch weather data from the API using location."""
-    url = 'https://api.tomorrow.io/v4/weather/realtime'
+    """Fetch daily weather forecast data from the Tomorrow.io API."""
+    url = 'https://api.tomorrow.io/v4/weather/forecast'
     params = {
         'apikey': api_key,
         'location': location,
+        'timesteps': '1d',  # daily forecast
         'units': 'metric'
     }
     
-    logger.info(f"Fetching weather data for location: {location}...")
+    logger.info(f"Fetching daily weather forecast for location: {location}...")
     response = requests.get(url, params=params)
     response.raise_for_status()
     return response.json()
+
 
 def save_json_response(data, location):
     """Save the entire JSON response to a file."""
@@ -101,5 +103,5 @@ def main(location):
         logger.info(f"Script execution finished for {location}.")
 
 if __name__ == "__main__":
-    location = "Calgary"
+    location = "Belo Horizonte"
     main(location)

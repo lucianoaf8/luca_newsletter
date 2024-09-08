@@ -1,0 +1,76 @@
+<!-- Weather -->
+        <!--[if gte mso 9]>
+        <v:background xmlns:v="urn:schemas-microsoft-com:vml" fill="t">
+            <v:fill type="gradient" color="#0766c5" color2="#40ade7" angle="270"/>
+        </v:background>
+        <![endif]-->
+        <table class="weather-widget" cellpadding="0" cellspacing="0" border="0" width="100%" style="width: 100%; max-width: 650px; margin: 20px auto; background-color: #0766c5; background-image: linear-gradient(to bottom, #0766c5, #40ade7); border-radius: 15px; box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3); color: #ffffff; padding: 20px;">
+            <tr>
+                <!-- Top-Left Quadrant: Main Weather Information -->
+                <td width="50%" valign="center" style="padding: 15px; text-align: center;">
+                    <img src="https://i.imgur.com/91t4phy.png" alt="Sunny Day" width="75" height="75" style="display: block; margin: 0 auto 10px;">
+                    <div style="font-size: 45px; font-family: 'Roboto', Arial, Helvetica, sans-serif; font-weight: bold; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);">
+                        {{ weather.data.values.temperature }}&deg;C
+                    </div>
+                    <div style="font-size: 16px; font-family: 'Roboto', Arial, Helvetica, sans-serif; margin-top: 10px; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);">
+                        {{ weather.feels_like_name }}: {{ weather.data.values.temperatureApparent }}&deg;C
+                    </div>
+                    <div style="font-size: 16px; font-family: 'Roboto', Arial, Helvetica, sans-serif; margin-top: 10px; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);">
+                        {{ weather.description }}
+                    </div>
+                </td>
+
+                <!-- Top-Right Quadrant: Additional Weather Details -->
+                <td width="50%" valign="center" style="padding: 15px; text-align: left;">
+                    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                        <tr>
+                            <td style="padding-bottom: 8px;">
+                                <img src="https://i.imgur.com/GVFkwgh.png" alt="sunrise" width="24" height="24" style="vertical-align: middle; margin-right: 10px;">
+                                <span style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 16px; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);">{{ weather.sunrise_name }}: {{ weather.sunrise }} AM</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding-bottom: 8px;">
+                                <img src="https://i.imgur.com/jxyfxWW.png" alt="sunset" width="24" height="24" style="vertical-align: middle; margin-right: 10px;">
+                                <span style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 16px; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);">{{ weather.sunset_name }}: {{ weather.sunset }} PM</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding-bottom: 8px;">
+                                <img src="https://i.imgur.com/9u12ZvL.png" alt="cloud cover" width="24" height="24" style="vertical-align: middle; margin-right: 10px;">
+                                <span style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 16px; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);">{{ weather.cloud_cover_name }}: {{ weather.cloud_cover }}%</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding-bottom: 8px;">
+                                <img src="https://i.imgur.com/FFYknas.png" alt="precipitation" width="24" height="24" style="vertical-align: middle; margin-right: 10px;">
+                                <span style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 16px; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);">{{ weather.precipitation_name }}: {{ weather.precipitation }}%</span>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <!-- Bottom-Left Quadrant: Extended Weather Information -->
+                <td width="50%" valign="center" style="padding: 15px; text-align: left;">
+                    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                        <tr>
+                            <td style="padding-bottom: 8px;">
+                                <img src="https://i.imgur.com/E7zY6cJ.png" alt="humidity" width="24" height="24" style="vertical-align: middle; margin-right: 10px;">
+                                <span style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 16px; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);">{{ weather.humidity_name }}: {{ weather.humidity }}%</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding-bottom: 8px;">
+                                <img src="https://i.imgur.com/QtkIVJJ.png" alt="wind" width="24" height="24" style="vertical-align: middle; margin-right: 10px;">
+                                <span style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 16px; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);">{{ weather.wind_name }}:  {{ weather.wind_speed }} km/h {{ weather.wind_direction }}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <img src="https://i.imgur.com/pe253k2.png" alt="uv index" width="24" height="24" style="vertical-align: middle; margin-right: 10px;">
+                                <span style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 16px; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);">{{ weather.uv_index_name }}: {{ weather.uv_index }}</span>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
