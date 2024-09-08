@@ -3,8 +3,6 @@
 import os
 import sys
 import pandas as pd
-from datetime import datetime
-import logging
 
 # Add the project root to the Python path
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
@@ -21,7 +19,7 @@ subscribers_query = '''
 SELECT id, full_name, email, nickname, interests, languages, city, country, timezone, days_receiving_newsletter
 FROM subscribers
 WHERE is_subscribed = 1
-LIMIT 1;
+AND id in (1, 12);
 '''
 
 def fetch_subscribers():

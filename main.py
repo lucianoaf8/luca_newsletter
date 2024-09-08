@@ -314,15 +314,32 @@ def render_and_save_newsletter(subscriber, content, date, template, path):
 
 def send_newsletter_email(subscriber, long_date, file_path):
     try:
+        # Convert the date string to a datetime object
+        date_obj = datetime.strptime(long_date, "%B %d, %Y")
+        
+        # Get days receiving newsletter
+        days_receiving_newsletter = subscriber['days_receiving_newsletter']
+        days_receiving_newsletter = +1
+        
+        # Format the date with the day of the week
+        formatted_date = date_obj.strftime("%A - %B %d, %Y")
+        
         with open(file_path, 'r', encoding='utf-8') as html_file:
             html_content = html_file.read()
         
-        subject = f"{long_date} - Luca Newsletter"
+        subject = f"{formatted_date} - Your Luca Newsletter #{days_receiving_newsletter}"
         to_address = subscriber['email']
         send_html_email(to_address, subject, html_content)
         logger.info(f"Sent newsletter email to {subscriber['nickname']} at {to_address}")
     except Exception as e:
         logger.error(f"Error sending email to {subscriber['nickname']}: {e}")
+        raise
+
+def update_used_in_newsletter():
+    try:
+        logger.info(f"update_used_in_newsletter")
+    except Exception as e:
+        logger.error(f": {e}")
         raise
 
 def main():
@@ -376,12 +393,14 @@ def main():
                 newsletter_file_path = render_and_save_newsletter(subscriber, subscriber_content, formatted_date, template, newsletter_ready_path)
 
                 # Send email
-                # send_newsletter_email(subscriber, long_date, newsletter_file_path)
+                send_newsletter_email(subscriber, long_date, newsletter_file_path)
 
             except Exception as e:
                 logger.error(f"Error processing newsletter for subscriber {subscriber['nickname']}: {e}")
                 # Continue with the next subscriber if there's an error with the current one
                 continue
+
+        update_used_in_newsletter()
 
     except Exception as e:
         logger.error(f"An unexpected error occurred in main: {e}")
