@@ -10,9 +10,13 @@ from scripts.utils.send_email import send_html_email
 import pandas as pd
 import re
 import html
+from datetime import datetime
+import pytz
 
 # Initialize logger
 logger = get_logger('main')
+
+# HELPER FUNCTIONS
 
 def clean_and_format_text(text):
     # Remove special formatting markers
@@ -32,27 +36,94 @@ def clean_and_format_text(text):
     
     return text
 
-def prepare_subscriber_content(subscriber, long_date, formatted_date, weather_data, exchange_rate_data, quotes_data, fun_facts_data, word_of_the_day_data, english_tips_data, historical_events_data, daily_challenges_data):
+# Function to extract hour and minutes from a datetime string
+def format_time(time_str, timezone_str):
+    if time_str != "N/A" and timezone_str:
+        try:
+            # Parse the UTC time
+            utc_time = datetime.fromisoformat(time_str.rstrip('Z')).replace(tzinfo=pytz.UTC)
+            # Convert to subscriber's local time
+            local_tz = pytz.timezone(timezone_str)
+            local_time = utc_time.astimezone(local_tz)
+            return local_time.strftime('%I:%M %p') 
+        except (ValueError, pytz.exceptions.UnknownTimeZoneError):
+            return "N/A"
+    return "N/A"
+
+# Convert pandas Timestamp to ISO format string
+def convert_timestamps(data):
+    for key, value in data.items():
+        if isinstance(value, pd.Timestamp):
+            data[key] = value.isoformat()  # Convert Timestamp to string
+    return data
+
+# Remove slashes from quotes
+def clean_escape_sequences(text):
+    return text.replace("\\", "")  # Removes escape slashes
+
+# Convert numeric values to int and handle N/A values
+def to_int(value):
+    try:
+        return int(value)
+    except (ValueError, TypeError):
+        return value  # Return the original value if it can't be converted to int
+
+
+def get_weather_code_description(code):
+    weather_code = {
+      "0": "Unknown",
+      "1000": "Clear, Sunny",
+      "1100": "Mostly Clear",
+      "1101": "Partly Cloudy",
+      "1102": "Mostly Cloudy",
+      "1001": "Cloudy",
+      "2000": "Fog",
+      "2100": "Light Fog",
+      "4000": "Drizzle",
+      "4001": "Rain",
+      "4200": "Light Rain",
+      "4201": "Heavy Rain",
+      "5000": "Snow",
+      "5001": "Flurries",
+      "5100": "Light Snow",
+      "5101": "Heavy Snow",
+      "6000": "Freezing Drizzle",
+      "6001": "Freezing Rain",
+      "6200": "Light Freezing Rain",
+      "6201": "Heavy Freezing Rain",
+      "7000": "Ice Pellets",
+      "7101": "Heavy Ice Pellets",
+      "7102": "Light Ice Pellets",
+      "8000": "Thunderstorm"
+    }
+    return weather_code.get(str(code), "Unknown")
+
+def map_to_weather_code_day(weather_codes_data, description):
+    # Ensure weather_codes_data is a dictionary
+    if isinstance(weather_codes_data, pd.DataFrame):
+        weather_code_day = weather_codes_data.set_index('weather_code')['description'].to_dict()
+    elif isinstance(weather_codes_data, pd.Series):
+        weather_code_day = weather_codes_data.to_dict()
+    else:
+        weather_code_day = weather_codes_data
+    
+    # Create a reverse mapping
+    reverse_mapping = {v: k for k, v in weather_code_day.items()}
+    
+    # Try to find an exact match
+    if description in reverse_mapping:
+        return weather_code_day[reverse_mapping[description]]
+    
+    # If no exact match, try to find a partial match
+    for key, value in reverse_mapping.items():
+        if description in key:
+            return weather_code_day[value]
+    
+    return "Unknown"
+
+def prepare_subscriber_content(subscriber, long_date, formatted_date, weather_data, weather_codes_data, exchange_rate_data, quotes_data, fun_facts_data, word_of_the_day_data, english_tips_data, historical_events_data, daily_challenges_data):
     
     subscriber_content = {}
-
-    # Helper function to convert pandas Timestamp to ISO format string
-    def convert_timestamps(data):
-        for key, value in data.items():
-            if isinstance(value, pd.Timestamp):
-                data[key] = value.isoformat()  # Convert Timestamp to string
-        return data
-    
-    # Helper function to remove slashes from quotes
-    def clean_escape_sequences(text):
-        return text.replace("\\", "")  # Removes escape slashes
-
-    # Helper function to convert numeric values to int and handle N/A values
-    def to_int(value):
-        try:
-            return int(value)
-        except (ValueError, TypeError):
-            return value  # Return the original value if it can't be converted to int
 
     subscriber_content['header'] = {
             "newsletter_title": "Good Morning",
@@ -67,47 +138,70 @@ def prepare_subscriber_content(subscriber, long_date, formatted_date, weather_da
     
     # Prepare weather data
     subscriber_city = subscriber['city']
-    city_weather = weather_data[weather_data['location'] == subscriber_city]
+    subscriber_timezone = subscriber['timezone']
+    city_weather = weather_data[weather_data['location.name'].str.contains(subscriber_city, case=False, na=False)]
+
     if not city_weather.empty:
         city_weather_dict = city_weather.iloc[0].to_dict()
-        city_weather_dict = convert_timestamps(city_weather_dict)
-
-        # Create nested structure for `data.values`
-        city_weather_dict = weather_data.iloc[0].to_dict() if not weather_data.empty else {}
+        
+        # Extract the daily weather data for today (first item in the timelines list)
+        today_weather = city_weather_dict['timelines.daily'][0]['values']
 
         weather_data_nested = {
-                "uvIndex": to_int(city_weather_dict.get("data.values.uvIndex", "N/A")),
-                "dewPoint": to_int(city_weather_dict.get("data.values.dewPoint", "N/A")),
-                "humidity": to_int(city_weather_dict.get("data.values.humidity", "N/A")),
-                "windGust": to_int(city_weather_dict.get("data.values.windGust", "N/A")),
-                "cloudBase": to_int(city_weather_dict.get("data.values.cloudBase", "N/A")),
-                "windSpeed": to_int(city_weather_dict.get("data.values.windSpeed", "N/A")),
-                "cloudCover": to_int(city_weather_dict.get("data.values.cloudCover", "N/A")),
-                "visibility": to_int(city_weather_dict.get("data.values.visibility", "N/A")),
-                "temperature": to_int(city_weather_dict.get("data.values.temperature", "N/A")),
-                "weatherCode": to_int(city_weather_dict.get("data.values.weatherCode", "N/A")),
-                "cloudCeiling": to_int(city_weather_dict.get("data.values.cloudCeiling", "N/A")),
-                "rainIntensity": to_int(city_weather_dict.get("data.values.rainIntensity", "N/A")),
-                "snowIntensity": to_int(city_weather_dict.get("data.values.snowIntensity", "N/A")),
-                "windDirection": to_int(city_weather_dict.get("data.values.windDirection", "N/A")),
-                "sleetIntensity": to_int(city_weather_dict.get("data.values.sleetIntensity", "N/A")),
-                "uvHealthConcern": to_int(city_weather_dict.get("data.values.uvHealthConcern", "N/A")),
-                "temperatureApparent": to_int(city_weather_dict.get("data.values.temperatureApparent", "N/A")),
-                "pressureSurfaceLevel": to_int(city_weather_dict.get("data.values.pressureSurfaceLevel", "N/A")),
-                "freezingRainIntensity": to_int(city_weather_dict.get("data.values.freezingRainIntensity", "N/A")),
-                "precipitationProbability": to_int(city_weather_dict.get("data.values.precipitationProbability", "N/A"))
+            "uvIndex": to_int(today_weather.get("uvIndexMax", "N/A")),
+            "dewPoint": to_int(today_weather.get("dewPointAvg", "N/A")),
+            "humidity": to_int(today_weather.get("humidityAvg", "N/A")),
+            "windGust": to_int(today_weather.get("windGustAvg", "N/A")),
+            "cloudBase": to_int(today_weather.get("cloudBaseAvg", "N/A")),
+            "windSpeed": to_int(today_weather.get("windSpeedAvg", "N/A")),
+            "cloudCover": to_int(today_weather.get("cloudCoverAvg", "N/A")),
+            "visibility": to_int(today_weather.get("visibilityAvg", "N/A")),
+            "temperature": to_int(today_weather.get("temperatureAvg", "N/A")),
+            "weatherCode": to_int(today_weather.get("weatherCodeMax", "N/A")),
+            "cloudCeiling": to_int(today_weather.get("cloudCeilingAvg", "N/A")),
+            "rainIntensity": to_int(today_weather.get("rainIntensityAvg", "N/A")),
+            "snowIntensity": to_int(today_weather.get("snowIntensityAvg", "N/A")),
+            "windDirection": to_int(today_weather.get("windDirectionAvg", "N/A")),
+            "sleetIntensity": to_int(today_weather.get("sleetIntensityAvg", "N/A")),
+            "uvHealthConcern": to_int(today_weather.get("uvHealthConcernMax", "N/A")),
+            "temperatureApparent": to_int(today_weather.get("temperatureApparentAvg", "N/A")),
+            "pressureSurfaceLevel": to_int(today_weather.get("pressureSurfaceLevelAvg", "N/A")),
+            "freezingRainIntensity": to_int(today_weather.get("freezingRainIntensityAvg", "N/A")),
+            "precipitationProbability": to_int(today_weather.get("precipitationProbabilityAvg", "N/A"))
         }
 
-        subscriber_content['weather'] = weather_data_nested
+        # Get weather description
+        weather_code_max = today_weather.get("weatherCodeMax", "N/A")
+        weather_code_description = get_weather_code_description(weather_code_max)
+
+        # Map to weather_code_day
+        weather_code_day_description = map_to_weather_code_day(weather_codes_data, weather_code_description)
+
+        # If no match found by description, find the closest weather_code
+        if weather_code_day_description == "Unknown":
+            if isinstance(weather_codes_data, pd.DataFrame):
+                closest_code = weather_codes_data['weather_code'].astype(int).sub(int(weather_code_max)).abs().idxmin()
+                weather_code_day_description = weather_codes_data.loc[closest_code, 'description']
+            else:
+                closest_code = min(weather_codes_data.keys(), key=lambda x: abs(int(x) - int(weather_code_max)))
+                weather_code_day_description = weather_codes_data[closest_code]['description']
+
+        # Find the matching weather code data
+        if isinstance(weather_codes_data, pd.DataFrame):
+            weather_code_data = weather_codes_data[weather_codes_data['description'] == weather_code_day_description].iloc[0].to_dict()
+        else:
+            weather_code_data = next((data for data in weather_codes_data.values() if data['description'] == weather_code_day_description), None)
 
         # Add the nested weather data along with additional fields
         weather_data_nested.update({
             "feels_like_name": "Feels like",
-            "description": city_weather_dict.get('description', "Description not available"),
+            "description": weather_code_day_description,
+            "icon_file_name": weather_code_data['icon_file_name'] if weather_code_data else None,
+            "icon_file_url": weather_code_data['icon_file_url'] if weather_code_data else None,
             "sunrise_name": "Sunrise",
-            "sunrise": city_weather_dict.get('sunrise', "N/A"),
+            "sunrise": format_time(today_weather.get('sunriseTime', "N/A"), subscriber_timezone),
             "sunset_name": "Sunset",
-            "sunset": city_weather_dict.get('sunset', "N/A"),
+            "sunset": format_time(today_weather.get('sunsetTime', "N/A"), subscriber_timezone),
             "cloud_cover_name": "Cloud cover",
             "precipitation_name": "Precipitation",
             "humidity_name": "Humidity",
@@ -115,6 +209,7 @@ def prepare_subscriber_content(subscriber, long_date, formatted_date, weather_da
             "uv_index_name": "UV Index",
             "coming_soon": "Coming soon"
         })
+
         subscriber_content['weather'] = weather_data_nested
     else:
         subscriber_content['weather'] = {}
@@ -263,6 +358,7 @@ def main():
         english_tips_data = queries_data['english_tips_data']
         historical_events_data = queries_data['historical_events_data']
         daily_challenges_data = queries_data['daily_challenges_data']
+        weather_codes = queries_data['weather_codes']
 
         # Initialize Jinja2 environment
         env = Environment(loader=FileSystemLoader(os.path.join('templates')))
@@ -271,7 +367,7 @@ def main():
         # Prepare content for each subscriber
         for _, subscriber in subscribers_df.iterrows():
             try:
-                subscriber_content = prepare_subscriber_content(subscriber, long_date, formatted_date, weather_data, exchange_rate_data, quotes_data, fun_fact_data, word_of_the_day_data, english_tips_data, historical_events_data, daily_challenges_data)
+                subscriber_content = prepare_subscriber_content(subscriber, long_date, formatted_date, weather_data, weather_codes, exchange_rate_data, quotes_data, fun_fact_data, word_of_the_day_data, english_tips_data, historical_events_data, daily_challenges_data)
                 
                 # Save subscriber content as JSON
                 save_subscriber_content(subscriber, subscriber_content, formatted_date, content_feeder_path)
@@ -280,7 +376,7 @@ def main():
                 newsletter_file_path = render_and_save_newsletter(subscriber, subscriber_content, formatted_date, template, newsletter_ready_path)
 
                 # Send email
-                send_newsletter_email(subscriber, long_date, newsletter_file_path)
+                # send_newsletter_email(subscriber, long_date, newsletter_file_path)
 
             except Exception as e:
                 logger.error(f"Error processing newsletter for subscriber {subscriber['nickname']}: {e}")

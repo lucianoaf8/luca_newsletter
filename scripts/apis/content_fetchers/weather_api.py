@@ -35,15 +35,15 @@ def fetch_weather_data(api_key, location):
     params = {
         'apikey': api_key,
         'location': location,
-        'timesteps': '1d',  # daily forecast
-        'units': 'metric'
+        'timesteps': '1d',
+        'units': 'metric',
+        'fields': ['weatherCodeDay', 'temperature', 'humidity']  # Add fields you need
     }
     
     logger.info(f"Fetching daily weather forecast for location: {location}...")
     response = requests.get(url, params=params)
     response.raise_for_status()
     return response.json()
-
 
 def save_json_response(data, location):
     """Save the entire JSON response to a file."""
@@ -103,5 +103,5 @@ def main(location):
         logger.info(f"Script execution finished for {location}.")
 
 if __name__ == "__main__":
-    location = "Belo Horizonte"
+    location = "Calgary"
     main(location)

@@ -200,6 +200,16 @@ def fetch_daily_challenges_data():
         logger.warning("No available daily challenges to fetch")
         return pd.DataFrame()
 
+def fetch_weather_codes():
+    """
+    Fetch weather codes.
+    """
+    weather_codes_query = f'''
+    SELECT weather_code, description, icon_file_name, icon_file_url
+    FROM tomorrowio_weathercodes;
+    '''
+    return execute_query(weather_codes_query)
+
 def fetch_all_data():
     """
     Fetches all the required data and returns them as DataFrames.
@@ -212,6 +222,7 @@ def fetch_all_data():
     english_tips_data = fetch_english_tips_data()
     historical_event = fetch_historical_event_data()
     daily_challenges_data = fetch_daily_challenges_data()
+    weather_codes = fetch_weather_codes()
 
     return {
         'weather_data': weather_data,
@@ -221,7 +232,8 @@ def fetch_all_data():
         'word_of_the_day_data': word_of_the_day_data,
         'english_tips_data': english_tips_data,
         'historical_events_data': historical_event,
-        'daily_challenges_data': daily_challenges_data
+        'daily_challenges_data': daily_challenges_data,
+        'weather_codes': weather_codes
     }
 
 def main():

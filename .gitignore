@@ -3,6 +3,7 @@
 *.json
 data/
 index_copy.html
+src/assets/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
