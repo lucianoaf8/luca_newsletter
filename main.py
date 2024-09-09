@@ -7,6 +7,7 @@ from scripts.db.fetch_subscribers import process_subscribers_data
 from scripts.db.fetch_queries import fetch_all_data
 from scripts.utils.logger_config import get_logger
 from scripts.utils.send_email import send_html_email 
+from scripts.utils.db_connection import get_db_connection, close_connection
 import pandas as pd
 import re
 import html
@@ -52,10 +53,12 @@ def format_time(time_str, timezone_str):
 
 # Convert pandas Timestamp to ISO format string
 def convert_timestamps(data):
-    for key, value in data.items():
-        if isinstance(value, pd.Timestamp):
-            data[key] = value.isoformat()  # Convert Timestamp to string
-    return data
+    if isinstance(data, dict):
+        return {key: value.isoformat() if isinstance(value, pd.Timestamp) else value for key, value in data.items()}
+    elif isinstance(data, pd.DataFrame):
+        return data.applymap(lambda x: x.isoformat() if isinstance(x, pd.Timestamp) else x)
+    else:
+        return data
 
 # Remove slashes from quotes
 def clean_escape_sequences(text):
@@ -124,6 +127,24 @@ def map_to_weather_code_day(weather_codes_data, description):
 def prepare_subscriber_content(subscriber, long_date, formatted_date, weather_data, weather_codes_data, exchange_rate_data, quotes_data, fun_facts_data, word_of_the_day_data, english_tips_data, historical_events_data, daily_challenges_data):
     
     subscriber_content = {}
+    used_ids = {
+        'quotes': [],
+        'fun_facts': [],
+        'word_of_the_day': [],
+        'english_tips': [],
+        'historical_events': [],
+        'daily_challenges': []
+    }
+    
+    # Helper function to safely get first item from DataFrame or dict
+    def get_first_item(data):
+        if isinstance(data, pd.DataFrame) and not data.empty:
+            return data.iloc[0].to_dict()
+        elif isinstance(data, dict):
+            return data
+        else:
+            return {}
+    
 
     subscriber_content['header'] = {
             "newsletter_title": "Good Morning",
@@ -234,8 +255,9 @@ def prepare_subscriber_content(subscriber, long_date, formatted_date, weather_da
     else:
         subscriber_content['exchange_rates'] = {}
     
-    # Prepare quote of the day data
-    if not quotes_data.empty:
+    # Quotes
+    quote_data = get_first_item(quotes_data)
+    if quote_data:
         quote_of_the_day = quotes_data.iloc[0].to_dict()
 
         # Clean up the quote field
@@ -246,12 +268,20 @@ def prepare_subscriber_content(subscriber, long_date, formatted_date, weather_da
 
         # Store in subscriber_content
         subscriber_content['quote_of_the_day'] = convert_timestamps(quote_of_the_day)
+        used_ids['quotes'].append(quote_of_the_day.get('id'))
     else:
         subscriber_content['quote_of_the_day'] = {}
     
-    subscriber_content['fun_fact'] = convert_timestamps(fun_facts_data.iloc[0].to_dict()) if not fun_facts_data.empty else {}
+    # Fun Facts
+    fun_fact_data = get_first_item(fun_facts_data)
+    if fun_fact_data:
+        fun_fact = fun_facts_data.iloc[0].to_dict()
+        subscriber_content['fun_fact'] = convert_timestamps(fun_fact)
+        used_ids['fun_facts'].append(fun_fact.get('id'))
     
-    if not word_of_the_day_data.empty:
+    # Word of the Day
+    word_data = get_first_item(word_of_the_day_data)
+    if word_data:
         word_of_the_day = word_of_the_day_data.iloc[0].to_dict()
         if 'examples' in word_of_the_day:
             # Split the examples into separate examples
@@ -260,24 +290,38 @@ def prepare_subscriber_content(subscriber, long_date, formatted_date, weather_da
             cleaned_examples = [clean_and_format_text(example) for example in examples]
             # Join the cleaned examples back together
             word_of_the_day['examples'] = '; '.join(cleaned_examples)
-        subscriber_content['word_of_the_day'] = convert_timestamps(word_of_the_day)
+        subscriber_content['word_of_the_day'] = convert_timestamps(word_data)
+        used_ids['word_of_the_day'].append(word_data.get('id'))
     else:
         subscriber_content['word_of_the_day'] = {}
     
-    subscriber_content['english_tip'] = convert_timestamps(english_tips_data.iloc[0].to_dict()) if not english_tips_data.empty else {}
-
+    # English Tips
+    english_tip_data = get_first_item(english_tips_data)
+    if english_tip_data:
+        english_tip = english_tips_data.iloc[0].to_dict()
+        subscriber_content['english_tip'] = convert_timestamps(english_tip)
+        used_ids['english_tips'].append(english_tip.get('id'))
+    
+    
     subscriber_content['news'] = {"message": "News not implemented yet"}
 
-    subscriber_content['historical_event'] = convert_timestamps(historical_events_data.iloc[0].to_dict()) if not historical_events_data.empty else {}
 
-    # Prepare challenge data
-    challenge_data_nested = convert_timestamps(daily_challenges_data.iloc[0].to_dict()) if not daily_challenges_data.empty else {}
-    
-    # Add the nested challenge data along with additional fields
-    challenge_data_nested.update({"header": "Today's Challenge"})
-    
-    subscriber_content['challenge'] = challenge_data_nested         
+    # Historical Events
+    historical_event_data = get_first_item(historical_events_data)
+    if historical_event_data:
+        historical_event = historical_events_data.iloc[0].to_dict()
+        subscriber_content['historical_event'] = convert_timestamps(historical_event)
+        used_ids['historical_events'].append(historical_event.get('id'))
 
+    # Daily Challenges
+    challenge_data = get_first_item(daily_challenges_data)
+    if challenge_data:
+        daily_challenge = daily_challenges_data.iloc[0].to_dict()
+        challenge_data_nested = convert_timestamps(daily_challenge)
+        challenge_data_nested.update({"header": "Today's Challenge"})
+        subscriber_content['challenge'] = challenge_data_nested
+        used_ids['daily_challenges'].append(daily_challenge.get('id'))
+    
     subscriber_content['breathing_technique'] = {"motivation": "Just Breathe!"}
     
     subscriber_content['footer'] = {
@@ -286,7 +330,7 @@ def prepare_subscriber_content(subscriber, long_date, formatted_date, weather_da
         "unsubscribe": " to unsubscribe, report an error, or request a feature"
     }
     
-    return subscriber_content
+    return subscriber_content, used_ids
 
 def save_subscriber_content(subscriber, content, date, path):
     file_name = f"{subscriber['nickname']}_{date}.json"
@@ -335,12 +379,35 @@ def send_newsletter_email(subscriber, long_date, file_path):
         logger.error(f"Error sending email to {subscriber['nickname']}: {e}")
         raise
 
-def update_used_in_newsletter():
+def update_used_in_newsletter(used_ids, subscriber_ids):
+    conn = None
     try:
-        logger.info(f"update_used_in_newsletter")
+        conn = get_db_connection()
+        cursor = conn.cursor()
+
+        # Update used_in_newsletter for content tables
+        for table, ids in used_ids.items():
+            if ids:
+                query = f"UPDATE {table} SET used_in_newsletter = 1 WHERE id IN ({','.join(map(str, ids))})"
+                cursor.execute(query)
+                logger.info(f"Updated {cursor.rowcount} rows in {table}")
+
+        # Update days_receiving_newsletter for subscribers
+        if subscriber_ids:
+            query = "UPDATE subscribers SET days_receiving_newsletter = days_receiving_newsletter + 1 WHERE id IN ({})".format(','.join(map(str, subscriber_ids)))
+            cursor.execute(query)
+            logger.info(f"Updated {cursor.rowcount} subscribers")
+
+        conn.commit()
+        logger.info("All updates completed successfully")
+
     except Exception as e:
-        logger.error(f": {e}")
-        raise
+        logger.error(f"Error updating used_in_newsletter: {e}")
+        if conn:
+            conn.rollback()
+    finally:
+        if conn:
+            close_connection(conn)
 
 def main():
     try:
@@ -381,11 +448,26 @@ def main():
         env = Environment(loader=FileSystemLoader(os.path.join('templates')))
         template = env.get_template('template.html')
 
-        # Prepare content for each subscriber
+        all_used_ids = {
+            'quotes': [],
+            'fun_facts': [],
+            'word_of_the_day': [],
+            'english_tips': [],
+            'historical_events': [],
+            'daily_challenges': []
+        }
+        
+        updated_subscriber_ids = []
+        
+         # Prepare content for each subscriber
         for _, subscriber in subscribers_df.iterrows():
             try:
-                subscriber_content = prepare_subscriber_content(subscriber, long_date, formatted_date, weather_data, weather_codes, exchange_rate_data, quotes_data, fun_fact_data, word_of_the_day_data, english_tips_data, historical_events_data, daily_challenges_data)
+                subscriber_content, used_ids = prepare_subscriber_content(subscriber, long_date, formatted_date, weather_data, weather_codes, exchange_rate_data, quotes_data, fun_fact_data, word_of_the_day_data, english_tips_data, historical_events_data, daily_challenges_data)
                 
+                # Accumulate used IDs
+                for key in all_used_ids:
+                    all_used_ids[key].extend(used_ids[key])
+
                 # Save subscriber content as JSON
                 save_subscriber_content(subscriber, subscriber_content, formatted_date, content_feeder_path)
 
@@ -395,12 +477,16 @@ def main():
                 # Send email
                 send_newsletter_email(subscriber, long_date, newsletter_file_path)
 
+                # Add subscriber ID to the list of updated subscribers
+                updated_subscriber_ids.append(subscriber['id'])
+
             except Exception as e:
                 logger.error(f"Error processing newsletter for subscriber {subscriber['nickname']}: {e}")
                 # Continue with the next subscriber if there's an error with the current one
                 continue
 
-        update_used_in_newsletter()
+        # Update used_in_newsletter status and subscriber counts
+        update_used_in_newsletter(all_used_ids, updated_subscriber_ids)
 
     except Exception as e:
         logger.error(f"An unexpected error occurred in main: {e}")

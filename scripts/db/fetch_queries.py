@@ -175,7 +175,7 @@ def fetch_historical_event_data():
     random_id = select_random_id('historical_events')
     if random_id:
         historical_event=f'''
-        SELECT month, day, year, category, event_description, significance, source
+        SELECT id, month, day, year, category, event_description, significance, source
         FROM historical_events
         WHERE id = {random_id};
         '''

@@ -1,5 +1,5 @@
 # scripts\main.py
-from utils.index_parser import load_html_and_inline_css
+from scripts.utils.inactive.index_parser import load_html_and_inline_css
 from utils.send_email import send_html_email
 
 # Prepare the HTML content

@@ -6,7 +6,7 @@ from flask import Flask, render_template_string
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 from threading import Thread
-from scripts.utils.content_loader import load_json_data, validate_data, load_html_template, render_template  # Import content loader functions
+from scripts.utils.inactive.content_loader import load_json_data, validate_data, load_html_template, render_template  # Import content loader functions
 from scripts.utils.logger_config import get_logger  # Your logger config
 
 # Initialize logger

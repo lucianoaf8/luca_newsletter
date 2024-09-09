@@ -12,14 +12,13 @@ from scripts.utils.logger_config import get_logger
 from scripts.utils.db_connection import get_db_connection, close_connection
 
 # Initialize logger
-logger = get_logger(__name__)
+logger = get_logger('fetch_subscribers')
 
 # SQL query to fetch subscribers
 subscribers_query = '''
 SELECT id, full_name, email, nickname, interests, languages, city, country, timezone, days_receiving_newsletter
 FROM subscribers
-WHERE is_subscribed = 1
-AND id in (1, 12);
+WHERE is_subscribed = 1;
 '''
 
 def fetch_subscribers():
@@ -56,7 +55,6 @@ def process_subscribers_data():
     subscribers_df = fetch_subscribers()
     if subscribers_df is not None:
         logger.info("Data fetched successfully")
-        print(subscribers_df)
         return subscribers_df
     else:
         logger.error("Failed to fetch subscribers data.")
