@@ -6,7 +6,7 @@ from flask import Flask, render_template_string
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 from threading import Thread
-from scripts.utils.inactive.content_loader import load_json_data, validate_data, load_html_template, render_template  # Import content loader functions
+from scripts.utils.content_loader import load_content, render_template  # Import the necessary functions from content_loader
 from scripts.utils.logger_config import get_logger  # Your logger config
 
 # Initialize logger
@@ -22,17 +22,14 @@ template_file_path = os.path.join(os.getcwd(), 'templates', 'template.html')
 @app.route('/')
 def serve_newsletter():
     try:
-        # Load and validate the JSON data
-        content = load_json_data(content_file_path)
-        validate_data(content)
-
-        # Load the HTML template
-        template_content = load_html_template(template_file_path)
-
-        # Render the template with the loaded data
-        rendered_html = render_template(template_content, content)
+        # Load the content from the JSON file
+        content = load_content(content_file_path)
         
-        return render_template_string(rendered_html)  # Using Flask to serve the rendered content
+        # Render the HTML template using the loaded content
+        rendered_html = render_template(template_file_path, content)
+
+        # Serve the rendered HTML as a response
+        return render_template_string(rendered_html)
     except Exception as e:
         logger.error(f"Error rendering template: {e}")
         return "An error occurred while rendering the newsletter."
@@ -44,11 +41,11 @@ class ReloadHandler(FileSystemEventHandler):
 
     def on_modified(self, event):
         try:
+            # Reload the template and content if either file changes
             if event.src_path == content_file_path or event.src_path == template_file_path:
                 with app.app_context():
-                    # Reload the template and content
                     logger.info(f'{event.src_path} modified, reloading page...')
-                    self.app.jinja_env.cache.clear()
+                    self.app.jinja_env.cache.clear()  # Clear the template cache to reflect changes
         except Exception as e:
             logger.error(f"Error while reloading due to file changes: {e}")
 
@@ -68,10 +65,14 @@ def monitor_files():
     try:
         event_handler = ReloadHandler(app)
         observer = Observer()
+        
+        # Monitor both the content and template directories
         observer.schedule(event_handler, path=os.path.dirname(content_file_path), recursive=False)
         observer.schedule(event_handler, path=os.path.dirname(template_file_path), recursive=False)
         observer.start()
+        
         logger.info("Started file monitoring for content and template changes.")
+        
         try:
             while True:
                 time.sleep(1)

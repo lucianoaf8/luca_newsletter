@@ -361,9 +361,8 @@ def send_newsletter_email(subscriber, long_date, file_path):
         # Convert the date string to a datetime object
         date_obj = datetime.strptime(long_date, "%B %d, %Y")
         
-        # Get days receiving newsletter
-        days_receiving_newsletter = subscriber['days_receiving_newsletter']
-        days_receiving_newsletter = +1
+        # Get days receiving newsletter and increment by 1
+        days_receiving_newsletter = subscriber['days_receiving_newsletter'] + 1
         
         # Format the date with the day of the week
         formatted_date = date_obj.strftime("%A - %B %d, %Y")
@@ -371,7 +370,7 @@ def send_newsletter_email(subscriber, long_date, file_path):
         with open(file_path, 'r', encoding='utf-8') as html_file:
             html_content = html_file.read()
         
-        subject = f"{formatted_date} - Your Luca Newsletter #{days_receiving_newsletter}"
+        subject = f"{formatted_date} - Daily Digest #{days_receiving_newsletter}"
         to_address = subscriber['email']
         send_html_email(to_address, subject, html_content)
         logger.info(f"Sent newsletter email to {subscriber['nickname']} at {to_address}")

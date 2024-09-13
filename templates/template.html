@@ -305,7 +305,7 @@
                                 <![endif]-->
                                 <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
                                     <tr>
-                                        <td width="70%" valign="middle" style="padding-right: 20px;">
+                                        <td width="70%" valign="middle" style="padding-right: 20px; padding-top: 10px;">
                                             <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
                                                 <tr>
                                                     <td style="border-left: 4px solid #a1b6a1; padding-left: 15px;">
@@ -315,6 +315,11 @@
                                                         <p style="font-family: Arial, sans-serif; font-size: 14px; color: #666666; margin: 0;">
                                                             — {{ quote_of_the_day.source }}
                                                         </p>
+                                                        <div style="border-top: 1px solid rgba(161, 182, 161, 0.5); padding-top: 10px; margin-top: 10px;  padding-bottom: 5px;">
+                                                            <p style="font-family: Arial, sans-serif; font-size: 13px; color: #555555; margin: 0; line-height: 1.4; font-style: italic;">
+                                                                {{ quote_of_the_day.contextual_notes }}
+                                                            </p>
+                                                        </div>
                                                     </td>
                                                 </tr>
                                             </table>
@@ -364,9 +369,14 @@
                                             <img src="https://i.imgur.com/gCDTlCa.png" alt="Fun Fact Icon" width="30" height="30" style="display: block;">
                                         </td>
                                         <td valign="middle">
-                                            <p style="font-family: Arial, sans-serif; font-size: 18px; color: #333333; line-height: 1.5; margin: 0;">
+                                            <p style="font-family: Arial, sans-serif; font-size: 18px; color: #333333; line-height: 1.5; margin: 0; padding-bottom: 7px;">
                                                 <span style="color: #ff7043; font-weight: bold;">Did you know?</span> {{ fun_fact.fun_fact }}
                                             </p>
+                                            <div style="border-top: 1px solid rgba(255, 112, 67, 0.3); padding-top: 10px;">
+                                                <p style="font-family: Arial, sans-serif; font-size: 14px; color: #555555; line-height: 1.4; margin: 0; font-style: italic;">
+                                                    <span style="font-weight: bold; color: #ff7043;">Why is it funny?</span> {{ fun_fact.reasoning }}
+                                                </p>
+                                            </div>
                                         </td>
                                     </tr>
                                 </table>
@@ -386,15 +396,23 @@
         <v:fill type="solid" color="#eaf4fe"/>
         <v:shadow on="t" color="#000000" opacity="20%" offset="4px,8px"/>
         <![endif]-->
-        <table cellpadding="0" cellspacing="0" border="0" width="100%" style="width: 100%; background-color: #eaf4fe; border-radius: 10px; padding: 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); margin-top: 20px;">
-            <tr>
-                <td colspan="2" style="text-align: center; font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 28px; color: #2c3e50; padding-top: 5px; padding-bottom: 15px;">
-                    English with Luca
+        <table cellpadding="0" cellspacing="0" border="0" width="100%" style="width: 100%; background-color: #eaf4fe; border-radius: 10px; padding: 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); margin-top: 20px; ">
+            <tr >
+                <td style="padding: 15px;">
+                    <table cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color: #2980b9; border-radius: 10px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+                        <tr>
+                            <td style="padding: 15px; text-align: center;">
+                                <h1 style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 32px; font-weight: bold; color: #ffffff; margin: 0; text-transform: uppercase; letter-spacing: 2px;">
+                                    English with Luca
+                                </h1>
+                            </td>
+                        </tr>
+                    </table>
                 </td>
             </tr>
             <tr>
                 <!-- Word of the Day Section -->
-                <td width="50%" valign="top" style="padding: 10px;">
+                <td style="padding: 10px;">
                     <table cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color: #ffffff; border-radius: 10px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
                         <tr>
                             <td style="padding: 20px; border-left: 6px solid #2980b9;">
@@ -404,38 +422,77 @@
                                 <h3 style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 28px; font-weight: bold; color: #2980b9; margin-top: 0; margin-bottom: 5px;">
                                     {{ word_of_the_day.word }}
                                 </h3>
-                                <p style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 18px; color: #7f8c8d; margin-top: 0; margin-bottom: 10px;">
+                                <p style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 18px; color: #7f8c8d; margin-top: 0; margin-bottom: 5px;">
+                                    <em>{{ word_of_the_day.part_of_speech }}</em>
+                                </p>
+                                <p style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 18px; color: #7f8c8d; margin-top: 0; margin-bottom: 10px; padding-top: 8px; padding-bottom: 5px;">
                                     <a href="{{ word_of_the_day.audio_file_us }}" target="_blank" style="text-decoration: none; color: inherit; display: inline-block; vertical-align: middle;">
-                                        <span style="display: inline-block; vertical-align: middle; margin-right: 5px; width: 20px; height: 20px;">
-                                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Speaker_Icon.svg/480px-Speaker_Icon.svg.png" alt="Listen to pronunciation" style="width: 100%; height: 100%; vertical-align: middle; border: none;">
+                                        <span style="display: inline-block; vertical-align: middle; margin-right: 5px; width: 24px; height: 24px; background-color: #2980b9; border-radius: 50%; padding: 4px; box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);">
+                                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Speaker_Icon.svg/480px-Speaker_Icon.svg.png" alt="Listen to pronunciation" style="width: 100%; height: 100%; vertical-align: middle; border: none; filter: brightness(0) invert(1);">
                                         </span>
                                     </a>
                                     {{ word_of_the_day.pronunciation_us }}
                                 </p>
                                 <p style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 18px; color: #333; margin-top: 0; margin-bottom: 10px;">
-                                    {{ word_of_the_day.short_definitions }}
+                                    <strong>Definition 1:</strong> {{ word_of_the_day.shortdef_1 }}
                                 </p>
-                                <p style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 18px; font-style: italic; color: #333; margin-top: 0; margin-bottom: 0;">
-                                    <em>Example(s):</em> <strong>"{{ word_of_the_day.examples }}"</strong>
+                                <p style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 18px; color: #333; margin-top: 0; margin-bottom: 10px;">
+                                    <strong>Definition 2:</strong> {{ word_of_the_day.shortdef_2 }}
+                                </p>
+                                <p style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 18px; font-style: italic; color: #333; margin-top: 0; margin-bottom: 10px;">
+                                    <em>Examples:</em>
+                                </p>
+                                <p style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 16px; color: #333; margin-top: 0; margin-bottom: 5px; padding-left: 15px;">
+                                    1. {{ word_of_the_day.example_1 }}
+                                </p>
+                                <p style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 16px; color: #333; margin-top: 0; margin-bottom: 0; padding-left: 15px;">
+                                    2. {{ word_of_the_day.example_2 }}
+                                </p>
+                                <p style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 16px; color: #333; margin-top: 15px; margin-bottom: 0;">
+                                    <strong>Related Words:</strong> {{ word_of_the_day.related_words }}
                                 </p>
                             </td>
                         </tr>
                     </table>
                 </td>
-
-                <!-- Tip of the Day Section -->
-                <td width="50%" valign="top" style="padding: 10px;">
+            <tr>
+                <!-- English Tip of the Day Section -->
+                <td style="padding: 10px;">
                     <table cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color: #ffffff; border-radius: 10px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
                         <tr>
                             <td style="padding: 20px; border-left: 6px solid #2980b9;">
                                 <h2 style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 24px; margin-top: 0; margin-bottom: 15px; padding-right: 10px; text-align: left;">
                                     English Tip of the Day
                                 </h2>
-                                <table cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color: #ecf0f1;">
+                                <h3 style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 20px; color: #2980b9; margin-top: 0; margin-bottom: 10px;">
+                                    {{ english_tip.title }}
+                                </h3>
+                                <table cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color: #ecf0f1; margin-bottom: 15px;">
                                     <tr>
                                         <td style="padding: 10px; border-left: 5px solid #2980b9;">
                                             <p style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 18px; color: #34495e; margin: 0;">
                                                 {{ english_tip.content }}
+                                            </p>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <h4 style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 18px; color: #2c3e50; margin-top: 0; margin-bottom: 5px;">
+                                    Example or Usage:
+                                </h4>
+                                <p style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 16px; color: #34495e; margin-top: 0; margin-bottom: 15px; font-style: italic;">
+                                    {{ english_tip.subcontent1 }}
+                                </p>
+                                <h4 style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 18px; color: #2c3e50; margin-top: 0; margin-bottom: 5px;">
+                                    Additional Information:
+                                </h4>
+                                <p style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 16px; color: #34495e; margin-top: 0; margin-bottom: 15px;">
+                                    {{ english_tip.subcontent2 }}
+                                </p>
+                                <table cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color: #fff0f9; margin-top: 10px;">
+                                    <tr>
+                                        <td style="padding: 10px; border-left: 5px solid #da9094;">
+                                            <p style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 16px; color: #bb717a; margin: 0;">
+                                                <strong>Quick Tip:</strong> {{ english_tip.quick_tip }}
                                             </p>
                                         </td>
                                     </tr>
@@ -451,15 +508,16 @@
         <![endif]-->
 
         <!-- Top News -->
-        <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="max-width: 650px; margin: 20px auto; background-color: #f9f9f9; border-radius: 10px; padding: 20px;">
+        <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="max-width: 650px; margin: 20px auto; background-color: #f0f4f8; border-radius: 10px; padding: 30px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
             <tr>
-                <td>
-                    <h2 style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 32px; color: #2c3e50; text-align: center; margin-bottom: 20px; margin-top: 15px;">Top News</h2>
+                <td style="padding: 10px;">
+                    <h2 style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 32px; color: #2c3e50; text-align: center; margin-bottom: 20px; margin-top: 0; text-transform: uppercase; letter-spacing: 2px;">Top News</h2>
                     
-                    <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+                    <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);">
                         <tr>
-                            <td align="center">
-                                <img src="https://img.freepik.com/free-vector/abstract-grunge-style-coming-soon-with-black-splatter_1017-26690.jpg" alt="Coming Soon" width="300" height="200" style="display: block; max-width: 100%; height: auto; margin: 0 auto; padding-bottom: 20px;" />
+                            <td style="padding: 30px; text-align: center;">
+                                <img src="https://img.freepik.com/free-vector/abstract-grunge-style-coming-soon-with-black-splatter_1017-26690.jpg" alt="Under Construction" width="150" height="150" style="display: block; margin: 0 auto 20px;" />
+                                <h3 style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 24px; color: #3498db; margin: 0 0 15px;">We're Under Construction!</h3>
                             </td>
                         </tr>
                     </table>
@@ -535,7 +593,7 @@
                 </td>
             </tr>
         </table>
-        
+
         <!-- Challenge -->
         <!--[if gte mso 9]>
         <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:100%;" arcsize="10%">
@@ -603,8 +661,7 @@
         <!--[if gte mso 9]>
         </v:roundrect>
         <![endif]-->
-
-
+        
         <!-- Breathing Gif -->
         <!--[if gte mso 9]>
         <v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:100%;">
@@ -613,17 +670,29 @@
         <![endif]-->
         <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-top: 20px;">
             <tr>
-                <td style="padding: 20px; background-color: #F5F5F5; border-radius: 10px;">
+                <td style="padding: 25px; background-color: #F0F8FF; background-image: linear-gradient(to bottom right, #F0F8FF, #E6F3FF); border-radius: 15px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
                     <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
                         <tr>
-                            <td align="center" style="padding-bottom: 10px;">
+                            <td align="center" style="padding-bottom: 15px;">
+                                <h2 style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 28px; font-weight: bold; color: #3a7bd5; margin: 0;">Take a breath!</h2>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" style="padding-bottom: 20px;">
+                                <p style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 14px; color: #555555; margin: 0; line-height: 1.4;">
+                                    Breathe in for 4 seconds - Hold for 4 seconds - Breathe out for 4 seconds - Hold for 4 seconds - Repeat
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" style="padding-bottom: 20px;">
                                 <!--[if gte mso 9]>
-                                <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" style="height:auto;width:500px;" arcsize="10%" stroke="false" fillcolor="#FFFFFF">
+                                <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" style="height:auto;width:500px;" arcsize="8%" stroke="false" fillcolor="#FFFFFF">
                                 <w:anchorlock/>
                                 <v:textbox inset="0,0,0,0">
                                 <center>
                                 <![endif]-->
-                                <img src="https://i.imgur.com/tdwyPAr.gif" alt="Breathing GIF" width="500" style="width: 100%; max-width: 500px; height: auto; border-radius: 10px; display: block; border: 0;" />
+                                <img src="https://i.imgur.com/tdwyPAr.gif" alt="Breathing Technique" width="500" style="width: 100%; max-width: 500px; height: auto; border-radius: 8px; display: block; border: 0;" />
                                 <!--[if gte mso 9]>
                                 </center>
                                 </v:textbox>
@@ -632,8 +701,12 @@
                             </td>
                         </tr>
                         <tr>
-                            <td align="center" style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 16px; color: #555555;">
-                                {{ breathing_technique.motivation }}
+                            <td align="center">
+                                <div style="border-top: 1px solid rgba(103, 135, 138, 0.3); padding-top: 10px;">
+                                    <p style="font-family: Arial, sans-serif; font-size: 14px; color: #555555; line-height: 1.4; margin: 0; font-style: italic;">
+                                        This simple breathing technique can help reduce stress and increase focus.
+                                    </p>
+                                </div>
                             </td>
                         </tr>
                     </table>
@@ -659,7 +732,7 @@
                         </tr>
                     </table>
         
-                    <!-- Unsubscribe Bar Styled like Header -->
+                    <!-- Footer Bar Styled like Header -->
                     <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color: #e4ece1; border-top: 2px solid #2c3e50; margin-top: 5px;">
                         <tr>
                             <td align="center" style="padding: 10px;">
@@ -685,13 +758,20 @@
                             </td>
                         </tr>
                         <tr>
-                            <tr>
-                                <td align="center" style="font-family: 'Roboto', Arial, sans-serif; font-size: 14px; color: #2c3e50; font-weight: bold; padding-bottom: 10px;">
-                                    <a href="mailto:newsletter@luca137.com?subject=Unsubscribe%20Me" style="color: #2c3e50; text-decoration: none; font-weight: bold;">
-                                        <span style="border-bottom: 1px solid #2c3e50;">{{ footer.reply }}</span>
-                                    </a> {{ footer.unsubscribe }}
-                                </td>
-                            </tr>
+                            <td align="center" style="font-family: 'Roboto', Arial, sans-serif; font-size: 14px; color: #2c3e50; padding-bottom: 10px;">
+                                <a href="https://signup.luca137.com/#/unsubscribe" style="color: #2c3e50; text-decoration: none; font-weight: bold; margin-right: 10px;">
+                                    <span style="border-bottom: 1px solid #2c3e50;">Unsubscribe</span>
+                                </a>
+                                <a href="https://signup.luca137.com/#/submit-error" style="color: #2c3e50; text-decoration: none; font-weight: bold; margin-right: 10px;">
+                                    <span style="border-bottom: 1px solid #2c3e50;">Report an Error</span>
+                                </a>
+                                <a href="https://signup.luca137.com/#/submit-request" style="color: #2c3e50; text-decoration: none; font-weight: bold; margin-right: 10px;">
+                                    <span style="border-bottom: 1px solid #2c3e50;">Submit a Request</span>
+                                </a>
+                                <a href="https://signup.luca137.com/#/edit-preferences" style="color: #2c3e50; text-decoration: none; font-weight: bold;">
+                                    <span style="border-bottom: 1px solid #2c3e50;">Edit Preferences</span>
+                                </a>
+                            </td>
                         </tr>
                     </table>
                 </td>
