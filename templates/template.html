@@ -113,7 +113,7 @@
                         {{ weather.feels_like_name }}: {{ weather.temperatureApparent }}&deg;C
                     </div>
                     <div style="font-size: 16px; font-family: 'Roboto', Arial, Helvetica, sans-serif; margin-top: 10px; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);">
-                        {{ weather.description }}
+                        {{ weather.description_en }}
                     </div>
                 </td>
 
@@ -186,7 +186,7 @@
                     <![endif]-->
                     <!--[if !mso]><!-->
                     <div style="background-color: #ff6666; color: #ffffff; font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 18px; font-weight: bold; padding: 10px 20px; border: 2px solid #ff3333; border-radius: 10px; text-align: center; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3); display: inline-block; transform: rotate(-10deg);">
-                        {{ coming_soon }}
+                        <div>{{ coming_soon }}</div>
                     </div>
                     <!--<![endif]-->
                 </td>
@@ -196,8 +196,15 @@
         <!-- Exchange Rates -->
         <table class="finance-highlights" style="width: 100%; background: #2c3e50; border-radius: 10px; padding: 20px; box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); color: white; box-sizing: border-box; margin-bottom: 20px;">
             <tr>
-                <td colspan="6" style="text-align: center; font-size: 18px; font-weight: bold; color: #ffffff; padding: 15px;">
-                    {{ exchange_rates.header }}
+                <td colspan="6" style="text-align: center; padding: 15px;">
+                    <div style="font-size: 18px; font-weight: bold; color: #ffffff;">
+                        {{ exchange_rates.header_en }}
+                    </div>
+                    {% if 'pt-br' in languages %}
+                    <div style="font-size: 14px; color: #f0f0f0; margin-top: 5px;">
+                        {{ exchange_rates.header_pt }}
+                    </div>
+                    {% endif %}
                 </td>
             </tr>
 
@@ -310,15 +317,25 @@
                                                 <tr>
                                                     <td style="border-left: 4px solid #a1b6a1; padding-left: 15px;">
                                                         <p style="font-family: 'Georgia', serif; font-size: 24px; font-style: italic; color: #2d3436; line-height: 1.4; margin: 0 0 10px 0;">
-                                                            "{{ quote_of_the_day.quote }}"
+                                                            "{{ quote_of_the_day.quote_en }}"
                                                         </p>
+                                                        {% if 'pt-br' in languages %}
+                                                        <p style="font-family: 'Georgia', serif; font-size: 18px; font-style: italic; color: #4d5656; line-height: 1.4; margin: 0 0 10px 0;">
+                                                            "{{ quote_of_the_day.quote_pt }}"
+                                                        </p>
+                                                        {% endif %}
                                                         <p style="font-family: Arial, sans-serif; font-size: 14px; color: #666666; margin: 0;">
                                                             — {{ quote_of_the_day.source }}
                                                         </p>
-                                                        <div style="border-top: 1px solid rgba(161, 182, 161, 0.5); padding-top: 10px; margin-top: 10px;  padding-bottom: 5px;">
+                                                        <div style="border-top: 1px solid rgba(161, 182, 161, 0.5); padding-top: 10px; margin-top: 10px; padding-bottom: 5px;">
                                                             <p style="font-family: Arial, sans-serif; font-size: 13px; color: #555555; margin: 0; line-height: 1.4; font-style: italic;">
-                                                                {{ quote_of_the_day.contextual_notes }}
+                                                                {{ quote_of_the_day.contextual_notes_en }}
                                                             </p>
+                                                            {% if 'pt-br' in languages %}
+                                                            <p style="font-family: Arial, sans-serif; font-size: 12px; color: #666666; margin: 5px 0 0 0; line-height: 1.4; font-style: italic;">
+                                                                {{ quote_of_the_day.contextual_notes_pt }}
+                                                            </p>
+                                                            {% endif %}
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -370,12 +387,22 @@
                                         </td>
                                         <td valign="middle">
                                             <p style="font-family: Arial, sans-serif; font-size: 18px; color: #333333; line-height: 1.5; margin: 0; padding-bottom: 7px;">
-                                                <span style="color: #ff7043; font-weight: bold;">Did you know?</span> {{ fun_fact.fun_fact }}
+                                                <span style="color: #ff7043; font-weight: bold;">Did you know?</span> {{ fun_fact.fun_fact_en }}
                                             </p>
+                                            {% if 'pt-br' in languages %}
+                                            <p style="font-family: Arial, sans-serif; font-size: 14px; color: #666666; line-height: 1.5; margin: 0; padding-bottom: 10px; font-style: italic;">
+                                                <span style="color: #ff9873; font-weight: bold;">Você sabia?</span> {{ fun_fact.fun_fact_pt }}
+                                            </p>
+                                            {% endif %}
                                             <div style="border-top: 1px solid rgba(255, 112, 67, 0.3); padding-top: 10px;">
-                                                <p style="font-family: Arial, sans-serif; font-size: 14px; color: #555555; line-height: 1.4; margin: 0; font-style: italic;">
-                                                    <span style="font-weight: bold; color: #ff7043;">Why is it funny?</span> {{ fun_fact.reasoning }}
+                                                <p style="font-family: Arial, sans-serif; font-size: 14px; color: #555555; line-height: 1.4; margin: 0; padding-bottom: 7px;">
+                                                    <span style="font-weight: bold; color: #ff7043;">Why is it funny?</span> {{ fun_fact.reasoning_en }}
                                                 </p>
+                                                {% if 'pt-br' in languages %}
+                                                <p style="font-family: Arial, sans-serif; font-size: 12px; color: #777777; line-height: 1.4; margin: 0; font-style: italic;">
+                                                    <span style="font-weight: bold; color: #ff9873;">Por que é engraçado?</span> {{ fun_fact.reasoning_pt }}
+                                                </p>
+                                                {% endif %}
                                             </div>
                                         </td>
                                     </tr>
@@ -418,12 +445,20 @@
                             <td style="padding: 20px; border-left: 6px solid #2980b9;">
                                 <h2 style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 24px; margin-top: 0; margin-bottom: 15px;">
                                     Word of the Day
+                                    {% if 'pt-br' in languages %}
+                                    <span style="font-size: 18px; color: #7f8c8d; display: block; margin-top: 5px;">Palavra do Dia</span>
+                                    {% endif %}
                                 </h2>
                                 <h3 style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 28px; font-weight: bold; color: #2980b9; margin-top: 0; margin-bottom: 5px;">
                                     {{ word_of_the_day.word }}
                                 </h3>
                                 <p style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 18px; color: #7f8c8d; margin-top: 0; margin-bottom: 5px;">
-                                    <em>{{ word_of_the_day.part_of_speech }}</em>
+                                    <em>{{ word_of_the_day.part_of_speech_en }}</em>
+                                    {% if 'pt-br' in languages %}
+                                    <span style="font-size: 16px; display: block; margin-top: 2px;">
+                                        <em>{{ word_of_the_day.part_of_speech_pt }}</em>
+                                    </span>
+                                    {% endif %}
                                 </p>
                                 <p style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 18px; color: #7f8c8d; margin-top: 0; margin-bottom: 10px; padding-top: 8px; padding-bottom: 5px;">
                                     <a href="{{ word_of_the_day.audio_file_us }}" target="_blank" style="text-decoration: none; color: inherit; display: inline-block; vertical-align: middle;">
@@ -434,19 +469,44 @@
                                     {{ word_of_the_day.pronunciation_us }}
                                 </p>
                                 <p style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 18px; color: #333; margin-top: 0; margin-bottom: 10px;">
-                                    <strong>Definition 1:</strong> {{ word_of_the_day.shortdef_1 }}
+                                    <strong>Definition 1:</strong> {{ word_of_the_day.shortdef_1_en }}
+                                    {% if 'pt-br' in languages %}
+                                    <span style="font-size: 16px; color: #555; display: block; margin-top: 5px; padding-left: 10px;">
+                                        <strong>Definição 1:</strong> {{ word_of_the_day.shortdef_1_pt }}
+                                    </span>
+                                    {% endif %}
                                 </p>
                                 <p style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 18px; color: #333; margin-top: 0; margin-bottom: 10px;">
-                                    <strong>Definition 2:</strong> {{ word_of_the_day.shortdef_2 }}
+                                    <strong>Definition 2:</strong> {{ word_of_the_day.shortdef_2_en }}
+                                    {% if 'pt-br' in languages %}
+                                    <span style="font-size: 16px; color: #555; display: block; margin-top: 5px; padding-left: 10px;">
+                                        <strong>Definição 2:</strong> {{ word_of_the_day.shortdef_2_pt }}
+                                    </span>
+                                    {% endif %}
                                 </p>
                                 <p style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 18px; font-style: italic; color: #333; margin-top: 0; margin-bottom: 10px;">
                                     <em>Examples:</em>
+                                    {% if 'pt-br' in languages %}
+                                    <span style="font-size: 16px; display: block; margin-top: 2px;">
+                                        <em>Exemplos:</em>
+                                    </span>
+                                    {% endif %}
                                 </p>
                                 <p style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 16px; color: #333; margin-top: 0; margin-bottom: 5px; padding-left: 15px;">
-                                    1. {{ word_of_the_day.example_1 }}
+                                    1. {{ word_of_the_day.example_1_en }}
+                                    {% if 'pt-br' in languages %}
+                                    <span style="font-size: 14px; color: #555; display: block; margin-top: 3px; padding-left: 10px;">
+                                        {{ word_of_the_day.example_1_pt }}
+                                    </span>
+                                    {% endif %}
                                 </p>
                                 <p style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 16px; color: #333; margin-top: 0; margin-bottom: 0; padding-left: 15px;">
-                                    2. {{ word_of_the_day.example_2 }}
+                                    2. {{ word_of_the_day.example_2_en }}
+                                    {% if 'pt-br' in languages %}
+                                    <span style="font-size: 14px; color: #555; display: block; margin-top: 3px; padding-left: 10px;">
+                                        {{ word_of_the_day.example_2_pt }}
+                                    </span>
+                                    {% endif %}
                                 </p>
                                 <p style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 16px; color: #333; margin-top: 15px; margin-bottom: 0;">
                                     <strong>Related Words:</strong> {{ word_of_the_day.related_words }}
@@ -455,6 +515,7 @@
                         </tr>
                     </table>
                 </td>
+            </tr>
             <tr>
                 <!-- English Tip of the Day Section -->
                 <td style="padding: 10px;">
@@ -463,37 +524,69 @@
                             <td style="padding: 20px; border-left: 6px solid #2980b9;">
                                 <h2 style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 24px; margin-top: 0; margin-bottom: 15px; padding-right: 10px; text-align: left;">
                                     English Tip of the Day
+                                    {% if 'pt-br' in languages %}
+                                    <span style="font-size: 18px; color: #7f8c8d; display: block; margin-top: 5px;">Dica de Inglês do Dia</span>
+                                    {% endif %}
                                 </h2>
                                 <h3 style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 20px; color: #2980b9; margin-top: 0; margin-bottom: 10px;">
-                                    {{ english_tip.title }}
+                                    {{ english_tip.title_en }}
+                                    {% if 'pt-br' in languages %}
+                                    <span style="font-size: 16px; color: #5499c7; display: block; margin-top: 5px;">{{ english_tip.title_pt }}</span>
+                                    {% endif %}
                                 </h3>
                                 <table cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color: #ecf0f1; margin-bottom: 15px;">
                                     <tr>
                                         <td style="padding: 10px; border-left: 5px solid #2980b9;">
                                             <p style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 18px; color: #34495e; margin: 0;">
-                                                {{ english_tip.content }}
+                                                {{ english_tip.content_en }}
                                             </p>
+                                            {% if 'pt-br' in languages %}
+                                            <p style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 16px; color: #5d6d7e; margin: 10px 0 0 0; font-style: italic;">
+                                                {{ english_tip.content_pt }}
+                                            </p>
+                                            {% endif %}
                                         </td>
                                     </tr>
                                 </table>
                                 <h4 style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 18px; color: #2c3e50; margin-top: 0; margin-bottom: 5px;">
                                     Example or Usage:
+                                    {% if 'pt-br' in languages %}
+                                    <span style="font-size: 16px; color: #5d6d7e; display: block; margin-top: 3px;">Exemplo ou Uso:</span>
+                                    {% endif %}
                                 </h4>
                                 <p style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 16px; color: #34495e; margin-top: 0; margin-bottom: 15px; font-style: italic;">
-                                    {{ english_tip.subcontent1 }}
+                                    {{ english_tip.subcontent1_en }}
                                 </p>
+                                {% if 'pt-br' in languages %}
+                                <p style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 14px; color: #5d6d7e; margin-top: -10px; margin-bottom: 15px; font-style: italic;">
+                                    {{ english_tip.subcontent1_pt }}
+                                </p>
+                                {% endif %}
                                 <h4 style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 18px; color: #2c3e50; margin-top: 0; margin-bottom: 5px;">
                                     Additional Information:
+                                    {% if 'pt-br' in languages %}
+                                    <span style="font-size: 16px; color: #5d6d7e; display: block; margin-top: 3px;">Informações Adicionais:</span>
+                                    {% endif %}
                                 </h4>
                                 <p style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 16px; color: #34495e; margin-top: 0; margin-bottom: 15px;">
-                                    {{ english_tip.subcontent2 }}
+                                    {{ english_tip.subcontent2_en }}
                                 </p>
+                                {% if 'pt-br' in languages %}
+                                <p style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 14px; color: #5d6d7e; margin-top: -10px; margin-bottom: 15px;">
+                                    {{ english_tip.subcontent2_pt }}
+                                </p>
+                                {% endif %}
                                 <table cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color: #fff0f9; margin-top: 10px;">
                                     <tr>
                                         <td style="padding: 10px; border-left: 5px solid #da9094;">
                                             <p style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 16px; color: #bb717a; margin: 0;">
-                                                <strong>Quick Tip:</strong> {{ english_tip.quick_tip }}
+                                                <strong>Quick Tip:</strong> {{ english_tip.quick_tip_en }}
                                             </p>
+                                            {% if 'pt-br' in languages %}
+                                            <p style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 14px; color: #c98a91; margin: 5px 0 0 0; font-style: italic;">
+                                                <strong>Dica Rápida:</strong> {{ english_tip.quick_tip_pt }}
+                                            </p>
+                                            {% endif %}
                                         </td>
                                     </tr>
                                 </table>
@@ -511,13 +604,25 @@
         <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="max-width: 650px; margin: 20px auto; background-color: #f0f4f8; border-radius: 10px; padding: 30px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
             <tr>
                 <td style="padding: 10px;">
-                    <h2 style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 32px; color: #2c3e50; text-align: center; margin-bottom: 20px; margin-top: 0; text-transform: uppercase; letter-spacing: 2px;">Top News</h2>
+                    <h2 style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 32px; color: #2c3e50; text-align: center; margin-bottom: 20px; margin-top: 0; text-transform: uppercase; letter-spacing: 2px;">
+                        Top News
+                        {% if 'pt-br' in languages %}
+                        <span style="font-size: 24px; color: #34495e; display: block; margin-top: 5px; text-transform: none; letter-spacing: normal;">Principais Notícias</span>
+                        {% endif %}
+                    </h2>
                     
                     <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);">
                         <tr>
                             <td style="padding: 30px; text-align: center;">
                                 <img src="https://img.freepik.com/free-vector/abstract-grunge-style-coming-soon-with-black-splatter_1017-26690.jpg" alt="Under Construction" width="150" height="150" style="display: block; margin: 0 auto 20px;" />
-                                <h3 style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 24px; color: #3498db; margin: 0 0 15px;">We're Under Construction!</h3>
+                                <h3 style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 24px; color: #3498db; margin: 0 0 15px;">
+                                    We're Under Construction!
+                                </h3>
+                                {% if 'pt-br' in languages %}
+                                <h4 style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 20px; color: #5dade2; margin: 0 0 15px;">
+                                    Estamos em contrução!
+                                </h4>
+                                {% endif %}
                             </td>
                         </tr>
                     </table>
@@ -571,9 +676,16 @@
                                                             </tr>
                                                             <tr>
                                                                 <td style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 18px; line-height: 1.6; color: #3d2e24; font-weight: 500;">
-                                                                    {{ historical_event.event_description }}
+                                                                    {{ historical_event.event_description_en }}
                                                                 </td>
                                                             </tr>
+                                                            {% if 'pt-br' in languages %}
+                                                            <tr>
+                                                                <td style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 16px; line-height: 1.6; color: #3d2e24; font-weight: 500; font-style: italic; padding-top: 10px;">
+                                                                    {{ historical_event.event_description_pt }}
+                                                                </td>
+                                                            </tr>
+                                                            {% endif %}
                                                             <tr>
                                                                 <td align="center" style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 12px; color: #8b5e34; padding-top: 10px;">✦</td>
                                                             </tr>
@@ -625,7 +737,7 @@
                                             <table cellpadding="0" cellspacing="0" border="0" style="margin-bottom: 10px;">
                                                 <tr>
                                                     <td style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 22px; font-weight: 700; color: #2c3e50; text-align: left; position: relative; padding-bottom: 10px;">
-                                                        {{ challenge.challenge }}
+                                                        {{ challenge.challenge_en }}
                                                         <!--[if gte mso 9]>
                                                         <v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="position:absolute;width:100%;height:4px;bottom:6px;">
                                                         <v:fill type="solid" color="#ffe066"/>
@@ -637,20 +749,40 @@
                                                         <!--<![endif]-->
                                                     </td>
                                                 </tr>
+                                                {% if 'pt-br' in languages %}
+                                                <tr>
+                                                    <td style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 20px; font-weight: 700; color: #2c3e50; text-align: left; position: relative; padding-bottom: 10px; font-style: italic;">
+                                                        {{ challenge.challenge_pt }}
+                                                    </td>
+                                                </tr>
+                                                {% endif %}
                                             </table>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td style="font-family: 'Arial', 'Helvetica', sans-serif; font-size: 18px; line-height: 1.5; padding: 10px; background-color: #ecfffc34; border-radius: 8px; color: #333333; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-                                            {{ challenge.instructions }}
+                                            {{ challenge.instructions_en }}
                                         </td>
                                     </tr>
+                                    {% if 'pt-br' in languages %}
+                                    <tr>
+                                        <td style="font-family: 'Arial', 'Helvetica', sans-serif; font-size: 16px; line-height: 1.5; padding: 10px; background-color: #ecfffc34; border-radius: 8px; color: #333333; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin-top: 10px; font-style: italic;">
+                                            {{ challenge.instructions_pt }}
+                                        </td>
+                                    </tr>
+                                    {% endif %}
                                     <tr>
                                         <td style="font-family: 'Arial', Arial, Helvetica, sans-serif; font-size: 14px; color: #535d5e; font-style: italic; padding-top: 10px;">
-                                            {{ challenge.motivation }}
+                                            {{ challenge.motivation_en }}
                                         </td>
                                     </tr>
-
+                                    {% if 'pt-br' in languages %}
+                                    <tr>
+                                        <td style="font-family: 'Arial', Arial, Helvetica, sans-serif; font-size: 13px; color: #535d5e; font-style: italic; padding-top: 5px;">
+                                            {{ challenge.motivation_pt }}
+                                        </td>
+                                    </tr>
+                                    {% endif %}
                                 </table>
                             </td>
                         </tr>
@@ -673,17 +805,33 @@
                 <td style="padding: 25px; background-color: #F0F8FF; background-image: linear-gradient(to bottom right, #F0F8FF, #E6F3FF); border-radius: 15px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
                     <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
                         <tr>
-                            <td align="center" style="padding-bottom: 15px;">
-                                <h2 style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 28px; font-weight: bold; color: #3a7bd5; margin: 0;">Take a breath!</h2>
+                            <td align="center" style="padding-bottom: 5px;">
+                                <h2 style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 28px; font-weight: bold; color: #3a7bd5; margin: 0;">{{ breathing_technique.title_en }}</h2>
                             </td>
                         </tr>
+                        {% if 'pt-br' in languages %}
                         <tr>
-                            <td align="center" style="padding-bottom: 20px;">
+                            <td align="center" style="padding-bottom: 15px;">
+                                <h3 style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 24px; font-weight: bold; color: #3a7bd5; margin: 0; font-style: italic;">{{ breathing_technique.title_pt }}</h3>
+                            </td>
+                        </tr>
+                        {% endif %}
+                        <tr>
+                            <td align="center" style="padding-bottom: 10px;">
                                 <p style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 14px; color: #555555; margin: 0; line-height: 1.4;">
-                                    Breathe in for 4 seconds - Hold for 4 seconds - Breathe out for 4 seconds - Hold for 4 seconds - Repeat
+                                    {{ breathing_technique.instructions_en }}
                                 </p>
                             </td>
                         </tr>
+                        {% if 'pt-br' in languages %}
+                        <tr>
+                            <td align="center" style="padding-bottom: 20px;">
+                                <p style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 13px; color: #555555; margin: 0; line-height: 1.4; font-style: italic;">
+                                    {{ breathing_technique.instructions_pt }}
+                                </p>
+                            </td>
+                        </tr>
+                        {% endif %}
                         <tr>
                             <td align="center" style="padding-bottom: 20px;">
                                 <!--[if gte mso 9]>
@@ -704,11 +852,22 @@
                             <td align="center">
                                 <div style="border-top: 1px solid rgba(103, 135, 138, 0.3); padding-top: 10px;">
                                     <p style="font-family: Arial, sans-serif; font-size: 14px; color: #555555; line-height: 1.4; margin: 0; font-style: italic;">
-                                        This simple breathing technique can help reduce stress and increase focus.
+                                        {{ breathing_technique.benefits_en }}
                                     </p>
                                 </div>
                             </td>
                         </tr>
+                        {% if 'pt-br' in languages %}
+                        <tr>
+                            <td align="center">
+                                <div style="padding-top: 5px;">
+                                    <p style="font-family: Arial, sans-serif; font-size: 13px; color: #555555; line-height: 1.4; margin: 0; font-style: italic;">
+                                        {{ breathing_technique.benefits_pt }}
+                                    </p>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endif %}
                     </table>
                 </td>
             </tr>

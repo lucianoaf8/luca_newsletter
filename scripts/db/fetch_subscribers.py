@@ -19,6 +19,7 @@ subscribers_query = '''
 SELECT id, full_name, email, nickname, interests, languages, city, country, timezone, days_receiving_newsletter
 FROM subscribers
 WHERE is_subscribed = 1
+AND id IN (1, 12)
 ;
 '''
 # AND id IN (1, 12)

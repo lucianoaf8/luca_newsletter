@@ -152,7 +152,7 @@ def fetch_word_of_the_day_data():
                 part_of_speech_en, part_of_speech_pt, pronunciation_us, audio_file_us, shortdef_1_en, shortdef_1_pt, 
                 shortdef_2_en, shortdef_2_pt, shortdef_3_en, shortdef_3_pt, example_1_en, example_1_pt, example_2_en, example_2_pt, 
                 etymology, meta_src, meta_section, meta_target_tuuid, meta_target_tsrc, meta_offensive, headword, 
-                pronunciation_uk, audio_file_uk, grammatical_notegrammatical_info
+                pronunciation_uk, audio_file_uk, grammatical_note
         FROM word_of_the_day
         WHERE id = {random_id};
         '''

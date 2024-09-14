@@ -104,7 +104,7 @@ def get_weather_code_description(code):
 def map_to_weather_code_day(weather_codes_data, description):
     # Ensure weather_codes_data is a dictionary
     if isinstance(weather_codes_data, pd.DataFrame):
-        weather_code_day = weather_codes_data.set_index('weather_code')['description'].to_dict()
+        weather_code_day = weather_codes_data.set_index('weather_code')['description_en'].to_dict()
     elif isinstance(weather_codes_data, pd.Series):
         weather_code_day = weather_codes_data.to_dict()
     else:
@@ -202,21 +202,21 @@ def prepare_subscriber_content(subscriber, long_date, formatted_date, weather_da
         if weather_code_day_description == "Unknown":
             if isinstance(weather_codes_data, pd.DataFrame):
                 closest_code = weather_codes_data['weather_code'].astype(int).sub(int(weather_code_max)).abs().idxmin()
-                weather_code_day_description = weather_codes_data.loc[closest_code, 'description']
+                weather_code_day_description = weather_codes_data.loc[closest_code, 'description_en']
             else:
                 closest_code = min(weather_codes_data.keys(), key=lambda x: abs(int(x) - int(weather_code_max)))
-                weather_code_day_description = weather_codes_data[closest_code]['description']
+                weather_code_day_description = weather_codes_data[closest_code]['description_en']
 
         # Find the matching weather code data
         if isinstance(weather_codes_data, pd.DataFrame):
-            weather_code_data = weather_codes_data[weather_codes_data['description'] == weather_code_day_description].iloc[0].to_dict()
+            weather_code_data = weather_codes_data[weather_codes_data['description_en'] == weather_code_day_description].iloc[0].to_dict()
         else:
-            weather_code_data = next((data for data in weather_codes_data.values() if data['description'] == weather_code_day_description), None)
+            weather_code_data = next((data for data in weather_codes_data.values() if data['description_en'] == weather_code_day_description), None)
 
         # Add the nested weather data along with additional fields
         weather_data_nested.update({
             "feels_like_name": "Feels like",
-            "description": weather_code_day_description,
+            "description_en": weather_code_day_description,
             "icon_file_name": weather_code_data['icon_file_name'] if weather_code_data else None,
             "icon_file_url": weather_code_data['icon_file_url'] if weather_code_data else None,
             "sunrise_name": "Sunrise",
@@ -242,7 +242,8 @@ def prepare_subscriber_content(subscriber, long_date, formatted_date, weather_da
 
         # Simplified exchange rates data structure
         exchange_rates_data = {
-            "header": "Today's Exchange Rates",
+            "header_en": "Today's Exchange Rates",
+            "header_pt": "Cotação de Moedas",
             "cad_brl": str(record.get("CAD_to_BRL.today", "N/A")),
             "cad_brl_change": str(record.get("CAD_to_BRL.percentage_difference", "N/A")),
             "usd_brl": str(record.get("USD_to_BRL.today", "N/A")),
@@ -261,8 +262,12 @@ def prepare_subscriber_content(subscriber, long_date, formatted_date, weather_da
         quote_of_the_day = quotes_data.iloc[0].to_dict()
 
         # Clean up the quote field
-        if 'quote' in quote_of_the_day:
-            quote_of_the_day['quote'] = clean_escape_sequences(quote_of_the_day['quote'])
+        if 'quote_en' in quote_of_the_day:
+            quote_of_the_day['quote_en'] = clean_escape_sequences(quote_of_the_day['quote_en'])
+
+        # Clean up the quote field
+        if 'quote_pt' in quote_of_the_day:
+            quote_of_the_day['quote_pt'] = clean_escape_sequences(quote_of_the_day['quote_pt'])
 
         quote_of_the_day['author_pic'] = "https://planetsignshop.com/cdn/shop/products/COMING-SOON-10IN-ROUND-RIDER-RED.gif?v=1656448869"
 
@@ -283,15 +288,8 @@ def prepare_subscriber_content(subscriber, long_date, formatted_date, weather_da
     word_data = get_first_item(word_of_the_day_data)
     if word_data:
         word_of_the_day = word_of_the_day_data.iloc[0].to_dict()
-        if 'examples' in word_of_the_day:
-            # Split the examples into separate examples
-            examples = word_of_the_day['examples'].split(';')
-            # Clean each example
-            cleaned_examples = [clean_and_format_text(example) for example in examples]
-            # Join the cleaned examples back together
-            word_of_the_day['examples'] = '; '.join(cleaned_examples)
-        subscriber_content['word_of_the_day'] = convert_timestamps(word_data)
-        used_ids['word_of_the_day'].append(word_data.get('id'))
+        subscriber_content['word_of_the_day'] = convert_timestamps(word_of_the_day)
+        used_ids['word_of_the_day'].append(word_of_the_day.get('id'))
     else:
         subscriber_content['word_of_the_day'] = {}
     
@@ -322,7 +320,15 @@ def prepare_subscriber_content(subscriber, long_date, formatted_date, weather_da
         subscriber_content['challenge'] = challenge_data_nested
         used_ids['daily_challenges'].append(daily_challenge.get('id'))
     
-    subscriber_content['breathing_technique'] = {"motivation": "Just Breathe!"}
+    subscriber_content['breathing_technique'] = {
+    "title_en": "Take a breath!",
+    "title_pt": "Dá uma respirada!",
+    "instructions_en": "Breathe in for 4 seconds - Hold for 4 seconds - Breathe out for 4 seconds - Hold for 4 seconds - Repeat",
+    "instructions_pt": "Inspire por 4 segundos - Segure por 4 segundos - Expire por 4 segundos - Segure por 4 segundos - Repita",
+    "benefits_en": "This simple breathing technique can help reduce stress and increase focus.",
+    "benefits_pt": "Esta técnica simples de respiração pode ajudar a reduzir o estresse e aumentar o foco."
+    }
+   
     
     subscriber_content['footer'] = {
         "goodbye": "See you tomorrow. Have a great day!",
@@ -344,10 +350,19 @@ def save_subscriber_content(subscriber, content, date, path):
 
 def render_and_save_newsletter(subscriber, content, date, template, path):
     try:
-        # If subscriber's language preference isn't in the content, you might want to add it here
-        if 'languages' not in content:
-            content['languages'] = [subscriber.get('language', 'en')]
-            
+        # Ensure 'languages' is a list of lowercase strings without whitespace
+        if 'languages' not in content or not content['languages']:
+            content['languages'] = subscriber.get('languages', 'en').split(',')
+        else:
+            if isinstance(content['languages'], str):
+                content['languages'] = content['languages'].split(',')
+
+        # Normalize language codes
+        content['languages'] = [lang.strip().lower() for lang in content['languages'] if lang.strip()]
+
+        # For debugging: print the languages
+        print("Languages in content:", content['languages'])
+
         rendered_html = template.render(content)
         file_name = f"{subscriber['nickname']}_{date}.html"
         file_path = os.path.join(path, file_name)
@@ -360,6 +375,7 @@ def render_and_save_newsletter(subscriber, content, date, template, path):
     except Exception as e:
         logger.error(f"Error rendering newsletter for {subscriber['nickname']}: {e}")
         raise
+
 
 def send_newsletter_email(subscriber, long_date, file_path):
     try:
