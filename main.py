@@ -344,9 +344,14 @@ def save_subscriber_content(subscriber, content, date, path):
 
 def render_and_save_newsletter(subscriber, content, date, template, path):
     try:
+        # If subscriber's language preference isn't in the content, you might want to add it here
+        if 'languages' not in content:
+            content['languages'] = [subscriber.get('language', 'en')]
+            
         rendered_html = template.render(content)
         file_name = f"{subscriber['nickname']}_{date}.html"
         file_path = os.path.join(path, file_name)
+
         # Open the file with utf-8 encoding to handle special characters
         with open(file_path, 'w', encoding='utf-8') as html_file:
             html_file.write(rendered_html)

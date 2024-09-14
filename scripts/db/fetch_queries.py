@@ -112,8 +112,9 @@ def fetch_quotes_data():
     random_id = select_random_id('quotes')
     if random_id:
         quotes_query = f'''
-        SELECT q.id, q.quote, q.source, q.contextual_notes, q.author_name, q.author_overview, q.author_key_works, q.created,
-            a.id AS author_id, a.birth_year, a.death_year, a.nationality, a.profession, a.known_for, a.created AS author_created
+        SELECT q.id, q.quote_en, q.quote_pt, q.source, q.contextual_notes_en, q.contextual_notes_pt, q.author_name, 
+               q.author_overview_en, q.author_overview_pt, q.author_key_works, q.created,
+               a.id AS author_id, q.author_name, a.birth_year, a.death_year, a.nationality, a.profession, a.known_for
         FROM quotes q
         INNER JOIN authors a ON a.author = q.author_name
         WHERE q.id = {random_id};
@@ -130,7 +131,8 @@ def fetch_fun_facts_data():
     random_id = select_random_id('fun_facts')
     if random_id:
         fun_fact=f'''
-        SELECT id, category, fun_fact, reasoning, source, practical_implication
+        SELECT id, category, fun_fact_en, fun_fact_pt, reasoning_en, reasoning_pt, source, practical_implication_en, 
+               practical_implication_pt, used_in_newsletter, created, updated
         FROM fun_facts
         WHERE id = {random_id};
         '''
@@ -146,7 +148,11 @@ def fetch_word_of_the_day_data():
     random_id = select_random_id('word_of_the_day')
     if random_id:
         word_of_the_day=f'''
-        SELECT id, category, word, part_of_speech, pronunciation_us, audio_file_us, shortdef_1, shortdef_2, shortdef_3, short_definitions, example_1, example_2, examples, related_words, phrases_idioms, etymology, meta_offensive, headword, pronunciation_uk, audio_file_uk, grammatical_note, grammatical_info
+        SELECT  id, category, word_en, word_pt, sentence_en, sentence_pt, used_in_newsletter, created, updated, meta_id, meta_uuid, 
+                part_of_speech_en, part_of_speech_pt, pronunciation_us, audio_file_us, shortdef_1_en, shortdef_1_pt, 
+                shortdef_2_en, shortdef_2_pt, shortdef_3_en, shortdef_3_pt, example_1_en, example_1_pt, example_2_en, example_2_pt, 
+                etymology, meta_src, meta_section, meta_target_tuuid, meta_target_tsrc, meta_offensive, headword, 
+                pronunciation_uk, audio_file_uk, grammatical_notegrammatical_info
         FROM word_of_the_day
         WHERE id = {random_id};
         '''
@@ -162,7 +168,8 @@ def fetch_english_tips_data():
     random_id = select_random_id('english_tips')
     if random_id:
         english_tips_query = f'''
-        SELECT id, category, title, content, subcontent1, subcontent2, quick_tip, used_in_newsletter, created
+        SELECT  id, category_en, category_pt, title_en, title_pt, content_en, content_pt, subcontent1_en, subcontent1_pt, 
+                subcontent2_en, subcontent2_pt, quick_tip_en, quick_tip_pt, used_in_newsletter, created, updated
         FROM english_tips
         WHERE id = {random_id};
         '''
@@ -175,7 +182,8 @@ def fetch_historical_event_data():
     random_id = select_random_id('historical_events')
     if random_id:
         historical_event=f'''
-        SELECT id, month, day, year, category, event_description, significance, source
+        SELECT  id, month, day, year, category, event_description_en, event_description_pt, significance_en, significance_pt, 
+                source, used_in_newsletter, created, updated
         FROM historical_events
         WHERE id = {random_id};
         '''
@@ -191,7 +199,8 @@ def fetch_daily_challenges_data():
     random_id = select_random_id('daily_challenges')
     if random_id:
         daily_challenges_query = f'''
-        SELECT id, category, challenge, instructions, motivation, used_in_newsletter, created
+        SELECT  id, category, challenge_en, challenge_pt, instructions_en, instructions_pt, motivation_en,
+                motivation_pt, used_in_newsletter, created, updated
         FROM daily_challenges
         WHERE id = {random_id};
         '''
@@ -205,7 +214,7 @@ def fetch_weather_codes():
     Fetch weather codes.
     """
     weather_codes_query = f'''
-    SELECT weather_code, description, icon_file_name, icon_file_url
+    SELECT weather_code, description_en, description_pt, icon_file_name, icon_file_url
     FROM tomorrowio_weathercodes;
     '''
     return execute_query(weather_codes_query)
