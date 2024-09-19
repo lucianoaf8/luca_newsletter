@@ -359,9 +359,16 @@ def render_and_save_newsletter(subscriber, content, date, template, path):
 
         # Normalize language codes
         content['languages'] = [lang.strip().lower() for lang in content['languages'] if lang.strip()]
+        logger.debug("Languages in content:", content['languages'])
 
-        # For debugging: print the languages
-        print("Languages in content:", content['languages'])
+        # Pre-rendering checks
+        if 'word_of_the_day' in content:
+            # Ensure related_words is not None and not an empty string
+            if content['word_of_the_day'].get('related_words') is None or content['word_of_the_day'].get('related_words').strip() == '':
+                content['word_of_the_day']['related_words'] = ''
+            else:
+                content['word_of_the_day']['related_words'] = content['word_of_the_day']['related_words'].strip()
+            logger.debug("Related Words:", content['word_of_the_day'].get('related_words'))
 
         rendered_html = template.render(content)
         file_name = f"{subscriber['nickname']}_{date}.html"
@@ -495,7 +502,7 @@ def main():
                 newsletter_file_path = render_and_save_newsletter(subscriber, subscriber_content, formatted_date, template, newsletter_ready_path)
 
                 # Send email
-                send_newsletter_email(subscriber, long_date, newsletter_file_path)
+                # send_newsletter_email(subscriber, long_date, newsletter_file_path)
 
                 # Add subscriber ID to the list of updated subscribers
                 updated_subscriber_ids.append(subscriber['id'])
@@ -506,7 +513,7 @@ def main():
                 continue
 
         # Update used_in_newsletter status and subscriber counts
-        update_used_in_newsletter(all_used_ids, updated_subscriber_ids)
+        # update_used_in_newsletter(all_used_ids, updated_subscriber_ids)
 
     except Exception as e:
         logger.error(f"An unexpected error occurred in main: {e}")

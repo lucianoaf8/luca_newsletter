@@ -228,7 +228,7 @@
                 </td>
                 <!-- Column E: Percentage Change -->
                 <td style="font-size: 16px; font-weight: bold; color: green; text-align: left; padding-left: 5px;"> <!-- Reduced padding-left -->
-                    {{ exchange_rates.cad_brl_change }}%
+                    
                 </td>
                 <!-- Column F: Placeholder -->
                 <td style="width: 35%;"></td>
@@ -254,7 +254,7 @@
                 </td>
                 <!-- Column E: Percentage Change -->
                 <td style="font-size: 16px; font-weight: bold; color: green; text-align: left; padding-left: 5px;"> <!-- Reduced padding-left -->
-                    {{ exchange_rates.usd_brl_change }}%
+                    
                 </td>
                 <!-- Column F: Placeholder -->
                 <td style="width: 35%;"></td>
@@ -280,7 +280,7 @@
                 </td>
                 <!-- Column E: Percentage Change -->
                 <td style="font-size: 16px; font-weight: bold; color: red; text-align: left; padding-left: 5px;"> <!-- Reduced padding-left -->
-                    {{ exchange_rates.usd_cad_change }}%
+                    
                 </td>
                 <!-- Column F: Placeholder -->
                 <td style="width: 35%;"></td>
@@ -316,11 +316,11 @@
                                             <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
                                                 <tr>
                                                     <td style="border-left: 4px solid #a1b6a1; padding-left: 15px;">
-                                                        <p style="font-family: 'Georgia', serif; font-size: 24px; font-style: italic; color: #2d3436; line-height: 1.4; margin: 0 0 10px 0;">
+                                                        <p style="font-family: 'Crimson Text', serif; font-size: 24px; font-style: italic; color: #2d3436; line-height: 1.4; margin: 0 0 10px 0;">
                                                             "{{ quote_of_the_day.quote_en }}"
                                                         </p>
                                                         {% if 'pt-br' in languages %}
-                                                        <p style="font-family: 'Georgia', serif; font-size: 18px; font-style: italic; color: #4d5656; line-height: 1.4; margin: 0 0 10px 0;">
+                                                        <p style="font-family: 'Crimson Text', serif; font-size: 18px; font-style: italic; color: #4d5656; line-height: 1.4; margin: 0 0 10px 0;">
                                                             "{{ quote_of_the_day.quote_pt }}"
                                                         </p>
                                                         {% endif %}
@@ -449,9 +449,15 @@
                                     <span style="font-size: 18px; color: #7f8c8d; display: block; margin-top: 5px;">Palavra do Dia</span>
                                     {% endif %}
                                 </h2>
+                                <p style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 16px; color: #7f8c8d; margin-top: 0; margin-bottom: 10px;">
+                                    <em>Category: {{ word_of_the_day.category }}</em>
+                                </p>
                                 <h3 style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 28px; font-weight: bold; color: #2980b9; margin-top: 0; margin-bottom: 5px;">
-                                    {{ word_of_the_day.word }}
+                                    {{ word_of_the_day.word_en }}
                                 </h3>
+                                <h2 style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 28px; font-weight: bold; color: #2980b9; margin-top: 0; margin-bottom: 5px;">
+                                    ({{ word_of_the_day.headword }})
+                                </h2>
                                 <p style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 18px; color: #7f8c8d; margin-top: 0; margin-bottom: 5px;">
                                     <em>{{ word_of_the_day.part_of_speech_en }}</em>
                                     {% if 'pt-br' in languages %}
@@ -484,38 +490,41 @@
                                     </span>
                                     {% endif %}
                                 </p>
+                                {% if word_of_the_day.shortdef_3_en and word_of_the_day.shortdef_3_en|trim %}
+                                <p style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 18px; color: #333; margin-top: 0; margin-bottom: 10px;">
+                                    <strong>Definition 3:</strong> {{ word_of_the_day.shortdef_3_en }}
+                                    {% if 'pt-br' in languages %}
+                                    <span style="font-size: 16px; color: #555; display: block; margin-top: 5px; padding-left: 10px;">
+                                        <strong>Definição 3:</strong> {{ word_of_the_day.shortdef_3_pt }}
+                                    </span>
+                                    {% endif %}
+                                </p>
+                                {% endif %}
                                 <p style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 18px; font-style: italic; color: #333; margin-top: 0; margin-bottom: 10px;">
-                                    <em>Examples:</em>
+                                    <em>Example Sentence:</em>
                                     {% if 'pt-br' in languages %}
                                     <span style="font-size: 16px; display: block; margin-top: 2px;">
-                                        <em>Exemplos:</em>
+                                        <em>Frase de Exemplo:</em>
                                     </span>
                                     {% endif %}
                                 </p>
                                 <p style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 16px; color: #333; margin-top: 0; margin-bottom: 5px; padding-left: 15px;">
-                                    1. {{ word_of_the_day.example_1_en }}
+                                    {{ word_of_the_day.sentence_en }}
                                     {% if 'pt-br' in languages %}
                                     <span style="font-size: 14px; color: #555; display: block; margin-top: 3px; padding-left: 10px;">
-                                        {{ word_of_the_day.example_1_pt }}
+                                        {{ word_of_the_day.sentence_pt }}
                                     </span>
                                     {% endif %}
                                 </p>
-                                <p style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 16px; color: #333; margin-top: 0; margin-bottom: 0; padding-left: 15px;">
-                                    2. {{ word_of_the_day.example_2_en }}
-                                    {% if 'pt-br' in languages %}
-                                    <span style="font-size: 14px; color: #555; display: block; margin-top: 3px; padding-left: 10px;">
-                                        {{ word_of_the_day.example_2_pt }}
-                                    </span>
-                                    {% endif %}
-                                </p>
+                                {% if word_of_the_day.related_words and word_of_the_day.related_words|trim %}
                                 <p style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 16px; color: #333; margin-top: 15px; margin-bottom: 0;">
                                     <strong>Related Words:</strong> {{ word_of_the_day.related_words }}
                                 </p>
+                                {% endif %}
                             </td>
                         </tr>
                     </table>
                 </td>
-            </tr>
             <tr>
                 <!-- English Tip of the Day Section -->
                 <td style="padding: 10px;">
@@ -653,41 +662,55 @@
                                         <td style="padding: 20px;">
                                             <table cellpadding="0" cellspacing="0" border="0" width="100%">
                                                 <tr>
-                                                    <td width="160" valign="center" style="padding-right: 25px;">
-                                                        <!--[if gte mso 9]>
-                                                        <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="true" strokecolor="#b08b5e" strokeweight="3px" style="width:160px;height:160px;">
-                                                        <v:fill type="frame" src="src/assets/imgs/event-image.png" color="#f5f0e1"/>
-                                                        <v:shadow on="t" color="#000000" opacity="20%" offset="6px,10px"/>
-                                                        </v:roundrect>
-                                                        <![endif]-->
-                                                        <!--[if !mso]><!-->
-                                                        <img src="https://img.freepik.com/free-vector/red-grunge-style-coming-soon-design_1017-26691.jpg" alt="Historical Event" width="160" style="display: block; border: 3px solid #b08b5e; border-radius: 10px; box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);">
-                                                        <!--<![endif]-->
+                                                    <td colspan="2" style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 28px; font-weight: bold; color: #3d2e24; text-align: center; padding-bottom: 20px;">
+                                                        On this day...
+                                                        {% if 'pt-br' in languages %}
+                                                        <br><span style="font-size: 24px; color: #8b5e34;">Neste dia...</span>
+                                                        {% endif %}
                                                     </td>
+                                                </tr>
+                                                <tr>
                                                     <td valign="middle">
                                                         <table cellpadding="0" cellspacing="0" border="0" width="100%">
                                                             <tr>
-                                                                <td align="center" style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 12px; color: #8b5e34; padding-bottom: 10px;">✦</td>
+                                                                <td align="center" style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 12px; color: #8b5e34; padding-bottom: 10px;" class="divider">✦</td>
                                                             </tr>
                                                             <tr>
-                                                                <td style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 22px; font-weight: bold; color: #8b5e34; padding-bottom: 8px; font-style: italic;">
-                                                                    On this day in {{ historical_event.year }}
+                                                                <td style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 24px; font-weight: bold; color: #8b5e34; padding-bottom: 8px; font-style: italic;" class="title">
+                                                                    In {{ historical_event.month }} {{ historical_event.day }}, {{ historical_event.year }}
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 18px; line-height: 1.6; color: #3d2e24; font-weight: 500;">
+                                                                <td style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 18px; line-height: 1.6; color: #3d2e24; font-weight: 500;" class="event-description">
                                                                     {{ historical_event.event_description_en }}
                                                                 </td>
                                                             </tr>
                                                             {% if 'pt-br' in languages %}
                                                             <tr>
-                                                                <td style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 16px; line-height: 1.6; color: #3d2e24; font-weight: 500; font-style: italic; padding-top: 10px;">
+                                                                <td style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 16px; line-height: 1.6; color: #3d2e24; font-weight: 500; font-style: italic; padding-top: 10px;" class="pt-description">
                                                                     {{ historical_event.event_description_pt }}
                                                                 </td>
                                                             </tr>
                                                             {% endif %}
                                                             <tr>
-                                                                <td align="center" style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 12px; color: #8b5e34; padding-top: 10px;">✦</td>
+                                                                <td style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 16px; line-height: 1.6; color: #5a4535; padding-top: 15px; font-style: italic;" class="significance">
+                                                                    <strong>Significance:</strong> {{ historical_event.significance_en }}
+                                                                </td>
+                                                            </tr>
+                                                            {% if 'pt-br' in languages %}
+                                                            <tr>
+                                                                <td style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 14px; line-height: 1.6; color: #5a4535; font-style: italic; padding-top: 5px;" class="significance">
+                                                                    <strong>Significado:</strong> {{ historical_event.significance_pt }}
+                                                                </td>
+                                                            </tr>
+                                                            {% endif %}
+                                                            <tr>
+                                                                <td style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 12px; color: #8b5e34; padding-top: 15px;" class="source">
+                                                                    <em>Source: {{ historical_event.source }}</em>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td align="center" style="font-family: 'Roboto', Arial, Helvetica, sans-serif; font-size: 12px; color: #8b5e34; padding-top: 10px;" class="divider">✦</td>
                                                             </tr>
                                                         </table>
                                                     </td>

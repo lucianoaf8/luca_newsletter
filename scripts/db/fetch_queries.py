@@ -52,8 +52,8 @@ def select_random_id(table):
     """
     if table == 'word_of_the_day':
         additional_filters = '''
-        AND meta_id IS NOT NULL
         AND audio_file_us <> ''
+        AND related_words <> ''
         '''
     elif table == 'historical_events':
         additional_filters = '''
@@ -148,11 +148,11 @@ def fetch_word_of_the_day_data():
     random_id = select_random_id('word_of_the_day')
     if random_id:
         word_of_the_day=f'''
-        SELECT  id, category, word_en, word_pt, sentence_en, sentence_pt, used_in_newsletter, created, updated, meta_id, meta_uuid, 
-                part_of_speech_en, part_of_speech_pt, pronunciation_us, audio_file_us, shortdef_1_en, shortdef_1_pt, 
-                shortdef_2_en, shortdef_2_pt, shortdef_3_en, shortdef_3_pt, example_1_en, example_1_pt, example_2_en, example_2_pt, 
-                etymology, meta_src, meta_section, meta_target_tuuid, meta_target_tsrc, meta_offensive, headword, 
-                pronunciation_uk, audio_file_uk, grammatical_note
+        SELECT  id, category, word_en, word_pt, sentence_en, sentence_pt, used_in_newsletter, related_words, phrases_idioms, created,
+                updated, meta_id, meta_uuid, part_of_speech_en, part_of_speech_pt, pronunciation_us, audio_file_us, shortdef_1_en, 
+                shortdef_1_pt, shortdef_2_en, shortdef_2_pt, example_1_en, example_1_pt, example_2_en, example_2_pt, examples, etymology, 
+                meta_src, meta_section, meta_target_tuuid, meta_target_tsrc, meta_offensive, headword, pronunciation_uk, audio_file_uk, 
+                grammatical_note, grammatical_info, shortdef_3_en, shortdef_3_pt
         FROM word_of_the_day
         WHERE id = {random_id};
         '''
