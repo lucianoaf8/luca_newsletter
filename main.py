@@ -502,7 +502,7 @@ def main():
                 newsletter_file_path = render_and_save_newsletter(subscriber, subscriber_content, formatted_date, template, newsletter_ready_path)
 
                 # Send email
-                # send_newsletter_email(subscriber, long_date, newsletter_file_path)
+                send_newsletter_email(subscriber, long_date, newsletter_file_path)
 
                 # Add subscriber ID to the list of updated subscribers
                 updated_subscriber_ids.append(subscriber['id'])
@@ -513,7 +513,7 @@ def main():
                 continue
 
         # Update used_in_newsletter status and subscriber counts
-        # update_used_in_newsletter(all_used_ids, updated_subscriber_ids)
+        update_used_in_newsletter(all_used_ids, updated_subscriber_ids)
 
     except Exception as e:
         logger.error(f"An unexpected error occurred in main: {e}")
